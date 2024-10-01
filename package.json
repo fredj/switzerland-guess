@@ -1,0 +1,18 @@
+{
+  "name": "cesium-guess",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "vite serve",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@cesium/engine": "11.0.0",
+    "@geoblocks/cesium-sphere-camera": "0.0.1"
+  },
+  "devDependencies": {
+    "vite": "5.4.8",
+    "vite-plugin-static-copy": "1.0.6"
+  }
+}
