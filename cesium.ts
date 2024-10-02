@@ -50,3 +50,16 @@ export async function createCesiumWidget(
   });
   return viewer;
 }
+
+// export function randomPositionInSwitzerland(): Cartesian3 {
+//   const rectangle = SWITZERLAND_RECTANGLE;
+//   const west = CesiumMath.toDegrees(rectangle.west);
+//   const south = CesiumMath.toDegrees(rectangle.south);
+//   const east = CesiumMath.toDegrees(rectangle.east);
+//   const north = CesiumMath.toDegrees(rectangle.north);
+//   return Cartesian3.fromDegrees(
+//     Math.random() * (east - west) + west,
+//     Math.random() * (north - south) + south,
+//     4000
+//   );
+// }

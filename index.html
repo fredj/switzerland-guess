@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      html,
+      body,
+      #cesium {
+        height: 100%;
+        margin: 0;
+      }
+      cesium-compass-bar {
+        --cesium-compass-bar-tick-color: rgb(224, 225, 226);
+        font-family: monospace;
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        top: 30px;
+        width: 280px;
+        border-radius: 6px;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <style>
-    html, body, #cesiumContainer {
-      height: 100%;
-      margin: 0;
-    }
-  </style>
-</head>
+      #openlayers {
+        position: absolute;
+        width: 300px;
+        height: 140px;
+        bottom: 40px;
+        right: 40px;
+        border-radius: 6px;
+        overflow: hidden;
+        cursor: crosshair;
+      }
+      #openlayers:hover {
+        width: 600px;
+        height: 280px;
+      }
+    </style>
+  </head>
 
-<body>
-  <div id="cesiumContainer"></div>
-  <script type="module" src="./index.ts"></script>
-</body>
-
+  <body>
+    <div id="cesium"></div>
+    <cesium-compass-bar></cesium-compass-bar>
+    <div id="openlayers"></div>
+    <script type="module" src="./index.ts"></script>
+  </body>
 </html>
