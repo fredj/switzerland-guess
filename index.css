@@ -1,0 +1,45 @@
+html,
+body,
+#cesium {
+  height: 100%;
+  margin: 0;
+}
+cesium-compass-bar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 30px;
+  width: 240px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+cesium-compass-bar::part(label) {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px;
+  color: rgb(224, 225, 226);
+}
+cesium-compass-bar::part(tick) {
+  height: 4px;
+  background-color: rgb(224, 225, 226);
+}
+cesium-compass-bar::part(center-tick) {
+  background-color: rgb(224, 225, 226);
+}
+
+#openlayers {
+  position: absolute;
+  width: 300px;
+  height: 140px;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+#openlayers:hover {
+  width: 600px;
+  height: 280px;
+}

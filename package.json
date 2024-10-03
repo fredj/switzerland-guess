@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "vite serve",
-    "build": "vite build"
+    "build": "vite build",
+    "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@cesium/engine": "11.0.0",
@@ -14,6 +15,7 @@
     "ol": "10.2.1"
   },
   "devDependencies": {
+    "gh-pages": "6.1.1",
     "vite": "5.4.8",
     "vite-plugin-static-copy": "1.0.6"
   }
