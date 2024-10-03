@@ -43,3 +43,10 @@ cesium-compass-bar::part(center-tick) {
   width: 600px;
   height: 280px;
 }
+
+#guess {
+  z-index: 1;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
