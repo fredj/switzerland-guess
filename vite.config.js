@@ -13,7 +13,7 @@ export default defineConfig({
   define: {
     // Define relative base path in cesium for loading assets
     // https://vitejs.dev/config/shared-options.html#define
-    CESIUM_BASE_URL: JSON.stringify(`${cesiumBaseUrl}`),
+    CESIUM_BASE_URL: `"${cesiumBaseUrl}"`,
   },
   plugins: [
     // Copy Cesium Assets, Widgets, and Workers to a static directory.
