@@ -14,11 +14,13 @@ import VectorSource from "ol/source/Vector";
 import Point from "ol/geom/Point";
 import { LineString } from "ol/geom";
 
+import type CesiumCompassBar from "@geoblocks/cesium-compass-bar";
+
 createCesiumWidget("cesium").then((viewer) => {
   const sphereMode = new CesiumSphereCamera(viewer);
   sphereMode.active = true;
 
-  const compassBar = document.querySelector("cesium-compass-bar");
+  const compassBar = document.querySelector<CesiumCompassBar>("cesium-compass-bar");
   compassBar.scene = viewer.scene;
 
   const map = createOpenLayersMap("openlayers");

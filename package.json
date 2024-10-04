@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@cesium/engine": "11.0.0",
-    "@geoblocks/cesium-compass-bar": "0.0.3",
+    "@geoblocks/cesium-compass-bar": "0.0.4",
     "@geoblocks/cesium-sphere-camera": "0.0.1",
     "ol": "10.2.1"
   },

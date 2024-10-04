@@ -27,9 +27,7 @@ export async function createCesiumWidget(
         rectangle: SWITZERLAND_RECTANGLE,
       })
     ),
-    terrainProvider: await CesiumTerrainProvider.fromUrl(
-      "https://3d.geo.admin.ch/ch.swisstopo.terrain.3d/v1/"
-    ),
+    terrainProvider: await CesiumTerrainProvider.fromIonAssetId(1),
   });
 
   viewer.scene.highDynamicRange = true;
