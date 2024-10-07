@@ -7,6 +7,7 @@ import {
   CesiumTerrainProvider,
   Cartesian3,
   Math as CesiumMath,
+  Ion,
 } from "@cesium/engine";
 
 const SWITZERLAND_RECTANGLE = Rectangle.fromDegrees(4, 45, 12, 48);
@@ -15,6 +16,8 @@ Object.assign(RequestScheduler.requestsByServer, {
   "wmts.geo.admin.ch:443": 28,
   "3d.geo.admin.ch:443": 28,
 });
+
+Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NDYzNDViMS01OGZjLTRkMDMtOWQzYi00YTI2NDBmOWNjYzYiLCJpZCI6MjE3NTQsImlhdCI6MTcyODMwMTczM30.JlQVQBkpUc1LW65CyWbH_2ZLz-3u6WDkjR9nBI25VYI";
 
 export async function createCesiumWidget(
   container: HTMLElement | string
