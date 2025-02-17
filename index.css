@@ -34,21 +34,32 @@ cesium-compass-bar::part(tick) {
 cesium-compass-bar::part(center-tick) {
   background-color: rgb(224, 225, 226);
 }
-.guess-map {
+
+.hidden {
+  display: none;
+}
+
+#guess-card {
   --spacing: 8px;
   position: absolute;
   bottom: 16px;
   right: 16px;
 }
 
-#openlayers {
+#map {
   width: 300px;
   height: 140px;
   cursor: crosshair;
   overflow: hidden;
 }
 
-/* #openlayers:hover {
+#result-map {
+  height: 300px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* #map:hover {
   width: 600px;
   height: 280px;
 } */
