@@ -24,7 +24,7 @@ export default defineConfig({
         { src: `${cesiumSource}/Build/ThirdParty`, dest: cesiumBaseUrl },
         { src: `${cesiumSource}/Build/Workers`, dest: cesiumBaseUrl },
         { src: `${cesiumSource}/Source/Assets`, dest: cesiumBaseUrl },
-        { src: `${cesiumSource}/Source/Widgets`, dest: cesiumBaseUrl },
+        { src: `${cesiumSource}/Source/Widget`, dest: cesiumBaseUrl },
       ],
     }),
   ],
