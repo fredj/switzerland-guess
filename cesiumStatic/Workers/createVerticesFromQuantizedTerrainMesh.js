@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.121
+ * Version 1.126
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -26,45 +26,45 @@
 import {
   EllipsoidalOccluder_default,
   TerrainEncoding_default
-} from "./chunk-KFW4UNQH.js";
+} from "./chunk-77XPS7ZA.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-BZXF3GNX.js";
+} from "./chunk-G3BVMPWG.js";
 import {
   WebMercatorProjection_default
-} from "./chunk-2RZYNSMR.js";
-import "./chunk-WXDGOYTT.js";
+} from "./chunk-FX4R4MTH.js";
+import "./chunk-JHBPC4LK.js";
 import {
   AxisAlignedBoundingBox_default
-} from "./chunk-O5SSW3B3.js";
+} from "./chunk-B4GSRXE3.js";
 import {
   IndexDatatype_default
-} from "./chunk-SIZXFNJY.js";
-import "./chunk-HZPMWR4H.js";
+} from "./chunk-D7ZBZPHV.js";
+import "./chunk-FYGLNDKG.js";
 import {
   Matrix4_default,
   Rectangle_default,
   Transforms_default
-} from "./chunk-6FFGOENI.js";
-import "./chunk-VSFFJGTA.js";
+} from "./chunk-WEHZP4SE.js";
+import "./chunk-KSYBJA4M.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Cartographic_default,
   Ellipsoid_default
-} from "./chunk-DJXXI7UF.js";
+} from "./chunk-KM6MITPF.js";
 import {
   Math_default
-} from "./chunk-HA6TZ3XT.js";
-import "./chunk-HFPMX5L2.js";
-import "./chunk-T4MB73MC.js";
-import "./chunk-HFMJM3SX.js";
+} from "./chunk-F4CUH4MR.js";
+import "./chunk-ED6GLQTK.js";
+import "./chunk-5KWRW7YL.js";
+import "./chunk-TVL3F7IU.js";
 import {
   DeveloperError_default
-} from "./chunk-OC4MYPVW.js";
+} from "./chunk-OMXHEJTK.js";
 import {
   defined_default
-} from "./chunk-2EDC3QGH.js";
+} from "./chunk-KHWLAQVA.js";
 
 // packages/engine/Source/Core/TerrainProvider.js
 function TerrainProvider() {
@@ -356,9 +356,7 @@ function createVerticesFromQuantizedTerrainMesh(parameters, transferableObjects)
   let southMercatorY;
   let oneOverMercatorHeight;
   if (includeWebMercatorT) {
-    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(
-      south
-    );
+    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(south);
     oneOverMercatorHeight = 1 / (WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(north) - southMercatorY);
   }
   const uBuffer = quantizedVertices.subarray(0, quantizedVertexCount);
@@ -421,18 +419,30 @@ function createVerticesFromQuantizedTerrainMesh(parameters, transferableObjects)
     Cartesian3_default.minimumByComponent(cartesian3Scratch, minimum, minimum);
     Cartesian3_default.maximumByComponent(cartesian3Scratch, maximum, maximum);
   }
-  const westIndicesSouthToNorth = copyAndSort(parameters.westIndices, function(a, b) {
-    return uvs[a].y - uvs[b].y;
-  });
-  const eastIndicesNorthToSouth = copyAndSort(parameters.eastIndices, function(a, b) {
-    return uvs[b].y - uvs[a].y;
-  });
-  const southIndicesEastToWest = copyAndSort(parameters.southIndices, function(a, b) {
-    return uvs[b].x - uvs[a].x;
-  });
-  const northIndicesWestToEast = copyAndSort(parameters.northIndices, function(a, b) {
-    return uvs[a].x - uvs[b].x;
-  });
+  const westIndicesSouthToNorth = copyAndSort(
+    parameters.westIndices,
+    function(a, b) {
+      return uvs[a].y - uvs[b].y;
+    }
+  );
+  const eastIndicesNorthToSouth = copyAndSort(
+    parameters.eastIndices,
+    function(a, b) {
+      return uvs[b].y - uvs[a].y;
+    }
+  );
+  const southIndicesEastToWest = copyAndSort(
+    parameters.southIndices,
+    function(a, b) {
+      return uvs[b].x - uvs[a].x;
+    }
+  );
+  const northIndicesWestToEast = copyAndSort(
+    parameters.northIndices,
+    function(a, b) {
+      return uvs[a].x - uvs[b].x;
+    }
+  );
   let occludeePointInScaledSpace;
   if (minimumHeight < 0) {
     const occluder = new EllipsoidalOccluder_default(ellipsoid);

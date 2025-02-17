@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.121
+ * Version 1.126
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -26,52 +26,52 @@
 import {
   EllipsoidalOccluder_default,
   TerrainEncoding_default
-} from "./chunk-KFW4UNQH.js";
+} from "./chunk-77XPS7ZA.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-BZXF3GNX.js";
+} from "./chunk-G3BVMPWG.js";
 import {
   WebMercatorProjection_default
-} from "./chunk-2RZYNSMR.js";
+} from "./chunk-FX4R4MTH.js";
 import {
   OrientedBoundingBox_default
-} from "./chunk-BH5ZEN4I.js";
-import "./chunk-WXDGOYTT.js";
-import "./chunk-FJT3ERV7.js";
+} from "./chunk-7ZB2RVIQ.js";
+import "./chunk-JHBPC4LK.js";
+import "./chunk-VCNOFQYH.js";
 import {
   AxisAlignedBoundingBox_default
-} from "./chunk-O5SSW3B3.js";
-import "./chunk-54VC7SCM.js";
-import "./chunk-BJ3WF5RW.js";
+} from "./chunk-B4GSRXE3.js";
+import "./chunk-EWDGNOJE.js";
+import "./chunk-LJBJM6VI.js";
 import {
   BoundingSphere_default
-} from "./chunk-HZPMWR4H.js";
+} from "./chunk-FYGLNDKG.js";
 import {
   Matrix4_default,
   Rectangle_default,
   Transforms_default
-} from "./chunk-6FFGOENI.js";
-import "./chunk-VSFFJGTA.js";
+} from "./chunk-WEHZP4SE.js";
+import "./chunk-KSYBJA4M.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Cartographic_default,
   Ellipsoid_default
-} from "./chunk-DJXXI7UF.js";
+} from "./chunk-KM6MITPF.js";
 import {
   Math_default
-} from "./chunk-HA6TZ3XT.js";
-import "./chunk-HFPMX5L2.js";
+} from "./chunk-F4CUH4MR.js";
+import "./chunk-ED6GLQTK.js";
 import {
   RuntimeError_default
-} from "./chunk-T4MB73MC.js";
+} from "./chunk-5KWRW7YL.js";
 import {
   defaultValue_default
-} from "./chunk-HFMJM3SX.js";
-import "./chunk-OC4MYPVW.js";
+} from "./chunk-TVL3F7IU.js";
+import "./chunk-OMXHEJTK.js";
 import {
   defined_default
-} from "./chunk-2EDC3QGH.js";
+} from "./chunk-KHWLAQVA.js";
 
 // packages/engine/Source/Workers/createVerticesFromGoogleEarthEnterpriseBuffer.js
 var sizeOfUint16 = Uint16Array.BYTES_PER_ELEMENT;
@@ -163,9 +163,7 @@ function processBuffer(buffer, relativeToCenter, ellipsoid, rectangle, nativeRec
   let southMercatorY;
   let oneOverMercatorHeight;
   if (includeWebMercatorT) {
-    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(
-      geographicSouth
-    );
+    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(geographicSouth);
     oneOverMercatorHeight = 1 / (WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(geographicNorth) - southMercatorY);
   }
   const hasExaggeration = exaggeration !== 1;
@@ -527,9 +525,7 @@ function addSkirt(positions, heights, uvs, webMercatorTs, geodeticSurfaceNormals
     } else if (j === 0) {
       scratchCartographic.latitude -= cornerFudge;
     }
-    const pos = skirtOptions.ellipsoid.cartographicToCartesian(
-      scratchCartographic
-    );
+    const pos = skirtOptions.ellipsoid.cartographicToCartesian(scratchCartographic);
     positions.push(pos);
     heights.push(height);
     uvs.push(Cartesian2_default.clone(uvs[borderIndex]));

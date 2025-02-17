@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.121
+ * Version 1.126
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,53 +25,53 @@
 
 import {
   RectangleGeometryLibrary_default
-} from "./chunk-OSCHEWSG.js";
+} from "./chunk-DT5NFR5C.js";
 import {
   GeometryOffsetAttribute_default
-} from "./chunk-BUOFSNFW.js";
+} from "./chunk-5S5OOA6U.js";
 import {
   PolygonPipeline_default
-} from "./chunk-XLCZE6DD.js";
-import "./chunk-AI3O7UN2.js";
+} from "./chunk-K4AH3TDT.js";
+import "./chunk-3QLSKXKF.js";
 import {
   IndexDatatype_default
-} from "./chunk-SIZXFNJY.js";
+} from "./chunk-D7ZBZPHV.js";
 import {
   GeometryAttributes_default
-} from "./chunk-KKAEXHDY.js";
+} from "./chunk-TY4DKOWR.js";
 import {
   GeometryAttribute_default,
   Geometry_default,
   PrimitiveType_default
-} from "./chunk-6ZREIBKS.js";
+} from "./chunk-HUFQVUMY.js";
 import {
   BoundingSphere_default
-} from "./chunk-HZPMWR4H.js";
+} from "./chunk-FYGLNDKG.js";
 import {
   Rectangle_default
-} from "./chunk-6FFGOENI.js";
+} from "./chunk-WEHZP4SE.js";
 import {
   ComponentDatatype_default
-} from "./chunk-VSFFJGTA.js";
+} from "./chunk-KSYBJA4M.js";
 import {
   Cartesian3_default,
   Cartographic_default,
   Ellipsoid_default
-} from "./chunk-DJXXI7UF.js";
+} from "./chunk-KM6MITPF.js";
 import {
   Math_default
-} from "./chunk-HA6TZ3XT.js";
-import "./chunk-HFPMX5L2.js";
-import "./chunk-T4MB73MC.js";
+} from "./chunk-F4CUH4MR.js";
+import "./chunk-ED6GLQTK.js";
+import "./chunk-5KWRW7YL.js";
 import {
   defaultValue_default
-} from "./chunk-HFMJM3SX.js";
+} from "./chunk-TVL3F7IU.js";
 import {
   DeveloperError_default
-} from "./chunk-OC4MYPVW.js";
+} from "./chunk-OMXHEJTK.js";
 import {
   defined_default
-} from "./chunk-2EDC3QGH.js";
+} from "./chunk-KHWLAQVA.js";
 
 // packages/engine/Source/Core/RectangleOutlineGeometry.js
 var bottomBoundingSphere = new BoundingSphere_default();
@@ -283,7 +283,7 @@ function RectangleOutlineGeometry(options) {
   if (!defined_default(rectangle)) {
     throw new DeveloperError_default("rectangle is required.");
   }
-  Rectangle_default.validate(rectangle);
+  Rectangle_default._validate(rectangle);
   if (rectangle.north < rectangle.south) {
     throw new DeveloperError_default(
       "options.rectangle.north must be greater than options.rectangle.south"
