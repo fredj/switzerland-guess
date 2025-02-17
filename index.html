@@ -18,10 +18,7 @@
 
     <wa-dialog with-header with-footer id="result-dialog">
       <div id="result-map" class="wa-border-radius-l"></div>
-      <p class="wa-body-xl">
-        <wa-format-number id="distance" lang="de-ch" maximum-fraction-digits="0"></wa-format-number>
-        m
-      </p>
+      <div class="wa-body-xl"><span id="distance"></span> km away from the correct location.</div>
       <wa-button slot="footer" variant="success" data-dialog="close">
         Next
         <wa-icon slot="suffix" name="arrow-right" variant="solid"></wa-icon>

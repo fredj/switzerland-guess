@@ -12,6 +12,10 @@
     "@cesium/engine": "14.0.0",
     "@geoblocks/cesium-compass-bar": "0.0.4",
     "@geoblocks/cesium-sphere-camera": "0.0.2",
+    "@turf/bbox": "7.2.0",
+    "@turf/boolean-point-in-polygon": "7.2.0",
+    "@turf/helpers": "7.2.0",
+    "@turf/random": "7.2.0",
     "ol": "10.4.0"
   },
   "devDependencies": {

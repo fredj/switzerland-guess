@@ -1,6 +1,6 @@
 import "@cesium/engine/Source/Widget/CesiumWidget.css";
 
-import { createCesiumWidget } from "./cesium";
+import { createCesiumWidget, setRandomPositionInSwitzerland } from "./cesium";
 import GameMap from "./openlayers";
 
 import CesiumSphereCamera from "@geoblocks/cesium-sphere-camera";
@@ -46,7 +46,8 @@ createCesiumWidget("cesium").then((viewer) => {
   });
 
   resultDialog.addEventListener('wa-hide', () => {
-    // FIXME: new random position
+    setRandomPositionInSwitzerland(viewer);
+
     gameMap.map.setTarget('map');
     gameMap.reset();
 
