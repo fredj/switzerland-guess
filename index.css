@@ -1,3 +1,6 @@
+@import url('https://early.webawesome.com/webawesome@3.0.0-alpha.10/dist/styles/webawesome.css');
+@import url('https://early.webawesome.com/webawesome@3.0.0-alpha.10/dist/styles/themes/awesome.css');
+
 html,
 body,
 #cesium {
@@ -31,25 +34,21 @@ cesium-compass-bar::part(tick) {
 cesium-compass-bar::part(center-tick) {
   background-color: rgb(224, 225, 226);
 }
+.guess-map {
+  --spacing: 8px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
 
 #openlayers {
-  position: absolute;
   width: 300px;
   height: 140px;
-  bottom: 40px;
-  right: 40px;
-  border-radius: 6px;
-  overflow: hidden;
   cursor: crosshair;
-}
-#openlayers:hover {
-  width: 600px;
-  height: 280px;
+  overflow: hidden;
 }
 
-#guess {
-  z-index: 1;
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-}
+/* #openlayers:hover {
+  width: 600px;
+  height: 280px;
+} */

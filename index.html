@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./index.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.10/dist/webawesome.loader.js"></script>
   </head>
 
   <body>
     <div id="cesium"></div>
     <cesium-compass-bar></cesium-compass-bar>
-    <div id="openlayers">
-      <button id="guess">guess</button>
-    </div>
+    <wa-card with-footer size="small" class="guess-map">
+      <div id="openlayers"></div>
+       <div slot="footer">
+          <wa-button disabled variant="brand" id="guess">Guess</wa-button>
+       </div>
+    </wa-card>
     <script type="module" src="./index.ts"></script>
   </body>
 </html>
