@@ -10,6 +10,13 @@ import { fromLonLat } from "ol/proj";
 
 import type CesiumCompassBar from "@geoblocks/cesium-compass-bar";
 
+
+const kilometerFormat = Intl.NumberFormat('de-CH', {
+  style: 'unit',
+  unit: 'kilometer',
+  maximumFractionDigits: 1,
+});
+
 createCesiumWidget("cesium").then((viewer) => {
   const sphereMode = new CesiumSphereCamera(viewer);
   sphereMode.active = true;
@@ -40,7 +47,7 @@ createCesiumWidget("cesium").then((viewer) => {
       CesiumMath.toDegrees(cartographicCameraPosition.latitude),
     ];
     gameMap.showResult(fromLonLat(cameraPosition));
-    document.querySelector("#distance").value = gameMap.distance;
+    document.querySelector("#distance").innerText = kilometerFormat.format(gameMap.distance/1000);
 
     resultDialog.open = true;
   });

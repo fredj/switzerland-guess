@@ -81,6 +81,7 @@ export function setRandomPositionInSwitzerland(viewer: CesiumWidget): void {
   });
 }
 
+// FIXME: don't use fixed altitude
 function randomPositionInSwitzerland(): Cartesian3 {
   let position = randomPosition(bbox(SWITZERLAND_POLYGON));
   while (true) {
