@@ -27,6 +27,7 @@ export async function createCesiumWidget(
 ): Promise<CesiumWidget> {
   const viewer = new CesiumWidget(container, {
     scene3DOnly: true,
+    requestRenderMode: true,
     baseLayer: new ImageryLayer(
       new UrlTemplateImageryProvider({
         url: "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
