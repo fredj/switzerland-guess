@@ -1,12 +1,15 @@
 @import url('https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/styles/webawesome.css');
 @import url('https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/styles/themes/awesome.css');
 
-html,
-body,
-#cesium {
+html, body, #cesium {
   height: 100%;
   margin: 0;
 }
+
+.hidden {
+  display: none;
+}
+
 cesium-compass-bar {
   position: absolute;
   left: 50%;
@@ -17,7 +20,6 @@ cesium-compass-bar {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(2px);
 }
-
 cesium-compass-bar::part(label) {
   font-size: 12px;
   font-weight: 700;
@@ -33,10 +35,6 @@ cesium-compass-bar::part(center-tick) {
   border-radius: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 #guess-card {
   width: 300px;
   height: 300px;
@@ -46,15 +44,12 @@ cesium-compass-bar::part(center-tick) {
   right: 16px;
   max-width: calc(100% - 32px);
 }
-
 #guess-card::part(header) {
   font-weight: var(--wa-font-weight-bold);
 }
-
 #guess-card::part(body) {
   height: 100%;
 }
-
 #guess-card:hover {
   width: 500px;
   height: 500px;
