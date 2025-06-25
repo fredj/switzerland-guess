@@ -11,7 +11,7 @@ cesium-compass-bar {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  top: 30px;
+  top: 16px;
   width: 240px;
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.5);
