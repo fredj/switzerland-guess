@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -26,45 +26,44 @@
 import {
   EllipsoidalOccluder_default,
   TerrainEncoding_default
-} from "./chunk-77XPS7ZA.js";
+} from "./chunk-SOLM3ZIV.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-G3BVMPWG.js";
+} from "./chunk-DBPLDHPT.js";
 import {
   WebMercatorProjection_default
-} from "./chunk-FX4R4MTH.js";
-import "./chunk-JHBPC4LK.js";
+} from "./chunk-XAP7YXEJ.js";
+import "./chunk-R7LO2ZW7.js";
 import {
   AxisAlignedBoundingBox_default
-} from "./chunk-B4GSRXE3.js";
+} from "./chunk-2QPO2E4E.js";
 import {
   IndexDatatype_default
-} from "./chunk-D7ZBZPHV.js";
-import "./chunk-FYGLNDKG.js";
+} from "./chunk-VKMJSSOD.js";
+import "./chunk-EG3P66JO.js";
 import {
   Matrix4_default,
   Rectangle_default,
   Transforms_default
-} from "./chunk-WEHZP4SE.js";
-import "./chunk-KSYBJA4M.js";
+} from "./chunk-UGKOGDMZ.js";
+import "./chunk-PLM7GGHT.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Cartographic_default,
   Ellipsoid_default
-} from "./chunk-KM6MITPF.js";
+} from "./chunk-Z43MDFLH.js";
 import {
   Math_default
-} from "./chunk-F4CUH4MR.js";
-import "./chunk-ED6GLQTK.js";
-import "./chunk-5KWRW7YL.js";
-import "./chunk-TVL3F7IU.js";
+} from "./chunk-FPJWHB5J.js";
+import "./chunk-7252BLXK.js";
+import "./chunk-3JKMJ2DT.js";
 import {
   DeveloperError_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // packages/engine/Source/Core/TerrainProvider.js
 function TerrainProvider() {
@@ -126,7 +125,7 @@ Object.defineProperties(TerrainProvider.prototype, {
    * at points and in rectangles. This property may be undefined if availability
    * information is not available.
    * @memberof TerrainProvider.prototype
-   * @type {TileAvailability}
+   * @type {TileAvailability|undefined}
    * @readonly
    */
   availability: {

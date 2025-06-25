@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,25 +25,22 @@
 
 import {
   createTaskProcessorWorker_default
-} from "./chunk-G3BVMPWG.js";
+} from "./chunk-DBPLDHPT.js";
 import {
   WebGLConstants_default
-} from "./chunk-ED6GLQTK.js";
+} from "./chunk-7252BLXK.js";
 import {
   RuntimeError_default
-} from "./chunk-5KWRW7YL.js";
-import {
-  defaultValue_default
-} from "./chunk-TVL3F7IU.js";
+} from "./chunk-3JKMJ2DT.js";
 import {
   Check_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   __commonJS,
   __require,
   __toESM,
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // packages/engine/Source/ThirdParty/Workers/basis_transcoder.js
 var require_basis_transcoder = __commonJS({
@@ -2370,6 +2367,30 @@ var PixelFormat = {
    */
   RGBA: WebGLConstants_default.RGBA,
   /**
+   * A pixel format containing a red channel as an integer.
+   * @type {number}
+   * @constant
+   */
+  RED_INTEGER: WebGLConstants_default.RED_INTEGER,
+  /**
+   * A pixel format containing red and green channels as integers.
+   * @type {number}
+   * @constant
+   */
+  RG_INTEGER: WebGLConstants_default.RG_INTEGER,
+  /**
+   * A pixel format containing red, green, and blue channels as integers.
+   * @type {number}
+   * @constant
+   */
+  RGB_INTEGER: WebGLConstants_default.RGB_INTEGER,
+  /**
+   * A pixel format containing red, green, blue, and alpha channels as integers.
+   * @type {number}
+   * @constant
+   */
+  RGBA_INTEGER: WebGLConstants_default.RGBA_INTEGER,
+  /**
    * A pixel format containing a luminance (intensity) channel.
    *
    * @type {number}
@@ -2478,14 +2499,18 @@ var PixelFormat = {
 PixelFormat.componentsLength = function(pixelFormat) {
   switch (pixelFormat) {
     case PixelFormat.RGB:
+    case PixelFormat.RGB_INTEGER:
       return 3;
     case PixelFormat.RGBA:
+    case PixelFormat.RGBA_INTEGER:
       return 4;
     case PixelFormat.LUMINANCE_ALPHA:
     case PixelFormat.RG:
+    case PixelFormat.RG_INTEGER:
       return 2;
     case PixelFormat.ALPHA:
     case PixelFormat.RED:
+    case PixelFormat.RED_INTEGER:
     case PixelFormat.LUMINANCE:
       return 1;
     default:
@@ -2493,7 +2518,7 @@ PixelFormat.componentsLength = function(pixelFormat) {
   }
 };
 PixelFormat.validate = function(pixelFormat) {
-  return pixelFormat === PixelFormat.DEPTH_COMPONENT || pixelFormat === PixelFormat.DEPTH_STENCIL || pixelFormat === PixelFormat.ALPHA || pixelFormat === PixelFormat.RED || pixelFormat === PixelFormat.RG || pixelFormat === PixelFormat.RGB || pixelFormat === PixelFormat.RGBA || pixelFormat === PixelFormat.LUMINANCE || pixelFormat === PixelFormat.LUMINANCE_ALPHA || pixelFormat === PixelFormat.RGB_DXT1 || pixelFormat === PixelFormat.RGBA_DXT1 || pixelFormat === PixelFormat.RGBA_DXT3 || pixelFormat === PixelFormat.RGBA_DXT5 || pixelFormat === PixelFormat.RGB_PVRTC_4BPPV1 || pixelFormat === PixelFormat.RGB_PVRTC_2BPPV1 || pixelFormat === PixelFormat.RGBA_PVRTC_4BPPV1 || pixelFormat === PixelFormat.RGBA_PVRTC_2BPPV1 || pixelFormat === PixelFormat.RGBA_ASTC || pixelFormat === PixelFormat.RGB_ETC1 || pixelFormat === PixelFormat.RGB8_ETC2 || pixelFormat === PixelFormat.RGBA8_ETC2_EAC || pixelFormat === PixelFormat.RGBA_BC7;
+  return pixelFormat === PixelFormat.DEPTH_COMPONENT || pixelFormat === PixelFormat.DEPTH_STENCIL || pixelFormat === PixelFormat.ALPHA || pixelFormat === PixelFormat.RED || pixelFormat === PixelFormat.RG || pixelFormat === PixelFormat.RGB || pixelFormat === PixelFormat.RGBA || pixelFormat === PixelFormat.RED_INTEGER || pixelFormat === PixelFormat.RG_INTEGER || pixelFormat === PixelFormat.RGB_INTEGER || pixelFormat === PixelFormat.RGBA_INTEGER || pixelFormat === PixelFormat.LUMINANCE || pixelFormat === PixelFormat.LUMINANCE_ALPHA || pixelFormat === PixelFormat.RGB_DXT1 || pixelFormat === PixelFormat.RGBA_DXT1 || pixelFormat === PixelFormat.RGBA_DXT3 || pixelFormat === PixelFormat.RGBA_DXT5 || pixelFormat === PixelFormat.RGB_PVRTC_4BPPV1 || pixelFormat === PixelFormat.RGB_PVRTC_2BPPV1 || pixelFormat === PixelFormat.RGBA_PVRTC_4BPPV1 || pixelFormat === PixelFormat.RGBA_PVRTC_2BPPV1 || pixelFormat === PixelFormat.RGBA_ASTC || pixelFormat === PixelFormat.RGB_ETC1 || pixelFormat === PixelFormat.RGB8_ETC2 || pixelFormat === PixelFormat.RGBA8_ETC2_EAC || pixelFormat === PixelFormat.RGBA_BC7;
 };
 PixelFormat.isColorFormat = function(pixelFormat) {
   return pixelFormat === PixelFormat.RED || pixelFormat === PixelFormat.ALPHA || pixelFormat === PixelFormat.RGB || pixelFormat === PixelFormat.RGBA || pixelFormat === PixelFormat.LUMINANCE || pixelFormat === PixelFormat.LUMINANCE_ALPHA;
@@ -2554,6 +2579,13 @@ PixelFormat.textureSizeInBytes = function(pixelFormat, pixelDatatype, width, hei
     componentsLength = 1;
   }
   return componentsLength * PixelDatatype_default.sizeInBytes(pixelDatatype) * width * height;
+};
+PixelFormat.texture3DSizeInBytes = function(pixelFormat, pixelDatatype, width, height, depth) {
+  let componentsLength = PixelFormat.componentsLength(pixelFormat);
+  if (PixelDatatype_default.isPacked(pixelDatatype)) {
+    componentsLength = 1;
+  }
+  return componentsLength * PixelDatatype_default.sizeInBytes(pixelDatatype) * width * height * depth;
 };
 PixelFormat.alignmentInBytes = function(pixelFormat, pixelDatatype, width) {
   const mod = PixelFormat.textureSizeInBytes(pixelFormat, pixelDatatype, width, 1) % 4;
@@ -2621,6 +2653,42 @@ PixelFormat.toInternalFormat = function(pixelFormat, pixelDatatype, context) {
         return WebGLConstants_default.RG16F;
       case PixelFormat.RED:
         return WebGLConstants_default.R16F;
+    }
+  }
+  if (pixelDatatype === PixelDatatype_default.UNSIGNED_BYTE) {
+    switch (pixelFormat) {
+      case PixelFormat.RGBA:
+        return WebGLConstants_default.RGBA8;
+      case PixelFormat.RGB:
+        return WebGLConstants_default.RGB8;
+      case PixelFormat.RG:
+        return WebGLConstants_default.RG8;
+      case PixelFormat.RED:
+        return WebGLConstants_default.R8;
+    }
+  }
+  if (pixelDatatype === PixelDatatype_default.INT) {
+    switch (pixelFormat) {
+      case PixelFormat.RGBA_INTEGER:
+        return WebGLConstants_default.RGBA32I;
+      case PixelFormat.RGB_INTEGER:
+        return WebGLConstants_default.RGB32I;
+      case PixelFormat.RG_INTEGER:
+        return WebGLConstants_default.RG32I;
+      case PixelFormat.RED_INTEGER:
+        return WebGLConstants_default.R32I;
+    }
+  }
+  if (pixelDatatype === PixelDatatype_default.UNSIGNED_INT) {
+    switch (pixelFormat) {
+      case PixelFormat.RGBA_INTEGER:
+        return WebGLConstants_default.RGBA32UI;
+      case PixelFormat.RGB_INTEGER:
+        return WebGLConstants_default.RGB32UI;
+      case PixelFormat.RG_INTEGER:
+        return WebGLConstants_default.RG32UI;
+      case PixelFormat.RED_INTEGER:
+        return WebGLConstants_default.R32UI;
     }
   }
   return pixelFormat;
@@ -2918,21 +2986,20 @@ var KHR_DF_TRANSFER_SRGB = 2;
 var KHR_DF_PRIMARIES_BT709 = 1;
 var KHR_DF_SAMPLE_DATATYPE_SIGNED = 64;
 var VK_FORMAT_UNDEFINED = 0;
-var KTX2Container = class {
-  constructor() {
-    this.vkFormat = VK_FORMAT_UNDEFINED;
-    this.typeSize = 1;
-    this.pixelWidth = 0;
-    this.pixelHeight = 0;
-    this.pixelDepth = 0;
-    this.layerCount = 0;
-    this.faceCount = 1;
-    this.supercompressionScheme = KHR_SUPERCOMPRESSION_NONE;
-    this.levels = [];
-    this.dataFormatDescriptor = [{
+function createDefaultContainer() {
+  return {
+    vkFormat: VK_FORMAT_UNDEFINED,
+    typeSize: 1,
+    pixelWidth: 0,
+    pixelHeight: 0,
+    pixelDepth: 0,
+    layerCount: 0,
+    faceCount: 1,
+    supercompressionScheme: KHR_SUPERCOMPRESSION_NONE,
+    levels: [],
+    dataFormatDescriptor: [{
       vendorId: KHR_DF_VENDORID_KHRONOS,
       descriptorType: KHR_DF_KHR_DESCRIPTORTYPE_BASICFORMAT,
-      descriptorBlockSize: 0,
       versionNumber: KHR_DF_VERSION,
       colorModel: KHR_DF_MODEL_UNSPECIFIED,
       colorPrimaries: KHR_DF_PRIMARIES_BT709,
@@ -2941,11 +3008,11 @@ var KTX2Container = class {
       texelBlockDimension: [0, 0, 0, 0],
       bytesPlane: [0, 0, 0, 0, 0, 0, 0, 0],
       samples: []
-    }];
-    this.keyValue = {};
-    this.globalData = null;
-  }
-};
+    }],
+    keyValue: {},
+    globalData: null
+  };
+}
 var BufferReader = class {
   constructor(data, byteOffset, byteLength, littleEndian) {
     this._dataView = void 0;
@@ -3037,7 +3104,7 @@ function read2(data) {
   id[11] !== KTX2_ID[11]) {
     throw new Error("Missing KTX 2.0 identifier.");
   }
-  const container = new KTX2Container();
+  const container = createDefaultContainer();
   const headerByteLength = 17 * Uint32Array.BYTES_PER_ELEMENT;
   const headerReader = new BufferReader(data, KTX2_ID.length, headerByteLength, true);
   container.vkFormat = headerReader._nextUint32();
@@ -3064,33 +3131,41 @@ function read2(data) {
     });
   }
   const dfdReader = new BufferReader(data, dfdByteOffset, dfdByteLength, true);
+  dfdReader._skip(4);
+  const vendorId = dfdReader._nextUint16();
+  const descriptorType = dfdReader._nextUint16();
+  const versionNumber = dfdReader._nextUint16();
+  const descriptorBlockSize = dfdReader._nextUint16();
+  const colorModel = dfdReader._nextUint8();
+  const colorPrimaries = dfdReader._nextUint8();
+  const transferFunction = dfdReader._nextUint8();
+  const flags = dfdReader._nextUint8();
+  const texelBlockDimension = [dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8()];
+  const bytesPlane = [dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8()];
+  const samples = [];
   const dfd = {
-    vendorId: dfdReader._skip(
-      4
-      /* totalSize */
-    )._nextUint16(),
-    descriptorType: dfdReader._nextUint16(),
-    versionNumber: dfdReader._nextUint16(),
-    descriptorBlockSize: dfdReader._nextUint16(),
-    colorModel: dfdReader._nextUint8(),
-    colorPrimaries: dfdReader._nextUint8(),
-    transferFunction: dfdReader._nextUint8(),
-    flags: dfdReader._nextUint8(),
-    texelBlockDimension: [dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8()],
-    bytesPlane: [dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8()],
-    samples: []
+    vendorId,
+    descriptorType,
+    versionNumber,
+    colorModel,
+    colorPrimaries,
+    transferFunction,
+    flags,
+    texelBlockDimension,
+    bytesPlane,
+    samples
   };
   const sampleStart = 6;
   const sampleWords = 4;
-  const numSamples = (dfd.descriptorBlockSize / 4 - sampleStart) / sampleWords;
+  const numSamples = (descriptorBlockSize / 4 - sampleStart) / sampleWords;
   for (let i = 0; i < numSamples; i++) {
     const sample = {
       bitOffset: dfdReader._nextUint16(),
       bitLength: dfdReader._nextUint8(),
       channelType: dfdReader._nextUint8(),
       samplePosition: [dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8(), dfdReader._nextUint8()],
-      sampleLower: -Infinity,
-      sampleUpper: Infinity
+      sampleLower: Number.NEGATIVE_INFINITY,
+      sampleUpper: Number.POSITIVE_INFINITY
     };
     if (sample.channelType & KHR_DF_SAMPLE_DATATYPE_SIGNED) {
       sample.sampleLower = dfdReader._nextInt32();
@@ -3365,7 +3440,7 @@ function transcodeCompressed(data, header, supportedTargetFormats, transcoderMod
 }
 async function initWorker(parameters, transferableObjects) {
   const wasmConfig = parameters.webAssemblyConfig;
-  const basisTranscoder = defaultValue_default(import_basis_transcoder.default, self.BASIS);
+  const basisTranscoder = import_basis_transcoder.default ?? self.BASIS;
   if (defined_default(wasmConfig.wasmBinaryFile)) {
     transcoderModule = await basisTranscoder(wasmConfig);
   } else {

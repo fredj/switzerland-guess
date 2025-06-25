@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,37 +25,34 @@
 
 import {
   PrimitivePipeline_default
-} from "./chunk-3LYROPON.js";
+} from "./chunk-VGOLRLK7.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-G3BVMPWG.js";
-import "./chunk-FX4R4MTH.js";
-import "./chunk-YJX7X577.js";
-import "./chunk-JHBPC4LK.js";
-import "./chunk-HKHQ3EDR.js";
-import "./chunk-EWDGNOJE.js";
-import "./chunk-LJBJM6VI.js";
-import "./chunk-D7ZBZPHV.js";
-import "./chunk-TY4DKOWR.js";
-import "./chunk-HUFQVUMY.js";
-import "./chunk-FYGLNDKG.js";
-import "./chunk-WEHZP4SE.js";
-import "./chunk-KSYBJA4M.js";
-import "./chunk-KM6MITPF.js";
-import "./chunk-F4CUH4MR.js";
-import "./chunk-ED6GLQTK.js";
-import "./chunk-5KWRW7YL.js";
-import {
-  defaultValue_default
-} from "./chunk-TVL3F7IU.js";
+} from "./chunk-DBPLDHPT.js";
+import "./chunk-XAP7YXEJ.js";
+import "./chunk-VB7MVZDU.js";
+import "./chunk-R7LO2ZW7.js";
+import "./chunk-JVHONLHD.js";
+import "./chunk-5J3B5IYT.js";
+import "./chunk-PMNYUVMK.js";
+import "./chunk-VKMJSSOD.js";
+import "./chunk-PHIB2ITA.js";
+import "./chunk-MPNN7PNO.js";
+import "./chunk-EG3P66JO.js";
+import "./chunk-UGKOGDMZ.js";
+import "./chunk-PLM7GGHT.js";
+import "./chunk-Z43MDFLH.js";
+import "./chunk-FPJWHB5J.js";
+import "./chunk-7252BLXK.js";
+import "./chunk-3JKMJ2DT.js";
 import {
   DeveloperError_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   __glob,
   __require,
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // import("./**/*.js") in packages/engine/Source/Workers/createGeometry.js
 var globImport_js = __glob({
@@ -104,6 +101,8 @@ var globImport_js = __glob({
   "./decodeDraco.js": () => import("./decodeDraco.js"),
   "./decodeGoogleEarthEnterprisePacket.js": () => import("./decodeGoogleEarthEnterprisePacket.js"),
   "./decodeI3S.js": () => import("./decodeI3S.js"),
+  "./gaussianSplatSorter.js": () => import("./gaussianSplatSorter.js"),
+  "./gaussianSplatTextureGenerator.js": () => import("./gaussianSplatTextureGenerator.js"),
   "./transcodeKTX2.js": () => import("./transcodeKTX2.js"),
   "./transferTypedArrayTest.js": () => import("./transferTypedArrayTest.js"),
   "./upsampleQuantizedTerrainMesh.js": () => import("./upsampleQuantizedTerrainMesh.js")
@@ -112,7 +111,7 @@ var globImport_js = __glob({
 // packages/engine/Source/Workers/createGeometry.js
 var moduleCache = {};
 async function getModule(moduleName, modulePath) {
-  let module = defaultValue_default(moduleCache[modulePath], moduleCache[moduleName]);
+  let module = moduleCache[modulePath] ?? moduleCache[moduleName];
   if (defined_default(module)) {
     return module;
   }

@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,36 +25,33 @@
 
 import {
   EllipsoidGeometry_default
-} from "./chunk-JPDKYBLF.js";
-import "./chunk-5S5OOA6U.js";
+} from "./chunk-5WXKC7TN.js";
+import "./chunk-MV5UVSOZ.js";
 import {
   VertexFormat_default
-} from "./chunk-4CHMVQTQ.js";
-import "./chunk-D7ZBZPHV.js";
-import "./chunk-TY4DKOWR.js";
-import "./chunk-HUFQVUMY.js";
-import "./chunk-FYGLNDKG.js";
-import "./chunk-WEHZP4SE.js";
-import "./chunk-KSYBJA4M.js";
+} from "./chunk-AJWIQQTX.js";
+import "./chunk-VKMJSSOD.js";
+import "./chunk-PHIB2ITA.js";
+import "./chunk-MPNN7PNO.js";
+import "./chunk-EG3P66JO.js";
+import "./chunk-UGKOGDMZ.js";
+import "./chunk-PLM7GGHT.js";
 import {
   Cartesian3_default
-} from "./chunk-KM6MITPF.js";
-import "./chunk-F4CUH4MR.js";
-import "./chunk-ED6GLQTK.js";
-import "./chunk-5KWRW7YL.js";
-import {
-  defaultValue_default
-} from "./chunk-TVL3F7IU.js";
+} from "./chunk-Z43MDFLH.js";
+import "./chunk-FPJWHB5J.js";
+import "./chunk-7252BLXK.js";
+import "./chunk-3JKMJ2DT.js";
 import {
   Check_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // packages/engine/Source/Core/SphereGeometry.js
 function SphereGeometry(options) {
-  const radius = defaultValue_default(options.radius, 1);
+  const radius = options.radius ?? 1;
   const radii = new Cartesian3_default(radius, radius, radius);
   const ellipsoidOptions = {
     radii,

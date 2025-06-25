@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,77 +25,75 @@
 
 import {
   BoundingRectangle_default
-} from "./chunk-J7IH4EYI.js";
+} from "./chunk-ER7SSBHR.js";
 import {
   CoplanarPolygonGeometryLibrary_default
-} from "./chunk-PWF4EY5P.js";
-import "./chunk-7ZB2RVIQ.js";
+} from "./chunk-R3VU4BBN.js";
+import "./chunk-HMYDBCCY.js";
 import {
   PolygonGeometryLibrary_default
-} from "./chunk-ZGFIT57T.js";
-import "./chunk-HEZHXDYB.js";
+} from "./chunk-YTIUL27M.js";
+import "./chunk-LMDJ23I7.js";
 import {
   GeometryInstance_default
-} from "./chunk-Q4ZVWJXX.js";
+} from "./chunk-KZ752MAA.js";
 import {
   GeometryPipeline_default
-} from "./chunk-YJX7X577.js";
-import "./chunk-JHBPC4LK.js";
-import "./chunk-HKHQ3EDR.js";
+} from "./chunk-VB7MVZDU.js";
+import "./chunk-R7LO2ZW7.js";
+import "./chunk-JVHONLHD.js";
 import {
   VertexFormat_default
-} from "./chunk-4CHMVQTQ.js";
-import "./chunk-VCNOFQYH.js";
-import "./chunk-B4GSRXE3.js";
+} from "./chunk-AJWIQQTX.js";
+import "./chunk-RRSRPDQN.js";
+import "./chunk-2QPO2E4E.js";
 import {
   PolygonPipeline_default
-} from "./chunk-K4AH3TDT.js";
+} from "./chunk-FC2YDGY6.js";
 import {
   arrayRemoveDuplicates_default
-} from "./chunk-ZMNLEL6W.js";
-import "./chunk-3QLSKXKF.js";
-import "./chunk-EWDGNOJE.js";
-import "./chunk-LJBJM6VI.js";
+} from "./chunk-LQQDQHA5.js";
+import "./chunk-F3ZH4MQG.js";
+import "./chunk-5J3B5IYT.js";
+import "./chunk-PMNYUVMK.js";
 import {
   IndexDatatype_default
-} from "./chunk-D7ZBZPHV.js";
+} from "./chunk-VKMJSSOD.js";
 import {
   GeometryAttributes_default
-} from "./chunk-TY4DKOWR.js";
+} from "./chunk-PHIB2ITA.js";
 import {
   GeometryAttribute_default,
   Geometry_default,
   PrimitiveType_default
-} from "./chunk-HUFQVUMY.js";
+} from "./chunk-MPNN7PNO.js";
 import {
   BoundingSphere_default
-} from "./chunk-FYGLNDKG.js";
+} from "./chunk-EG3P66JO.js";
 import {
   Quaternion_default
-} from "./chunk-WEHZP4SE.js";
+} from "./chunk-UGKOGDMZ.js";
 import {
   ComponentDatatype_default
-} from "./chunk-KSYBJA4M.js";
+} from "./chunk-PLM7GGHT.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Ellipsoid_default,
+  Frozen_default,
   Matrix3_default
-} from "./chunk-KM6MITPF.js";
+} from "./chunk-Z43MDFLH.js";
 import {
   Math_default
-} from "./chunk-F4CUH4MR.js";
-import "./chunk-ED6GLQTK.js";
-import "./chunk-5KWRW7YL.js";
-import {
-  defaultValue_default
-} from "./chunk-TVL3F7IU.js";
+} from "./chunk-FPJWHB5J.js";
+import "./chunk-7252BLXK.js";
+import "./chunk-3JKMJ2DT.js";
 import {
   Check_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // packages/engine/Source/Core/CoplanarPolygonGeometry.js
 var scratchPosition = new Cartesian3_default();
@@ -254,17 +252,15 @@ function createGeometryFromPolygon(polygon, vertexFormat, boundingRectangle, stR
   });
 }
 function CoplanarPolygonGeometry(options) {
-  options = defaultValue_default(options, defaultValue_default.EMPTY_OBJECT);
+  options = options ?? Frozen_default.EMPTY_OBJECT;
   const polygonHierarchy = options.polygonHierarchy;
   const textureCoordinates = options.textureCoordinates;
   Check_default.defined("options.polygonHierarchy", polygonHierarchy);
-  const vertexFormat = defaultValue_default(options.vertexFormat, VertexFormat_default.DEFAULT);
+  const vertexFormat = options.vertexFormat ?? VertexFormat_default.DEFAULT;
   this._vertexFormat = VertexFormat_default.clone(vertexFormat);
   this._polygonHierarchy = polygonHierarchy;
-  this._stRotation = defaultValue_default(options.stRotation, 0);
-  this._ellipsoid = Ellipsoid_default.clone(
-    defaultValue_default(options.ellipsoid, Ellipsoid_default.default)
-  );
+  this._stRotation = options.stRotation ?? 0;
+  this._ellipsoid = Ellipsoid_default.clone(options.ellipsoid ?? Ellipsoid_default.default);
   this._workerName = "createCoplanarPolygonGeometry";
   this._textureCoordinates = textureCoordinates;
   this.packedLength = PolygonGeometryLibrary_default.computeHierarchyPackedLength(
@@ -276,7 +272,7 @@ function CoplanarPolygonGeometry(options) {
   ) : 1) + 2;
 }
 CoplanarPolygonGeometry.fromPositions = function(options) {
-  options = defaultValue_default(options, defaultValue_default.EMPTY_OBJECT);
+  options = options ?? Frozen_default.EMPTY_OBJECT;
   Check_default.defined("options.positions", options.positions);
   const newOptions = {
     polygonHierarchy: {
@@ -292,7 +288,7 @@ CoplanarPolygonGeometry.fromPositions = function(options) {
 CoplanarPolygonGeometry.pack = function(value, array, startingIndex) {
   Check_default.typeOf.object("value", value);
   Check_default.defined("array", array);
-  startingIndex = defaultValue_default(startingIndex, 0);
+  startingIndex = startingIndex ?? 0;
   startingIndex = PolygonGeometryLibrary_default.packPolygonHierarchy(
     value._polygonHierarchy,
     array,
@@ -324,7 +320,7 @@ var scratchOptions = {
 };
 CoplanarPolygonGeometry.unpack = function(array, startingIndex, result) {
   Check_default.defined("array", array);
-  startingIndex = defaultValue_default(startingIndex, 0);
+  startingIndex = startingIndex ?? 0;
   const polygonHierarchy = PolygonGeometryLibrary_default.unpackPolygonHierarchy(
     array,
     startingIndex,

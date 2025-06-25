@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.126
+ * Version 1.130.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -27,41 +27,38 @@ import {
   FrustumGeometry_default,
   OrthographicFrustum_default,
   PerspectiveFrustum_default
-} from "./chunk-CI2HEJFC.js";
-import "./chunk-4CHMVQTQ.js";
-import "./chunk-LJBJM6VI.js";
+} from "./chunk-AGEQBE2G.js";
+import "./chunk-AJWIQQTX.js";
+import "./chunk-PMNYUVMK.js";
 import {
   GeometryAttributes_default
-} from "./chunk-TY4DKOWR.js";
+} from "./chunk-PHIB2ITA.js";
 import {
   GeometryAttribute_default,
   Geometry_default,
   PrimitiveType_default
-} from "./chunk-HUFQVUMY.js";
+} from "./chunk-MPNN7PNO.js";
 import {
   BoundingSphere_default
-} from "./chunk-FYGLNDKG.js";
+} from "./chunk-EG3P66JO.js";
 import {
   Quaternion_default
-} from "./chunk-WEHZP4SE.js";
+} from "./chunk-UGKOGDMZ.js";
 import {
   ComponentDatatype_default
-} from "./chunk-KSYBJA4M.js";
+} from "./chunk-PLM7GGHT.js";
 import {
   Cartesian3_default
-} from "./chunk-KM6MITPF.js";
-import "./chunk-F4CUH4MR.js";
-import "./chunk-ED6GLQTK.js";
-import "./chunk-5KWRW7YL.js";
-import {
-  defaultValue_default
-} from "./chunk-TVL3F7IU.js";
+} from "./chunk-Z43MDFLH.js";
+import "./chunk-FPJWHB5J.js";
+import "./chunk-7252BLXK.js";
+import "./chunk-3JKMJ2DT.js";
 import {
   Check_default
-} from "./chunk-OMXHEJTK.js";
+} from "./chunk-5N52XJIS.js";
 import {
   defined_default
-} from "./chunk-KHWLAQVA.js";
+} from "./chunk-UOU6BW5C.js";
 
 // packages/engine/Source/Core/FrustumOutlineGeometry.js
 var PERSPECTIVE = 0;
@@ -74,7 +71,7 @@ function FrustumOutlineGeometry(options) {
   const frustum = options.frustum;
   const orientation = options.orientation;
   const origin = options.origin;
-  const drawNearPlane = defaultValue_default(options._drawNearPlane, true);
+  const drawNearPlane = options._drawNearPlane ?? true;
   let frustumType;
   let frustumPackedLength;
   if (frustum instanceof PerspectiveFrustum_default) {
@@ -95,7 +92,7 @@ function FrustumOutlineGeometry(options) {
 FrustumOutlineGeometry.pack = function(value, array, startingIndex) {
   Check_default.typeOf.object("value", value);
   Check_default.defined("array", array);
-  startingIndex = defaultValue_default(startingIndex, 0);
+  startingIndex = startingIndex ?? 0;
   const frustumType = value._frustumType;
   const frustum = value._frustum;
   array[startingIndex++] = frustumType;
@@ -119,7 +116,7 @@ var scratchPackQuaternion = new Quaternion_default();
 var scratchPackorigin = new Cartesian3_default();
 FrustumOutlineGeometry.unpack = function(array, startingIndex, result) {
   Check_default.defined("array", array);
-  startingIndex = defaultValue_default(startingIndex, 0);
+  startingIndex = startingIndex ?? 0;
   const frustumType = array[startingIndex++];
   let frustum;
   if (frustumType === PERSPECTIVE) {
