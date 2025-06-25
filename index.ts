@@ -47,6 +47,7 @@ createCesiumWidget("cesium").then((viewer) => {
       CesiumMath.toDegrees(cartographicCameraPosition.latitude),
     ];
     gameMap.showResult(fromLonLat(cameraPosition));
+    document.querySelector("#score").innerText = Math.round(gameMap.score);
     document.querySelector("#distance").innerText = kilometerFormat.format(gameMap.distance/1000);
 
     resultDialog.open = true;

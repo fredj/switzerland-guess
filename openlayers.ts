@@ -99,6 +99,12 @@ export default class GameMap {
     );
   }
 
+  get score(): number {
+    // https://www.reddit.com/r/geoguessr/comments/zqwgnr/how_the_hell_does_this_game_calculate_damage/
+    const size = 350000; // approximate max distance in meters
+    return 5000 * Math.exp(-10 * this.distance / size);
+  }
+
   public setGuessedPosition(guess: number[]): void {
     this.clickFeature.setGeometry(new Point(guess));
   }
