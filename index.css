@@ -11,6 +11,7 @@ html, body, #cesium {
 }
 
 cesium-compass-bar {
+  --cesium-compass-bar-tick-color: var(--wa-color-text-normal);
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
@@ -33,6 +34,10 @@ cesium-compass-bar::part(tick) {
 cesium-compass-bar::part(center-tick) {
   height: 6px;
   border-radius: 0;
+}
+
+#cesium {
+  cursor: move;
 }
 
 #guess-card {
