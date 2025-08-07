@@ -16,6 +16,7 @@ import { polygon } from "@turf/helpers";
 import bbox from "@turf/bbox";
 
 Object.assign(RequestScheduler.requestsByServer, {
+  "assets.ion.cesium.com:443": 28,
   "wmts.geo.admin.ch:443": 28,
   "3d.geo.admin.ch:443": 28,
 });
