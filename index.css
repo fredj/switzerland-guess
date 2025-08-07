@@ -10,16 +10,19 @@ html, body, #cesium {
   display: none;
 }
 
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  padding: 16px
+}
+
 cesium-compass-bar {
   --cesium-compass-bar-tick-color: var(--wa-color-text-normal);
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: 16px;
   width: 240px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(2px);
 }
 cesium-compass-bar::part(label) {
   font-size: 12px;
@@ -34,6 +37,19 @@ cesium-compass-bar::part(tick) {
 cesium-compass-bar::part(center-tick) {
   height: 6px;
   border-radius: 0;
+}
+
+#progress-ring {
+  display: none;
+  --size: 40px;
+  position: absolute;
+  right: 16px;
+}
+
+#progress-ring, cesium-compass-bar {
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
 }
 
 #cesium {

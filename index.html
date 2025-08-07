@@ -9,7 +9,10 @@
 
   <body>
     <div id="cesium"></div>
-    <cesium-compass-bar></cesium-compass-bar>
+    <div class="header">
+      <cesium-compass-bar></cesium-compass-bar>
+      <wa-progress-ring id="progress-ring" value="25" >25</wa-progress-ring>
+    </div>
     <wa-card size="small" id="guess-card">
       <div slot="header">
         Where are you?
