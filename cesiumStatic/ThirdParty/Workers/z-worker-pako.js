@@ -1,6 +1,6 @@
 !function() {
   "use strict";
-  const { Array: e, Object: t, Number: n, Math: s, Error: r, Uint8Array: a, Uint16Array: o, Uint32Array: i, Int32Array: c, Map: l, DataView: u, Promise: h, TextEncoder: f, crypto: p, postMessage: d, TransformStream: g, ReadableStream: w, WritableStream: y, CompressionStream: m, DecompressionStream: _ } = self, b = void 0, S = "undefined", v = "function";
+  const { Array: e, Object: t, Number: n, Math: s, Error: r, Uint8Array: a, Uint16Array: o, Uint32Array: i, Int32Array: c, Map: l, DataView: u, Promise: h, TextEncoder: p, crypto: f, postMessage: d, TransformStream: g, ReadableStream: w, WritableStream: y, CompressionStream: m, DecompressionStream: _ } = self, b = void 0, S = "undefined", v = "function";
   class k {
     constructor(e2) {
       return class extends g {
@@ -136,14 +136,14 @@
     if (n2 = n2 || 1e4, 0 > s2 || 0 > n2) throw new r("invalid params to pbkdf2");
     const a2 = 1 + (s2 >> 5) << 2;
     let o2, i2, c2, l2, h2;
-    const f2 = new ArrayBuffer(a2), p2 = new u(f2);
+    const p2 = new ArrayBuffer(a2), f2 = new u(p2);
     let d2 = 0;
     const g2 = I;
     for (t2 = A.bytes.toBits(t2), h2 = 1; (a2 || 1) > d2; h2++) {
       for (o2 = i2 = e2.encrypt(g2.concat(t2, [h2])), c2 = 1; n2 > c2; c2++) for (i2 = e2.encrypt(i2), l2 = 0; l2 < i2.length; l2++) o2[l2] ^= i2[l2];
-      for (c2 = 0; (a2 || 1) > d2 && c2 < o2.length; c2++) p2.setInt32(d2, o2[c2]), d2 += 4;
+      for (c2 = 0; (a2 || 1) > d2 && c2 < o2.length; c2++) f2.setInt32(d2, o2[c2]), d2 += 4;
     }
-    return f2.slice(0, s2 / 8);
+    return p2.slice(0, s2 / 8);
   }, hmacSha1: class {
     constructor(e2) {
       const t2 = this, n2 = t2._hash = q, s2 = [[], []];
@@ -168,11 +168,11 @@
       if (this._updated) throw new r("encrypt on already updated hmac called!");
       return this.update(e2), this.digest(e2);
     }
-  } }, P = typeof p != S && typeof p.getRandomValues == v, B = "Invalid password", K = "Invalid signature", T = "zipjs-abort-check-password";
+  } }, P = typeof f != S && typeof f.getRandomValues == v, B = "Invalid password", K = "Invalid signature", T = "zipjs-abort-check-password";
   function V(e2) {
-    return P ? p.getRandomValues(e2) : R.getRandomValues(e2);
+    return P ? f.getRandomValues(e2) : R.getRandomValues(e2);
   }
-  const x = 16, E = { name: "PBKDF2" }, U = t.assign({ hash: { name: "HMAC" } }, E), W = t.assign({ iterations: 1e3, hash: { name: "SHA-1" } }, E), M = ["deriveBits"], N = [8, 12, 16], O = [16, 24, 32], L = 10, F = [0, 0, 0, 0], j = typeof p != S, G = j && p.subtle, X = j && typeof G != S, J = A.bytes, Q = class {
+  const x = 16, E = { name: "PBKDF2" }, U = t.assign({ hash: { name: "HMAC" } }, E), W = t.assign({ iterations: 1e3, hash: { name: "SHA-1" } }, E), M = ["deriveBits"], N = [8, 12, 16], O = [16, 24, 32], L = 10, F = [0, 0, 0, 0], j = typeof f != S, G = j && f.subtle, X = j && typeof G != S, J = A.bytes, Q = class {
     constructor(e2) {
       const t2 = this;
       t2._tables = [[[], [], [], [], []], [[], [], [], [], []]], t2._tables[0][0][0] || t2._precompute();
@@ -201,17 +201,17 @@
       for (let u2 = o2 = 0; !n2[u2]; u2 ^= i2 || 1, o2 = a2[o2] || 1) {
         let a3 = o2 ^ o2 << 1 ^ o2 << 2 ^ o2 << 3 ^ o2 << 4;
         a3 = a3 >> 8 ^ 255 & a3 ^ 99, n2[u2] = a3, s2[a3] = u2, l2 = r2[c2 = r2[i2 = r2[u2]]];
-        let h2 = 16843009 * l2 ^ 65537 * c2 ^ 257 * i2 ^ 16843008 * u2, f2 = 257 * r2[a3] ^ 16843008 * a3;
-        for (let n3 = 0; 4 > n3; n3++) e2[n3][u2] = f2 = f2 << 24 ^ f2 >>> 8, t2[n3][a3] = h2 = h2 << 24 ^ h2 >>> 8;
+        let h2 = 16843009 * l2 ^ 65537 * c2 ^ 257 * i2 ^ 16843008 * u2, p2 = 257 * r2[a3] ^ 16843008 * a3;
+        for (let n3 = 0; 4 > n3; n3++) e2[n3][u2] = p2 = p2 << 24 ^ p2 >>> 8, t2[n3][a3] = h2 = h2 << 24 ^ h2 >>> 8;
       }
       for (let n3 = 0; 5 > n3; n3++) e2[n3] = e2[n3].slice(0), t2[n3] = t2[n3].slice(0);
     }
     _crypt(e2, t2) {
       if (4 !== e2.length) throw new r("invalid aes block size");
       const n2 = this._key[t2], s2 = n2.length / 4 - 2, a2 = [0, 0, 0, 0], o2 = this._tables[t2], i2 = o2[0], c2 = o2[1], l2 = o2[2], u2 = o2[3], h2 = o2[4];
-      let f2, p2, d2, g2 = e2[0] ^ n2[0], w2 = e2[t2 ? 3 : 1] ^ n2[1], y2 = e2[2] ^ n2[2], m2 = e2[t2 ? 1 : 3] ^ n2[3], _2 = 4;
-      for (let e3 = 0; s2 > e3; e3++) f2 = i2[g2 >>> 24] ^ c2[w2 >> 16 & 255] ^ l2[y2 >> 8 & 255] ^ u2[255 & m2] ^ n2[_2], p2 = i2[w2 >>> 24] ^ c2[y2 >> 16 & 255] ^ l2[m2 >> 8 & 255] ^ u2[255 & g2] ^ n2[_2 + 1], d2 = i2[y2 >>> 24] ^ c2[m2 >> 16 & 255] ^ l2[g2 >> 8 & 255] ^ u2[255 & w2] ^ n2[_2 + 2], m2 = i2[m2 >>> 24] ^ c2[g2 >> 16 & 255] ^ l2[w2 >> 8 & 255] ^ u2[255 & y2] ^ n2[_2 + 3], _2 += 4, g2 = f2, w2 = p2, y2 = d2;
-      for (let e3 = 0; 4 > e3; e3++) a2[t2 ? 3 & -e3 : e3] = h2[g2 >>> 24] << 24 ^ h2[w2 >> 16 & 255] << 16 ^ h2[y2 >> 8 & 255] << 8 ^ h2[255 & m2] ^ n2[_2++], f2 = g2, g2 = w2, w2 = y2, y2 = m2, m2 = f2;
+      let p2, f2, d2, g2 = e2[0] ^ n2[0], w2 = e2[t2 ? 3 : 1] ^ n2[1], y2 = e2[2] ^ n2[2], m2 = e2[t2 ? 1 : 3] ^ n2[3], _2 = 4;
+      for (let e3 = 0; s2 > e3; e3++) p2 = i2[g2 >>> 24] ^ c2[w2 >> 16 & 255] ^ l2[y2 >> 8 & 255] ^ u2[255 & m2] ^ n2[_2], f2 = i2[w2 >>> 24] ^ c2[y2 >> 16 & 255] ^ l2[m2 >> 8 & 255] ^ u2[255 & g2] ^ n2[_2 + 1], d2 = i2[y2 >>> 24] ^ c2[m2 >> 16 & 255] ^ l2[g2 >> 8 & 255] ^ u2[255 & w2] ^ n2[_2 + 2], m2 = i2[m2 >>> 24] ^ c2[g2 >> 16 & 255] ^ l2[w2 >> 8 & 255] ^ u2[255 & y2] ^ n2[_2 + 3], _2 += 4, g2 = p2, w2 = f2, y2 = d2;
+      for (let e3 = 0; 4 > e3; e3++) a2[t2 ? 3 & -e3 : e3] = h2[g2 >>> 24] << 24 ^ h2[w2 >> 16 & 255] << 16 ^ h2[y2 >> 8 & 255] << 8 ^ h2[255 & m2] ^ n2[_2++], p2 = g2, g2 = w2, w2 = y2, y2 = m2, m2 = p2;
       return a2;
     }
   }, Y = class {
@@ -342,17 +342,17 @@
       } catch (s3) {
         return ee = false, H.pbkdf2(t2, e2.salt, W.iterations, n3);
       }
-    })(t.assign({ salt: o2 }, W), i2, 8 * (2 * O[s2] + 2)), l2 = new a(c2), u2 = le(J, ie(l2, 0, O[s2])), h2 = le(J, ie(l2, O[s2], 2 * O[s2])), f2 = ie(l2, 2 * O[s2]);
-    return t.assign(n2, { keys: { key: u2, authentication: h2, passwordVerification: f2 }, ctr: new Y(new Q(u2), e.from(F)), hmac: new Z(h2) }), f2;
+    })(t.assign({ salt: o2 }, W), i2, 8 * (2 * O[s2] + 2)), l2 = new a(c2), u2 = le(J, ie(l2, 0, O[s2])), h2 = le(J, ie(l2, O[s2], 2 * O[s2])), p2 = ie(l2, 2 * O[s2]);
+    return t.assign(n2, { keys: { key: u2, authentication: h2, passwordVerification: p2 }, ctr: new Y(new Q(u2), e.from(F)), hmac: new Z(h2) }), p2;
   }
   function ae(e2, t2) {
     return t2 === b ? ((e3) => {
-      if (typeof f == S) {
+      if (typeof p == S) {
         const t3 = new a((e3 = unescape(encodeURIComponent(e3))).length);
         for (let n2 = 0; n2 < t3.length; n2++) t3[n2] = e3.charCodeAt(n2);
         return t3;
       }
-      return new f().encode(e3);
+      return new p().encode(e3);
     })(e2) : t2;
   }
   function oe(e2, t2) {
@@ -375,11 +375,11 @@
       }, transform(e3, t2) {
         const n3 = this;
         if (n3.password) {
-          const t3 = fe(n3, e3.subarray(0, 12));
+          const t3 = pe(n3, e3.subarray(0, 12));
           if (n3.password = null, t3[11] != n3.passwordVerification) throw new r(B);
           e3 = e3.subarray(12);
         }
-        s2 ? t2.error(new r(T)) : t2.enqueue(fe(n3, e3));
+        s2 ? t2.error(new r(T)) : t2.enqueue(pe(n3, e3));
       } });
     }
   }
@@ -393,18 +393,18 @@
         if (n3.password) {
           n3.password = null;
           const t3 = V(new a(12));
-          t3[11] = n3.passwordVerification, s2 = new a(e3.length + t3.length), s2.set(pe(n3, t3), 0), r2 = 12;
+          t3[11] = n3.passwordVerification, s2 = new a(e3.length + t3.length), s2.set(fe(n3, t3), 0), r2 = 12;
         } else s2 = new a(e3.length), r2 = 0;
-        s2.set(pe(n3, e3), r2), t2.enqueue(s2);
+        s2.set(fe(n3, e3), r2), t2.enqueue(s2);
       } });
     }
   }
-  function fe(e2, t2) {
+  function pe(e2, t2) {
     const n2 = new a(t2.length);
     for (let s2 = 0; s2 < t2.length; s2++) n2[s2] = we(e2) ^ t2[s2], ge(e2, n2[s2]);
     return n2;
   }
-  function pe(e2, t2) {
+  function fe(e2, t2) {
     const n2 = new a(t2.length);
     for (let s2 = 0; s2 < t2.length; s2++) n2[s2] = we(e2) ^ t2[s2], ge(e2, t2[s2]);
     return n2;
@@ -428,77 +428,61 @@
   function me(e2) {
     return 4294967295 & e2;
   }
-  const _e = "deflate-raw";
-  class be extends g {
+  class _e extends g {
     constructor(e2, { chunkSize: t2, CompressionStream: n2, CompressionStreamNative: s2 }) {
       super({});
       const { compressed: r2, encrypted: a2, useCompressionStream: o2, zipCrypto: i2, signed: c2, level: l2 } = e2, h2 = this;
-      let f2, p2, d2 = ve(super.readable);
-      a2 && !i2 || !c2 || (f2 = new C(), d2 = De(d2, f2)), r2 && (d2 = ze(d2, o2, { level: l2, chunkSize: t2 }, s2, n2)), a2 && (i2 ? d2 = De(d2, new he(e2)) : (p2 = new ne(e2), d2 = De(d2, p2))), ke(h2, d2, () => {
+      let p2, f2, d2 = super.readable;
+      a2 && !i2 || !c2 || (p2 = new C(), d2 = ke(d2, p2)), r2 && (d2 = ve(d2, o2, { level: l2, chunkSize: t2 }, s2, n2)), a2 && (i2 ? d2 = ke(d2, new he(e2)) : (f2 = new ne(e2), d2 = ke(d2, f2))), Se(h2, d2, () => {
         let e3;
-        a2 && !i2 && (e3 = p2.signature), a2 && !i2 || !c2 || (e3 = new u(f2.value.buffer).getUint32(0)), h2.signature = e3;
+        a2 && !i2 && (e3 = f2.signature), a2 && !i2 || !c2 || (e3 = new u(p2.value.buffer).getUint32(0)), h2.signature = e3;
       });
     }
   }
-  class Se extends g {
+  class be extends g {
     constructor(e2, { chunkSize: t2, DecompressionStream: n2, DecompressionStreamNative: s2 }) {
       super({});
       const { zipCrypto: a2, encrypted: o2, signed: i2, signature: c2, compressed: l2, useCompressionStream: h2 } = e2;
-      let f2, p2, d2 = ve(super.readable);
-      o2 && (a2 ? d2 = De(d2, new ue(e2)) : (p2 = new te(e2), d2 = De(d2, p2))), l2 && (d2 = ze(d2, h2, { chunkSize: t2 }, s2, n2)), o2 && !a2 || !i2 || (f2 = new C(), d2 = De(d2, f2)), ke(this, d2, () => {
+      let p2, f2, d2 = super.readable;
+      o2 && (a2 ? d2 = ke(d2, new ue(e2)) : (f2 = new te(e2), d2 = ke(d2, f2))), l2 && (d2 = ve(d2, h2, { chunkSize: t2 }, s2, n2)), o2 && !a2 || !i2 || (p2 = new C(), d2 = ke(d2, p2)), Se(this, d2, () => {
         if ((!o2 || a2) && i2) {
-          const e3 = new u(f2.value.buffer);
+          const e3 = new u(p2.value.buffer);
           if (c2 != e3.getUint32(0, false)) throw new r(K);
         }
       });
     }
   }
-  function ve(e2) {
-    return De(e2, new g({ transform(e3, t2) {
-      e3 && e3.length && t2.enqueue(e3);
-    } }));
+  function Se(e2, n2, s2) {
+    n2 = ke(n2, new g({ flush: s2 })), t.defineProperty(e2, "readable", { get: () => n2 });
   }
-  function ke(e2, n2, s2) {
-    n2 = De(n2, new g({ flush: s2 })), t.defineProperty(e2, "readable", { get: () => n2 });
+  function ve(e2, t2, n2, s2, r2) {
+    return ke(e2, new (t2 && s2 ? s2 : r2)("deflate-raw", n2));
   }
-  function ze(e2, t2, n2, s2, r2) {
-    try {
-      e2 = De(e2, new (t2 && s2 ? s2 : r2)(_e, n2));
-    } catch (s3) {
-      if (!t2) return e2;
-      try {
-        e2 = De(e2, new r2(_e, n2));
-      } catch (t3) {
-        return e2;
-      }
-    }
-    return e2;
-  }
-  function De(e2, t2) {
+  function ke(e2, t2) {
     return e2.pipeThrough(t2);
   }
-  const Ce = "data", Ie = "close";
-  class Ae extends g {
+  const ze = "data", De = "close";
+  class Ce extends g {
     constructor(e2, n2) {
       super({});
-      const s2 = this, { codecType: r2 } = e2;
-      let a2;
-      r2.startsWith("deflate") ? a2 = be : r2.startsWith("inflate") && (a2 = Se);
-      let o2 = 0, i2 = 0;
-      const c2 = new a2(e2, n2), l2 = super.readable, u2 = new g({ transform(e3, t2) {
+      const s2 = this, { codecType: a2 } = e2;
+      let o2;
+      a2.startsWith("deflate") ? o2 = _e : a2.startsWith("inflate") && (o2 = be), s2.outputSize = 0;
+      let i2 = 0;
+      const c2 = new o2(e2, n2), l2 = super.readable, u2 = new g({ transform(e3, t2) {
         e3 && e3.length && (i2 += e3.length, t2.enqueue(e3));
       }, flush() {
         t.assign(s2, { inputSize: i2 });
-      } }), h2 = new g({ transform(e3, t2) {
-        e3 && e3.length && (o2 += e3.length, t2.enqueue(e3));
+      } }), h2 = new g({ transform(t2, n3) {
+        if (t2 && t2.length && (n3.enqueue(t2), s2.outputSize += t2.length, e2.outputSize && s2.outputSize > e2.outputSize)) throw new r("Invalid uncompressed size");
       }, flush() {
         const { signature: e3 } = c2;
-        t.assign(s2, { signature: e3, outputSize: o2, inputSize: i2 });
+        t.assign(s2, { signature: e3, inputSize: i2 });
       } });
       t.defineProperty(s2, "readable", { get: () => l2.pipeThrough(u2).pipeThrough(c2).pipeThrough(h2) });
     }
   }
-  class qe extends g {
+  class Ie extends g {
     constructor(e2) {
       let t2;
       super({ transform: function n2(s2, r2) {
@@ -512,40 +496,40 @@
       } });
     }
   }
-  const Re = new l(), He = new l();
-  let Pe, Be = 0, Ke = true;
-  async function Te(e2) {
+  const Ae = new l(), qe = new l();
+  let Re, He = 0, Pe = true;
+  async function Be(e2) {
     try {
       const { options: t2, scripts: s2, config: r2 } = e2;
       if (s2 && s2.length) try {
-        Ke ? importScripts.apply(b, s2) : await Ve(s2);
+        Pe ? importScripts.apply(b, s2) : await Ke(s2);
       } catch (e3) {
-        Ke = false, await Ve(s2);
+        Pe = false, await Ke(s2);
       }
       self.initCodec && self.initCodec(), r2.CompressionStreamNative = self.CompressionStream, r2.DecompressionStreamNative = self.DecompressionStream, self.Deflate && (r2.CompressionStream = new k(self.Deflate)), self.Inflate && (r2.DecompressionStream = new k(self.Inflate));
       const a2 = { highWaterMark: 1 }, o2 = e2.readable || new w({ async pull(e3) {
-        const t3 = new h((e4) => Re.set(Be, e4));
-        xe({ type: "pull", messageId: Be }), Be = (Be + 1) % n.MAX_SAFE_INTEGER;
+        const t3 = new h((e4) => Ae.set(He, e4));
+        Te({ type: "pull", messageId: He }), He = (He + 1) % n.MAX_SAFE_INTEGER;
         const { value: s3, done: r3 } = await t3;
         e3.enqueue(s3), r3 && e3.close();
       } }, a2), i2 = e2.writable || new y({ async write(e3) {
         let t3;
         const s3 = new h((e4) => t3 = e4);
-        He.set(Be, t3), xe({ type: Ce, value: e3, messageId: Be }), Be = (Be + 1) % n.MAX_SAFE_INTEGER, await s3;
-      } }, a2), c2 = new Ae(t2, r2);
-      Pe = new AbortController();
-      const { signal: l2 } = Pe;
-      await o2.pipeThrough(c2).pipeThrough(new qe(r2.chunkSize)).pipeTo(i2, { signal: l2, preventClose: true, preventAbort: true }), await i2.getWriter().close();
-      const { signature: u2, inputSize: f2, outputSize: p2 } = c2;
-      xe({ type: Ie, result: { signature: u2, inputSize: f2, outputSize: p2 } });
+        qe.set(He, t3), Te({ type: ze, value: e3, messageId: He }), He = (He + 1) % n.MAX_SAFE_INTEGER, await s3;
+      } }, a2), c2 = new Ce(t2, r2);
+      Re = new AbortController();
+      const { signal: l2 } = Re;
+      await o2.pipeThrough(c2).pipeThrough(new Ie(r2.chunkSize)).pipeTo(i2, { signal: l2, preventClose: true, preventAbort: true }), await i2.getWriter().close();
+      const { signature: u2, inputSize: p2, outputSize: f2 } = c2;
+      Te({ type: De, result: { signature: u2, inputSize: p2, outputSize: f2 } });
     } catch (e3) {
-      Ee(e3);
+      e3.outputSize = 0, Ve(e3);
     }
   }
-  async function Ve(e2) {
+  async function Ke(e2) {
     for (const t2 of e2) await import(t2);
   }
-  function xe(e2) {
+  function Te(e2) {
     let { value: t2 } = e2;
     if (t2) if (t2.length) try {
       t2 = new a(t2), e2.value = t2.buffer, d(e2, [e2.value]);
@@ -555,11 +539,11 @@
     else d(e2);
     else d(e2);
   }
-  function Ee(e2 = new r("Unknown error")) {
-    const { message: t2, stack: n2, code: s2, name: a2 } = e2;
-    d({ error: { message: t2, stack: n2, code: s2, name: a2 } });
+  function Ve(e2 = new r("Unknown error")) {
+    const { message: t2, stack: n2, code: s2, name: a2, outputSize: o2 } = e2;
+    d({ error: { message: t2, stack: n2, code: s2, name: a2, outputSize: o2 } });
   }
-  function Ue(e2, n2, s2) {
+  function xe(e2, n2, s2) {
     return class {
       constructor(r3) {
         const o2 = this;
@@ -591,20 +575,20 @@
   addEventListener("message", ({ data: e2 }) => {
     const { type: t2, messageId: n2, value: s2, done: r2 } = e2;
     try {
-      if ("start" == t2 && Te(e2), t2 == Ce) {
-        const e3 = Re.get(n2);
-        Re.delete(n2), e3({ value: new a(s2), done: r2 });
+      if ("start" == t2 && Be(e2), t2 == ze) {
+        const e3 = Ae.get(n2);
+        Ae.delete(n2), e3({ value: new a(s2), done: r2 });
       }
       if ("ack" == t2) {
-        const e3 = He.get(n2);
-        He.delete(n2), e3();
+        const e3 = qe.get(n2);
+        qe.delete(n2), e3();
       }
-      t2 == Ie && Pe.abort();
+      t2 == De && Re.abort();
     } catch (e3) {
-      Ee(e3);
+      Ve(e3);
     }
   }), self.initCodec = () => {
-    const { Deflate: e2, Inflate: t2 } = ((e3, t3 = {}, n2) => ({ Deflate: Ue(e3.Deflate, t3.deflate, n2), Inflate: Ue(e3.Inflate, t3.inflate, n2) }))(pako, { deflate: { raw: true }, inflate: { raw: true } }, (e3, t3) => e3.onData = t3);
+    const { Deflate: e2, Inflate: t2 } = ((e3, t3 = {}, n2) => ({ Deflate: xe(e3.Deflate, t3.deflate, n2), Inflate: xe(e3.Inflate, t3.inflate, n2) }))(pako, { deflate: { raw: true }, inflate: { raw: true } }, (e3, t3) => e3.onData = t3);
     self.Deflate = e2, self.Inflate = t2;
   };
 }();
