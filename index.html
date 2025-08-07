@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="wa-cloak">
+<html lang="en" class="wa-cloak wa-theme-awesome">
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./index.css" />
-    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/webawesome.loader.js"></script>
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.4/dist/webawesome.loader.js"></script>
   </head>
 
   <body>
     <div id="cesium"></div>
     <cesium-compass-bar></cesium-compass-bar>
-    <wa-card with-header with-footer size="small" id="guess-card">
+    <wa-card size="small" id="guess-card">
       <div slot="header">
         Where are you?
       </div>
@@ -19,14 +19,16 @@
        </div>
     </wa-card>
 
-    <wa-dialog with-header with-footer id="result-dialog">
+    <wa-dialog id="result-dialog">
       <div id="result-map"></div>
       <div class="wa-body-xl"><span id="score"></span> points</div>
       <div><span id="distance"></span> away</div>
-      <wa-button slot="footer" variant="success" data-dialog="close">
-        Next round
-        <wa-icon slot="suffix" name="arrow-right" variant="solid"></wa-icon>
-      </wa-button>
+      <div slot="footer">
+        <wa-button slot="footer" variant="success" data-dialog="close">
+          Next round
+          <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
+        </wa-button>
+      </div>
     </wa-dialog>
 
     <script type="module" src="./index.ts"></script>
