@@ -42,8 +42,8 @@ export async function createCesiumWidget(
   viewer.scene.globe.enableLighting = true;
   viewer.scene.globe.preloadSiblings = true;
 
-  viewer.scene.fog.density = 2.0e-4 * 2;
-  viewer.scene.fog.minimumBrightness = 0.03 * 10;
+  viewer.scene.fog.density = 0.005;
+  viewer.scene.fog.minimumBrightness = 0.3;
 
   setRandomPositionInSwitzerland(viewer);
 
