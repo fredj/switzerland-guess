@@ -10,10 +10,7 @@ import {
   Ion,
 } from "@cesium/engine";
 
-import { randomPosition } from "@turf/random";
-import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon";
-import { polygon } from "@turf/helpers";
-import bbox from "@turf/bbox";
+import { type Coordinate } from "ol/coordinate";
 
 Object.assign(RequestScheduler.requestsByServer, {
   "assets.ion.cesium.com:443": 28,
@@ -46,50 +43,16 @@ export async function createCesiumWidget(
   viewer.scene.fog.density = 0.005;
   viewer.scene.fog.minimumBrightness = 0.3;
 
-  setRandomPositionInSwitzerland(viewer);
-
   return viewer;
 }
 
-const SWITZERLAND_POLYGON = polygon([
-  [
-    [5.9866, 46.1497],
-    [6.8217, 46.4276],
-    [7.0155, 45.8756],
-    [7.8603, 45.9232],
-    [8.4084, 46.4542],
-    [9.0282, 45.8269],
-    [9.3461, 46.4791],
-    [10.115, 46.2167],
-    [10.455, 46.9649],
-    [10.204, 46.8463],
-    [9.4773, 47.0406],
-    [9.6525, 47.4923],
-    [8.7577, 47.7302],
-    [7.0441, 47.4657],
-    [6.1388, 46.6105],
-    [5.9866, 46.1497],
-  ],
-]);
-
-export function setRandomPositionInSwitzerland(viewer: CesiumWidget): void {
-  viewer.camera.flyTo({
-    destination: randomPositionInSwitzerland(),
+export function setCameraPosition(viewer: CesiumWidget, position: Coordinate): void {
+  // FIXME: don't use fixed altitude
+  viewer.camera.setView({
+    destination: Cartesian3.fromDegrees(position[0], position[1], 4000),
     orientation: {
       heading: CesiumMath.toRadians(Math.random() * 360),
       pitch: 0.0,
     },
-    duration: 0,
   });
-}
-
-// FIXME: don't use fixed altitude
-function randomPositionInSwitzerland(): Cartesian3 {
-  let position = randomPosition(bbox(SWITZERLAND_POLYGON));
-  while (true) {
-    if (booleanPointInPolygon(position, SWITZERLAND_POLYGON)) {
-      return Cartesian3.fromDegrees(position[0], position[1], 4000);
-    }
-    position = randomPosition(bbox(SWITZERLAND_POLYGON));
-  }
 }
