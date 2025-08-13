@@ -1,5 +1,7 @@
-@import url('https://early.webawesome.com/webawesome@3.0.0-beta.4/dist/styles/webawesome.css');
-@import url('https://early.webawesome.com/webawesome@3.0.0-beta.4/dist/styles/themes/awesome.css');
+@import url('@awesome.me/webawesome/dist/styles/webawesome.css');
+@import url('@awesome.me/webawesome/dist/styles/themes/awesome.css');
+
+@import url('@cesium/engine/Source/Widget/CesiumWidget.css');
 
 html, body, #cesium {
   height: 100%;

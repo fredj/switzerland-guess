@@ -1,4 +1,8 @@
-import "@cesium/engine/Source/Widget/CesiumWidget.css";
+import '@awesome.me/webawesome/dist/components/progress-ring/progress-ring.js';
+import '@awesome.me/webawesome/dist/components/card/card.js';
+import '@awesome.me/webawesome/dist/components/button/button.js';
+import '@awesome.me/webawesome/dist/components/dialog/dialog.js';
+import '@awesome.me/webawesome/dist/components/icon/icon.js';
 
 import { createCesiumWidget, setRandomPositionInSwitzerland } from "./cesium";
 import GameMap from "./openlayers";
