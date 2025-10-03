@@ -7,33 +7,9 @@
   </head>
 
   <body>
-    <div id="cesium"></div>
-    <div class="header">
-      <cesium-compass-bar></cesium-compass-bar>
-      <wa-progress-ring id="progress-ring" value="25" >25</wa-progress-ring>
-    </div>
-    <wa-card size="small" id="guess-card">
-      <div slot="header">
-        Where are you?
-      </div>
-      <div id="map"></div>
-       <div slot="footer">
-          <wa-button disabled variant="brand" id="guess-button">Guess</wa-button>
-       </div>
-    </wa-card>
-
-    <wa-dialog id="result-dialog">
-      <div id="result-map"></div>
-      <div class="wa-body-xl"><span id="score"></span> points</div>
-      <div><span id="distance"></span> away</div>
-      <div slot="footer">
-        <wa-button slot="footer" variant="success" data-dialog="close">
-          Next round
-          <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
-        </wa-button>
-      </div>
-    </wa-dialog>
-
-    <script type="module" src="./index.ts"></script>
+    <element-app></element-app>
+    <script type="module">
+      import "./components/element-app";
+    </script>
   </body>
 </html>
