@@ -81,17 +81,8 @@ export default class ElementMap extends LitElement {
     }
   `;
 
-  updated() {
-    if (this.gameState.country) {
-      const extent = EXTENT_BY_COUNTRY[this.gameState.country];
-      this.map.setView(
-        new View({
-          // extent: scaleExtent(extent, 1.2),
-          center: getCenter(extent),
-          zoom: 4,
-        })
-      );
-    }
+  shouldUpdate() {
+    return this.gameState.country !== null;
   }
 
   willUpdate() {
@@ -106,10 +97,13 @@ export default class ElementMap extends LitElement {
           this.gameState.guessedPosition,
         ])
       );
+      // FIXME: fit view
     } else {
       this.guessedFeature.setGeometry(undefined);
       this.cameraFeature.setGeometry(undefined);
       this.lineFeature.setGeometry(undefined);
+
+      // FIXME: reset view to country extent
     }
   }
 
@@ -148,6 +142,15 @@ export default class ElementMap extends LitElement {
 
   firstUpdated() {
     this.map.setTarget(this.mapElement.value);
+
+    const extent = EXTENT_BY_COUNTRY[this.gameState.country!];
+    this.map.setView(
+      new View({
+        extent: scaleExtent(extent, 1.2),
+        center: getCenter(extent),
+        zoom: 4,
+      })
+    );
   }
 }
 

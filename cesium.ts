@@ -26,12 +26,12 @@ export async function createCesiumWidget(
   const viewer = new CesiumWidget(container, {
     scene3DOnly: true,
     requestRenderMode: true,
-    baseLayer: new ImageryLayer(
-      new UrlTemplateImageryProvider({
-        url: "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
-        rectangle: Rectangle.fromDegrees(5.140242, 45.398181, 11.47757, 48.230651),
-      })
-    ),
+    // baseLayer: new ImageryLayer(
+    //   new UrlTemplateImageryProvider({
+    //     url: "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
+    //     rectangle: Rectangle.fromDegrees(5.140242, 45.398181, 11.47757, 48.230651),
+    //   })
+    // ),
     terrainProvider: await CesiumTerrainProvider.fromIonAssetId(1),
   });
 
