@@ -12,7 +12,7 @@ import type { Ref } from "lit/directives/ref.js";
 import type WaDialog from "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import { consume } from "@lit/context";
 import ElementMap from "./element-map";
-import { GameState, gameStateContext } from "../game-state";
+import { gameOver, GameState, gameStateContext } from "../game-state";
 
 const kilometerFormat = Intl.NumberFormat("de-CH", {
   style: "unit",
@@ -41,26 +41,25 @@ export default class ElementResult extends LitElement {
   }
 
   render() {
+    const isGameOver = gameOver(this.gameState);
     return html`
-            <wa-dialog ${ref(this.dialogElement)}>
-              <element-map ${ref(this.mapElement)}></element-map>
-              <div class="wa-body-xl">${Math.round(
-                this.gameState.score!
-              )} points</div>
-              <div>${kilometerFormat.format(
-                this.gameState.distance! / 1000
-              )} away</div>
-              <div slot="footer">
-                <wa-button slot="footer" variant="success" data-dialog="close">
-                  Next round
-                  <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
-                </wa-button>
-                <!-- <wa-button slot="footer" variant="success">
-                  Scores
-                  <wa-icon slot="end" name="trophy" variant="solid"></wa-icon> -->
-                </wa-button>
-              </div>
-            </wa-dialog>
+      <wa-dialog ${ref(this.dialogElement)}>
+        <element-map ${ref(this.mapElement)}></element-map>
+        <div class="wa-body-xl">${Math.round(
+          this.gameState.score!
+        )} points</div>
+        <div>${kilometerFormat.format(this.gameState.distance! / 1000)} away</div>
+        <div slot="footer">
+          <wa-button slot="footer" variant="success" data-dialog="close" class="${isGameOver ? 'hidden' : ''}">
+            Next round
+            <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
+          </wa-button>
+          <wa-button slot="footer" variant="success" class="${isGameOver ? '' : 'hidden'}">
+            Scores
+            <wa-icon slot="end" name="trophy" variant="solid"></wa-icon>
+          </wa-button>
+        </div>
+      </wa-dialog>
         `;
   }
 

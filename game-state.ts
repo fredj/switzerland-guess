@@ -10,6 +10,7 @@ export interface GameState {
     score: number | null;
     distance: number | null;
     scores: number[];
+    roundPerGame: number;
 }
 
 export interface ActiveGameState extends GameState {
@@ -40,6 +41,10 @@ export function endRound(gameState: GameState, guessedPosition: Coordinate): Gam
         score: score,
         scores: [...gameState.scores, score],
     };
+}
+
+export function gameOver(gameState: GameState): boolean {
+    return gameState.scores.length === gameState.roundPerGame;
 }
 
 // Between startRound and endRound

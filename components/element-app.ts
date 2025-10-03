@@ -21,6 +21,7 @@ import {
 } from "../game-state";
 import { Coordinate } from "ol/coordinate";
 import { CesiumWidget } from "@cesium/engine";
+import Leaderboard from "../leaderboard";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
@@ -33,6 +34,7 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
+    roundPerGame: 3,
   };
   private viewer: CesiumWidget | null = null;
 
@@ -73,6 +75,18 @@ export class ElementApp extends LitElement {
     compassBar.scene = this.viewer.scene;
 
     // The game is starting once this.gameState.country is set
+
+    // const leaderboard = new Leaderboard("de");
+    // const allowed = await leaderboard.allowedToSubmitScore("789");
+    // if (allowed) {
+    //   await leaderboard.saveScore("789", "789_username", 12);
+    // } else {
+    //   console.log("Not allowed to submit score");
+    // }
+    // const scores = await leaderboard.getLeaderboard();
+
+    // debugger;
+
   }
 
   handleCountrySelected(event: CustomEvent) {
