@@ -1,15 +1,15 @@
 import bbox from "@turf/bbox";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
-import { polygon } from "@turf/helpers";
+import { point, polygon } from "@turf/helpers";
 import { randomPosition } from "@turf/random";
+import { distance as distanceBetweenPoints } from "@turf/distance";
 import { fromExtent } from "ol/geom/Polygon";
 
 export type CountryCode = "ch" | "fr" | "de";
 
 export function scoreFromDistance(distance: number, country: CountryCode): number {
   // https://www.reddit.com/r/geoguessr/comments/zqwgnr/how_the_hell_does_this_game_calculate_damage/
-  // FIXME: depends on the country
-  const size = 350000; // approximate max distance in meters
+  const size = MAX_DISTANCE_PER_COUNTRY[country]; // approximate max distance in meters
   return 5000 * Math.exp((-10 * distance) / size);
 }
 
@@ -134,6 +134,12 @@ const POLYGON_BY_COUNTRY: { [key in CountryCode]: any } = {
   ]),
 };
 
+const MAX_DISTANCE_PER_COUNTRY: { [key in CountryCode]: number } = {
+  ch: maxDistance(POLYGON_BY_COUNTRY["ch"]),
+  fr: maxDistance(POLYGON_BY_COUNTRY["fr"]),
+  de: maxDistance(POLYGON_BY_COUNTRY["de"]),
+};
+
 export function randomPositionInCountry(country: CountryCode): [number, number] {
   let position = randomPosition(bbox(POLYGON_BY_COUNTRY[country]));
   while (true) {
@@ -148,4 +154,18 @@ export function scaleExtent(extent: number[], factor: number): number[] {
   const geom = fromExtent(extent);
   geom.scale(factor);
   return geom.getExtent();
+}
+
+function maxDistance(polygon: any): number {
+  let max = 0;
+  const coords = polygon.geometry.coordinates[0];
+  for (let i = 0; i < coords.length; i++) {
+    for (let j = i + 1; j < coords.length; j++) {
+      const distance = distanceBetweenPoints(point(coords[i]), point(coords[j]), { units: "meters" });
+      if (distance > max) {
+        max = distance;
+      }
+    }
+  }
+  return max;
 }

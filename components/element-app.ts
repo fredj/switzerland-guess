@@ -103,7 +103,6 @@ export class ElementApp extends LitElement {
   }
 
   handleCloseResult() {
-    // FIXME: called just after firstUpdated
     if (roundInProgress(this.gameState)) {
       // Start a new round
       this.gameState = startRound(
