@@ -54,7 +54,7 @@ export default class ElementResult extends LitElement {
             Next round
             <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
           </wa-button>
-          <wa-button slot="footer" variant="success" class="${isGameOver ? '' : 'hidden'}">
+          <wa-button slot="footer" variant="success" data-dialog="close" @click="${this.handleGameOver}" class="${isGameOver ? '' : 'hidden'}">
             Scores
             <wa-icon slot="end" name="trophy" variant="solid"></wa-icon>
           </wa-button>
@@ -72,6 +72,10 @@ export default class ElementResult extends LitElement {
       "wa-show",
       () => (this.open = true)
     );
+  }
+
+  handleGameOver() {
+    this.dispatchEvent(new CustomEvent("gameOver"));
   }
 
   override createRenderRoot() {

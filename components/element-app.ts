@@ -59,7 +59,7 @@ export class ElementApp extends LitElement {
         <cesium-compass-bar></cesium-compass-bar>
       </div>
       <element-guess @guess="${this.handleGuess}"></element-guess>
-      <element-result @close="${this.handleCloseResult}"></element-result>
+      <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
       <element-scores></element-scores>
     `;
   }
@@ -100,6 +100,10 @@ export class ElementApp extends LitElement {
     this.gameState = endRound(this.gameState, event.detail);
     // FIXME: hide element-guess
     this.querySelector("element-result").open = true;
+  }
+
+  handleGameOver() {
+    console.log("Game over");
   }
 
   handleCloseResult() {
