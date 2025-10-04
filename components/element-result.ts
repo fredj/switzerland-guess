@@ -13,6 +13,7 @@ import type WaDialog from "@awesome.me/webawesome/dist/components/dialog/dialog.
 import { consume } from "@lit/context";
 import ElementMap from "./element-map";
 import { gameOver, GameState, gameStateContext } from "../game-state";
+import { Closable } from "../closable";
 
 const kilometerFormat = Intl.NumberFormat("de-CH", {
   style: "unit",
@@ -21,24 +22,12 @@ const kilometerFormat = Intl.NumberFormat("de-CH", {
 });
 
 @customElement("element-result")
-export default class ElementResult extends LitElement {
-  @property({ type: Boolean, reflect: true }) open = false;
-
+export default class ElementResult extends Closable(LitElement) {
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
   private dialogElement: Ref<WaDialog> = createRef();
   private mapElement: Ref<ElementMap> = createRef();
-
-  updated(changedProperties: PropertyValues) {
-    if (changedProperties.has("open")) {
-      this.dialogElement.value.open = this.open;
-
-      if (!this.open) {
-        this.dispatchEvent(new CustomEvent("close"));
-      }
-    }
-  }
 
   render() {
     const isGameOver = gameOver(this.gameState);
@@ -61,17 +50,6 @@ export default class ElementResult extends LitElement {
         </div>
       </wa-dialog>
         `;
-  }
-
-  firstUpdated(): void {
-    this.dialogElement.value.addEventListener(
-      "wa-hide",
-      () => (this.open = false)
-    );
-    this.dialogElement.value.addEventListener(
-      "wa-show",
-      () => (this.open = true)
-    );
   }
 
   handleGameOver() {

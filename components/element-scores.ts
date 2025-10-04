@@ -7,9 +7,10 @@ import "./element-leaderboard";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
+import { Closable } from "../closable";
 
 @customElement("element-scores")
-export class ElementScores extends LitElement {
+export class ElementScores extends Closable(LitElement) {
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 

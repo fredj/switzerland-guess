@@ -34,7 +34,7 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
-    roundPerGame: 3,
+    roundPerGame: 1,
   };
   private viewer: CesiumWidget | null = null;
 
@@ -104,6 +104,7 @@ export class ElementApp extends LitElement {
 
   handleGameOver() {
     console.log("Game over");
+    this.querySelector("element-scores").open = true;
   }
 
   handleCloseResult() {
