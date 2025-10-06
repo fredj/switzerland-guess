@@ -34,7 +34,7 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
-    roundPerGame: 1,
+    roundPerGame: 2,
   };
   private viewer: CesiumWidget | null = null;
 

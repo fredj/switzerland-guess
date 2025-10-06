@@ -9,6 +9,20 @@
   <body>
     <element-app></element-app>
     <script type="module">
+      import { registerTranslation } from "@shoelace-style/localize";
+      import fr from "./translations/fr";
+      import en from "./translations/en";
+      import de from "./translations/de";
+
+      registerTranslation(en, fr, de);
+
+      for (const lang of navigator.languages) {
+        if (["fr", "de", "en"].includes(lang.substring(0, 2))) {
+          document.documentElement.lang = lang;
+          break;
+        }
+      }
+
       import "./components/element-app";
     </script>
   </body>

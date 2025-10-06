@@ -3,14 +3,16 @@ import { customElement } from "lit/decorators.js";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/card/card.js";
+import { LocalizeController } from "@shoelace-style/localize";
 
 @customElement("element-country-selector")
 export default class ElementCountrySelector extends LitElement {
+  private localize = new LocalizeController(this);
   private countryCode: string | null = null;
 
   render() {
     return html`
-      <wa-dialog label="Choose a country" open>
+      <wa-dialog label=${this.localize.term("choose_country")} open>
         <div class="wa-grid" style="--min-column-size: 20px;">
           <wa-card
             class="wa-stack wa-align-items-center"
@@ -18,7 +20,7 @@ export default class ElementCountrySelector extends LitElement {
           >
             <div class="wa-stack wa-align-items-center">
               <div class="flag">🇨🇭</div>
-              <div>switzerland</div>
+              <div>${this.localize.term("switzerland")}</div>
             </div>
           </wa-card>
           <wa-card
@@ -27,7 +29,7 @@ export default class ElementCountrySelector extends LitElement {
           >
             <div class="wa-stack wa-align-items-center">
               <div class="flag">🇫🇷</div>
-              <div>france</div>
+              <div>${this.localize.term("france")}</div>
             </div>
           </wa-card>
           <wa-card
@@ -36,7 +38,7 @@ export default class ElementCountrySelector extends LitElement {
           >
             <div class="wa-stack wa-align-items-center">
               <div class="flag">🇩🇪</div>
-              <div>germany</div>
+              <div>${this.localize.term("germany")}</div>
             </div>
           </wa-card>
         </div>

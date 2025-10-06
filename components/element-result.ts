@@ -14,6 +14,7 @@ import { consume } from "@lit/context";
 import ElementMap from "./element-map";
 import { gameOver, GameState, gameStateContext } from "../game-state";
 import { Closable } from "../closable";
+import { LocalizeController } from "@shoelace-style/localize";
 
 const kilometerFormat = Intl.NumberFormat("de-CH", {
   style: "unit",
@@ -23,6 +24,7 @@ const kilometerFormat = Intl.NumberFormat("de-CH", {
 
 @customElement("element-result")
 export default class ElementResult extends Closable(LitElement) {
+  private localize = new LocalizeController(this);
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
@@ -34,17 +36,15 @@ export default class ElementResult extends Closable(LitElement) {
     return html`
       <wa-dialog ${ref(this.dialogElement)}>
         <element-map ${ref(this.mapElement)}></element-map>
-        <div class="wa-body-xl">${Math.round(
-          this.gameState.score!
-        )} points</div>
-        <div>${kilometerFormat.format(this.gameState.distance! / 1000)} away</div>
+        <div class="wa-body-xl">${Math.round(this.gameState.score!)} ${this.localize.term("points")}</div>
+        <div>${kilometerFormat.format(this.gameState.distance! / 1000)}</div>
         <div slot="footer">
           <wa-button slot="footer" variant="success" data-dialog="close" class="${isGameOver ? 'hidden' : ''}">
-            Next round
+            ${this.localize.term("next_round")}
             <wa-icon slot="end" name="arrow-right" variant="solid"></wa-icon>
           </wa-button>
           <wa-button slot="footer" variant="success" data-dialog="close" @click="${this.handleGameOver}" class="${isGameOver ? '' : 'hidden'}">
-            Scores
+            ${this.localize.term("scores")}
             <wa-icon slot="end" name="trophy" variant="solid"></wa-icon>
           </wa-button>
         </div>

@@ -6,9 +6,11 @@ import "@awesome.me/webawesome/dist/components/button/button.js";
 
 import "./element-map";
 import { type Coordinate } from "ol/coordinate";
+import { LocalizeController } from "@shoelace-style/localize";
 
 @customElement("element-guess")
 export default class ElementGuess extends LitElement {
+  private localize = new LocalizeController(this);
   @property({ type: Boolean, reflect: true }) open = true;
 
   @state()
@@ -17,14 +19,14 @@ export default class ElementGuess extends LitElement {
   render() {
     return html`
       <wa-card id="guess-card">
-        <div slot="header">Where are you?</div>
+        <div slot="header">${this.localize.term("where_are_you")}</div>
         <element-map @map-click="${this.handleMapClick}"></element-map>
         <div slot="footer">
           <wa-button
             variant="brand"
             ?disabled="${this.guessedPosition == null}"
             @click="${this.validateGuess}"
-            >Guess</wa-button
+            >${this.localize.term("guess")}</wa-button
           >
         </div>
       </wa-card>
