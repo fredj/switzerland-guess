@@ -17,8 +17,10 @@ export const Closable = <T extends Constructor<LitElement>>(superClass: T) => {
     protected updated(changedProperties: PropertyValues): void {
       if (changedProperties.has("open")) {
         const dialog = this.firstElementChild as WaDialog;
-        dialog.open = this.open;
-        this.dispatchEvent(new CustomEvent(this.open ? "open" : "close"));
+        if (dialog.open !== this.open) {
+          dialog.open = this.open;
+          this.dispatchEvent(new CustomEvent(this.open ? "open" : "close"));
+        }
       }
     }
     protected firstUpdated(): void {

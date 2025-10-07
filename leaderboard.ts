@@ -18,7 +18,6 @@ export interface UserInfo {
 export interface ScoreEntry {
   username: string;
   score: number;
-  date: string;
 }
 
 export function getUserInfo(): UserInfo {
@@ -70,7 +69,6 @@ export class Leaderboard {
       userId,
       username,
       score,
-      date: new Date().toISOString(),
     });
   }
 
@@ -81,10 +79,10 @@ export class Leaderboard {
     );
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      // FIXME: see if we can access createTime
       scores.push({
         username: data.username,
         score: data.score,
-        date: data.date,
       });
     });
     scores.sort((a, b) => b.score - a.score);

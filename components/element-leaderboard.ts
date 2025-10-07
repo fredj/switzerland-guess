@@ -13,7 +13,7 @@ export default class ElementLeaderboard extends LitElement {
           ${this.scores.map(
             (score, index) => html`
               <tr>
-                <td>${index + 1}</td>
+                <td>${this.rankStyle(index + 1)}</td>
                 <td>${score.username}</td>
                 <td>${score.score}</td>
               </tr>
@@ -22,6 +22,17 @@ export default class ElementLeaderboard extends LitElement {
         </tbody>
       </table>
     `;
+  }
+
+  rankStyle(rank: number) {
+    if (rank === 1) {
+      return html`<wa-icon name="trophy" variant="solid" style="color: #FFD700;"></wa-icon>`;
+    } else if (rank === 2) {
+      return html`<wa-icon name="trophy" variant="solid" style="color: #C0C0C0;"></wa-icon>`;
+    } else if (rank === 3) {
+      return html`<wa-icon name="trophy" variant="solid" style="color: #cd7f32;"></wa-icon>`;
+    }
+    return rank;
   }
 
   override createRenderRoot() {

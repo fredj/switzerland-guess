@@ -58,7 +58,7 @@ export class ElementApp extends LitElement {
       <div class="header">
         <cesium-compass-bar></cesium-compass-bar>
       </div>
-      <element-guess @guess="${this.handleGuess}"></element-guess>
+      <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
       <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
       <element-scores @close="${this.handleCloseScores}"></element-scores>
     `;

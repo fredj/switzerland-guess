@@ -23,7 +23,7 @@ export class ElementScores extends Closable(LitElement) {
   gameState!: GameState;
 
   @state()
-  userInfo: UserInfo;
+  userInfo: UserInfo = getUserInfo();
 
   @state()
   scores: ScoreEntry[] = [];
@@ -32,11 +32,6 @@ export class ElementScores extends Closable(LitElement) {
   allowedToSubmitScore: boolean = true;
 
   private leaderboard: Leaderboard | null = null;
-
-  constructor() {
-    super();
-    this.userInfo = getUserInfo();
-  }
 
   async willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has("gameState")) {
