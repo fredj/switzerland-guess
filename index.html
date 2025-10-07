@@ -16,10 +16,17 @@
 
       registerTranslation(en, fr, de);
 
-      for (const lang of navigator.languages) {
-        if (["fr", "de", "en"].includes(lang.substring(0, 2))) {
-          document.documentElement.lang = lang;
-          break;
+      const langs = ["fr", "de", "en"];
+
+      const lang = new URL(location).searchParams.get("lang");
+      if (lang && langs.includes(lang)) {
+        document.documentElement.lang = lang;
+      } else {
+        for (const lang of navigator.languages) {
+          if (langs.includes(lang.substring(0, 2))) {
+            document.documentElement.lang = lang;
+            break;
+          }
         }
       }
 

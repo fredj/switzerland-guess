@@ -16,4 +16,7 @@ export default {
   next_round: "Nächste Runde",
   scores: "Punktestand",
   points: "Punkte",
+
+  your_score: "Ihre Punktzahl",
+  new_game: "Neues Spiel",
 } as Translation;
