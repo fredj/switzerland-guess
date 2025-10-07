@@ -1,18 +1,26 @@
 import { html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
-import { LocalizeController } from "@shoelace-style/localize";
-
-import "@awesome.me/webawesome/dist/components/card/card.js";
+import { customElement, property } from "lit/decorators.js";
+import { ScoreEntry } from "../leaderboard";
 
 @customElement("element-leaderboard")
 export default class ElementLeaderboard extends LitElement {
-  private localize = new LocalizeController(this);
+  @property({ type: Array }) scores: ScoreEntry[] = [];
 
   render() {
     return html`
-      <wa-card>
-        <h3 slot="header">${this.localize.term("leaderboard")}</h3>
-      </wa-card>
+      <table>
+        <tbody>
+          ${this.scores.map(
+            (score, index) => html`
+              <tr>
+                <td>${index + 1}</td>
+                <td>${score.username}</td>
+                <td>${score.score}</td>
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>
     `;
   }
 

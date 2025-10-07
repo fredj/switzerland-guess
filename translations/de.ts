@@ -17,7 +17,10 @@ export default {
   scores: "Punktestand",
   points: "Punkte",
 
+  game_over: "Game over",
   your_score: "Ihre Punktzahl",
+  username: "Benutzername",
+  submit_score: "Punktzahl einreichen",
   new_game: "Neues Spiel",
 
   leaderboard: "Bestenliste",

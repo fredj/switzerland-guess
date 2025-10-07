@@ -10,6 +10,10 @@ import {
   type Firestore,
 } from "firebase/firestore/lite";
 
+export interface UserInfo {
+  username: string | null;
+  userId: string;
+}
 
 export interface ScoreEntry {
   username: string;
@@ -17,13 +21,29 @@ export interface ScoreEntry {
   date: string;
 }
 
-export default class Leaderboard {
+export function getUserInfo(): UserInfo {
+  let userId = localStorage.getItem("userId");
+  if (!userId) {
+    userId = crypto.randomUUID();
+    localStorage.setItem("userId", userId);
+  }
+  return {
+    userId: userId,
+    username: localStorage.getItem("username"),
+  };
+}
+
+export function setUsername(username: string) {
+  localStorage.setItem("username", username);
+}
+
+export class Leaderboard {
   private static firebaseConfig = {
     authDomain: "switzerland-guess.firebaseapp.com",
     projectId: "switzerland-guess",
     storageBucket: "switzerland-guess.appspot.com",
   };
-  private collection: string;
+  collection: string;
   private database: Firestore;
 
   constructor(document: string) {
@@ -33,6 +53,9 @@ export default class Leaderboard {
   }
 
   async allowedToSubmitScore(userId: string): Promise<boolean> {
+    // FIXME: disable for now
+    return true;
+
     // only one score per userId and document
     const q = query(
       collection(this.database, this.collection),

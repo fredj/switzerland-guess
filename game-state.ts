@@ -54,6 +54,10 @@ export function endRound(gameState: GameState, guessedPosition: Coordinate): Gam
     };
 }
 
+export function gameScore(gameState: GameState): number {
+    return Math.round(gameState.scores.reduce((a, b) => a + b, 0) / gameState.scores.length);
+}
+
 export function gameOver(gameState: GameState): boolean {
     return gameState.scores.length === gameState.roundPerGame;
 }

@@ -17,7 +17,10 @@ export default {
   scores: "Scores",
   points: "points",
 
+  game_over: "Game over",
   your_score: "Your score",
+  username: "Username",
+  submit_score: "Save score",
   new_game: "New game",
 
   leaderboard: "Leaderboard",

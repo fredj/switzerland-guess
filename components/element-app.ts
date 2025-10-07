@@ -34,7 +34,7 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
-    roundPerGame: 2,
+    roundPerGame: 1,
   };
   private viewer: CesiumWidget | null = null;
 
@@ -73,20 +73,6 @@ export class ElementApp extends LitElement {
     sphereMode.active = true;
     const compassBar = this.querySelector("cesium-compass-bar");
     compassBar.scene = this.viewer.scene;
-
-    // The game is starting once this.gameState.country is set
-
-    // const leaderboard = new Leaderboard("de");
-    // const allowed = await leaderboard.allowedToSubmitScore("789");
-    // if (allowed) {
-    //   await leaderboard.saveScore("789", "789_username", 12);
-    // } else {
-    //   console.log("Not allowed to submit score");
-    // }
-    // const scores = await leaderboard.getLeaderboard();
-
-    // debugger;
-
   }
 
   handleCountrySelected(event: CustomEvent) {
