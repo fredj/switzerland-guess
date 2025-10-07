@@ -17,6 +17,7 @@ import {
   GameState,
   gameStateContext,
   roundInProgress,
+  startGame,
   startRound,
 } from "../game-state";
 import { Coordinate } from "ol/coordinate";
@@ -60,7 +61,7 @@ export class ElementApp extends LitElement {
       </div>
       <element-guess @guess="${this.handleGuess}"></element-guess>
       <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
-      <element-scores></element-scores>
+      <element-scores @close="${this.handleCloseScores}"></element-scores>
     `;
   }
 
@@ -97,13 +98,12 @@ export class ElementApp extends LitElement {
   }
 
   handleGuess(event: CustomEvent<Coordinate>) {
-    this.gameState = endRound(this.gameState, event.detail);
-    // FIXME: hide element-guess
     this.querySelector("element-result").open = true;
+    // FIXME: hide element-guess ?
+    this.gameState = endRound(this.gameState, event.detail);
   }
 
   handleGameOver() {
-    console.log("Game over");
     this.querySelector("element-scores").open = true;
   }
 
@@ -116,6 +116,11 @@ export class ElementApp extends LitElement {
       );
       setCameraPosition(this.viewer!, this.gameState.cameraPosition);
     }
+  }
+
+  handleCloseScores() {
+    // FIXME: choose country again ?
+    this.gameState = startGame(this.gameState);
   }
 
   override createRenderRoot() {

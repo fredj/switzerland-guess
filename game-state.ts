@@ -18,6 +18,17 @@ export interface ActiveGameState extends GameState {
     cameraPosition: Coordinate;
 }
 
+export function startGame(gameState: GameState): GameState {
+    return {
+        ...gameState,
+        cameraPosition: null,
+        guessedPosition: null,
+        score: null,
+        distance: null,
+        scores: [],
+    };
+}
+
 export function startRound(gameState: GameState, cameraPosition: Coordinate): GameState {
     if (gameState.country == null) {
         throw new Error("Cannot start round without a selected country");
