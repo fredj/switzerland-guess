@@ -1,5 +1,5 @@
 import { html, LitElement } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 
 import "@awesome.me/webawesome/dist/components/card/card.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
@@ -11,7 +11,6 @@ import { LocalizeController } from "@shoelace-style/localize";
 @customElement("element-guess")
 export default class ElementGuess extends LitElement {
   private localize = new LocalizeController(this);
-  @property({ type: Boolean, reflect: true }) open = true;
 
   @state()
   guessedPosition: Coordinate | null = null;

@@ -19,4 +19,6 @@ export default {
 
   your_score: "Votre score",
   new_game: "Nouveau jeu",
+
+  leaderboard: "Classement",
 } as Translation;

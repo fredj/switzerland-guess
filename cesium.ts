@@ -1,9 +1,6 @@
 import {
-  Rectangle,
   RequestScheduler,
   CesiumWidget,
-  ImageryLayer,
-  UrlTemplateImageryProvider,
   CesiumTerrainProvider,
   Cartesian3,
   Math as CesiumMath,

@@ -22,7 +22,6 @@ import {
 } from "../game-state";
 import { Coordinate } from "ol/coordinate";
 import { CesiumWidget } from "@cesium/engine";
-import Leaderboard from "../leaderboard";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {

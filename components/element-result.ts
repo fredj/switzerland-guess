@@ -1,5 +1,5 @@
-import { html, LitElement, PropertyValues } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { html, LitElement } from "lit";
+import { customElement } from "lit/decorators.js";
 import { ref, createRef } from "lit/directives/ref.js";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
