@@ -34,7 +34,7 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
-    roundPerGame: 1,
+    roundPerGame: 3,
   };
   private viewer: CesiumWidget | null = null;
 
@@ -51,7 +51,7 @@ export class ElementApp extends LitElement {
 
   render() {
     return html`
-      <element-country-selector
+      <element-country-selector .open="${this.gameState.country == null}"
         @country-selected="${this.handleCountrySelected}"
       ></element-country-selector>
       <div id="cesium"></div>

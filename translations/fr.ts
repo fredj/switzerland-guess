@@ -16,6 +16,7 @@ export default {
   next_round: "Tour suivant",
   scores: "Scores",
   points: "points",
+  round: "Tour",
 
   game_over: "Game over",
   your_score: "Votre score",

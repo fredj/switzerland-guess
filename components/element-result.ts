@@ -24,7 +24,7 @@ const kilometerFormat = Intl.NumberFormat("de-CH", {
 
 @customElement("element-result")
 export default class ElementResult extends Closable(LitElement) {
-  private localize = new LocalizeController(this);
+  private readonly localize = new LocalizeController(this);
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
@@ -34,7 +34,7 @@ export default class ElementResult extends Closable(LitElement) {
   render() {
     const isGameOver = gameOver(this.gameState);
     return html`
-      <wa-dialog ${ref(this.dialogElement)}>
+      <wa-dialog ${ref(this.dialogElement)} label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
         <element-map ${ref(this.mapElement)}></element-map>
         <div class="wa-body-xl">${Math.round(this.gameState.score!)} ${this.localize.term("points")}</div>
         <div>${kilometerFormat.format(this.gameState.distance! / 1000)}</div>

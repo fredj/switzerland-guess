@@ -13,11 +13,12 @@ import "@awesome.me/webawesome/dist/components/input/input.js";
 
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
-import { Leaderboard, getUserInfo, ScoreEntry, UserInfo, setUsername } from "../leaderboard";
+import { always, Leaderboard, onlyOnce, ScoreEntry } from "../leaderboard";
+import {getUserInfo, setUsername, UserInfo} from "../userinfo";
 
 @customElement("element-scores")
 export class ElementScores extends Closable(LitElement) {
-  private localize = new LocalizeController(this);
+  private readonly localize = new LocalizeController(this);
   @consume({ context: gameStateContext, subscribe: true })
   @state()
   gameState!: GameState;
@@ -29,20 +30,19 @@ export class ElementScores extends Closable(LitElement) {
   scores: ScoreEntry[] = [];
 
   @state()
-  allowedToSubmitScore: boolean = true;
+  allowedToSubmitScore: boolean = false;
 
   private leaderboard: Leaderboard | null = null;
 
   async willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has("gameState")) {
       if (this.gameState.country && this.leaderboard?.collection !== this.gameState.country) {
-        this.leaderboard = new Leaderboard(this.gameState.country);
+        this.leaderboard = new Leaderboard(this.gameState.country, always);
         this.scores = await this.leaderboard.getLeaderboard();
-      }
-    }
-    if (changedProperties.has("userInfo")) {
-      if (this.leaderboard) {
-        this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo.userId);
+
+        if (this.userInfo) {
+          this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo.userId);
+        }
       }
     }
   }
@@ -50,20 +50,21 @@ export class ElementScores extends Closable(LitElement) {
   render() {
     return html`
       <wa-dialog label="${this.localize.term("game_over")}">
-        <div>
+        <div class="wa-stack wa-gap-2xl">
           <wa-callout variant="success">
             <wa-icon slot="icon" name="thumbs-up" variant="solid"></wa-icon>
+            <!-- FIXME: show username if set -->
             ${this.localize.term("your_score")}: <strong>${gameScore(this.gameState)}</strong>
           </wa-callout>
-          <br />
 
-          <element-leaderboard .scores="${this.scores}"></element-leaderboard>
+          <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
 
-          <!-- FIXME: only show the form if allowed to submit score -->
-          <form @submit="${this.saveScore}">
-            <wa-input name="username" .value=${this.userInfo.username} label=${this.localize.term("username")} required ?disabled=${this.userInfo.username !== null}></wa-input>
-            <br />
-            <wa-button type="submit" variant="brand">${this.localize.term("submit_score")}</wa-button>
+          <form @submit="${this.saveScore}" ?hidden=${!this.allowedToSubmitScore}>
+            <div class="wa-flank:end wa-gap-0">
+              <wa-input name="username" .value=${this.userInfo.username} placeholder=${this.localize.term("username")} required ?disabled=${this.userInfo.username !== null}></wa-input>
+              <!-- FIXME: deactivate once score submitted -->
+              <wa-button type="submit" variant="brand">${this.localize.term("submit_score")}</wa-button>
+            </div>
           </form>
 
         </div>
@@ -83,6 +84,7 @@ export class ElementScores extends Closable(LitElement) {
 
     if (this.allowedToSubmitScore) {
       await this.leaderboard.saveScore(this.userInfo.userId, this.userInfo.username, gameScore(this.gameState));
+      this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo.userId);
       // refresh scores after saving
       this.scores = await this.leaderboard.getLeaderboard();
     }

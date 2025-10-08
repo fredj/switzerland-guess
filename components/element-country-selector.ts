@@ -4,15 +4,16 @@ import { customElement } from "lit/decorators.js";
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/card/card.js";
 import { LocalizeController } from "@shoelace-style/localize";
+import { Closable } from "../closable";
 
 @customElement("element-country-selector")
-export default class ElementCountrySelector extends LitElement {
-  private localize = new LocalizeController(this);
-  private countryCode: string | null = null;
+export default class ElementCountrySelector extends Closable(LitElement) {
+  private readonly localize = new LocalizeController(this);
 
   render() {
     return html`
-      <wa-dialog label=${this.localize.term("choose_country")} open>
+      <wa-dialog without-header>
+        <h2>${this.localize.term("choose_country")}</h2>
         <div class="wa-grid" style="--min-column-size: 20px;">
           <wa-card
             class="wa-stack wa-align-items-center"
@@ -46,17 +47,8 @@ export default class ElementCountrySelector extends LitElement {
     `;
   }
 
-  protected firstUpdated(): void {
-    this.querySelector("wa-dialog")?.addEventListener("wa-hide", (event) => {
-      if (this.countryCode == null) {
-        event.preventDefault();
-      }
-    });
-  }
-
   selectCountry(countryCode: string) {
-    this.countryCode = countryCode;
-    this.querySelector("wa-dialog").open = false;
+    this.open = false;
     this.dispatchEvent(
       new CustomEvent("country-selected", { detail: countryCode })
     );

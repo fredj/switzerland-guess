@@ -47,8 +47,7 @@ cesium-compass-bar::part(center-tick) {
 #cesium {
   cursor: move;
 }
-/* FIXME: use element-guess */
-#guess-card {
+element-guess wa-card {
   width: 300px;
   height: 300px;
   --spacing: 12px;
@@ -57,13 +56,13 @@ cesium-compass-bar::part(center-tick) {
   right: 16px;
   max-width: calc(100% - 32px);
 }
-#guess-card::part(header) {
+element-guess wa-card::part(header) {
   font-weight: var(--wa-font-weight-bold);
 }
-#guess-card::part(body) {
+element-guess wa-card::part(body) {
   height: 100%;
 }
-#guess-card:hover {
+element-guess wa-card:hover {
   width: 500px;
   height: 500px;
 }
@@ -83,12 +82,13 @@ element-country-selector wa-card {
 element-country-selector wa-card:hover {
   background-color: var(--wa-color-brand-fill-normal);
 }
-
-
 element-country-selector wa-card .flag {
   font-size: 32px;
 }
 
+element-leaderboard tr.highlight {
+  background-color: var(--wa-color-success-fill-quiet);
+}
 
 /*
 #map, #result-map {

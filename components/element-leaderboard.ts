@@ -2,17 +2,21 @@ import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { ScoreEntry } from "../leaderboard";
 
+import "@awesome.me/webawesome/dist/components/icon/icon.js";
+
 @customElement("element-leaderboard")
 export default class ElementLeaderboard extends LitElement {
   @property({ type: Array }) scores: ScoreEntry[] = [];
+  @property({ type: String }) username: string | null = null;
+  @property({ type: Number }) maxEntries: number = 10;
 
   render() {
     return html`
       <table>
         <tbody>
-          ${this.scores.map(
+          ${this.scores.slice(0, this.maxEntries).map(
             (score, index) => html`
-              <tr>
+              <tr class="${score.username === this.username ? 'highlight' : ''}">
                 <td>${this.rankStyle(index + 1)}</td>
                 <td>${score.username}</td>
                 <td>${score.score}</td>
@@ -32,7 +36,7 @@ export default class ElementLeaderboard extends LitElement {
     } else if (rank === 3) {
       return html`<wa-icon name="trophy" variant="solid" style="color: #cd7f32;"></wa-icon>`;
     }
-    return rank;
+    return html`<span>${rank}</span>`;
   }
 
   override createRenderRoot() {

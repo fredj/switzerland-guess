@@ -10,14 +10,14 @@ import { LocalizeController } from "@shoelace-style/localize";
 
 @customElement("element-guess")
 export default class ElementGuess extends LitElement {
-  private localize = new LocalizeController(this);
+  private readonly localize = new LocalizeController(this);
 
   @state()
   guessedPosition: Coordinate | null = null;
 
   render() {
     return html`
-      <wa-card id="guess-card">
+      <wa-card>
         <div slot="header">${this.localize.term("where_are_you")}</div>
         <element-map @map-click="${this.handleMapClick}"></element-map>
         <div slot="footer">

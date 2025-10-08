@@ -19,17 +19,17 @@ export const Closable = <T extends Constructor<LitElement>>(superClass: T) => {
         const dialog = this.firstElementChild as WaDialog;
         if (dialog.open !== this.open) {
           dialog.open = this.open;
-          this.dispatchEvent(new CustomEvent(this.open ? "open" : "close"));
         }
       }
     }
     protected firstUpdated(): void {
-      this.firstElementChild?.addEventListener("wa-hide", () => {
+      this.firstElementChild?.addEventListener("wa-hide", (originalEvent) => {
         this.open = false;
+        this.dispatchEvent(new CustomEvent("close"));
       });
-      this.firstElementChild?.addEventListener("wa-show", () => {
+      this.firstElementChild?.addEventListener("wa-show", (originalEvent) => {
         this.open = true;
-      });
+        this.dispatchEvent(new CustomEvent("open"));});
     }
   }
   return ClosableElement as Constructor<ClosableInterface> & T;

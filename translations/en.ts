@@ -16,6 +16,7 @@ export default {
   next_round: "Next round",
   scores: "Scores",
   points: "points",
+  round: "Round",
 
   game_over: "Game over",
   your_score: "Your score",

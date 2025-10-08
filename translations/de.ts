@@ -16,6 +16,7 @@ export default {
   next_round: "Nächste Runde",
   scores: "Punktestand",
   points: "Punkte",
+  round: "Runde",
 
   game_over: "Game over",
   your_score: "Ihre Punktzahl",
