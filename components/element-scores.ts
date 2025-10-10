@@ -76,15 +76,19 @@ export class ElementScores extends Closable(LitElement) {
   async saveScore(event: SubmitEvent) {
     event.preventDefault();
     if (this.userInfo.username === null) {
+      // FIXME: we accept username only if
+      // - not empty
+
+
       const formData = new FormData(event.target as HTMLFormElement);
       const username = formData.get("username") as string;
       this.userInfo = { ...this.userInfo, username };
-      setUsername(this.userInfo.username);
+      setUsername(username);
     }
 
     if (this.allowedToSubmitScore) {
       await this.leaderboard.saveScore(this.userInfo.userId, this.userInfo.username, gameScore(this.gameState));
-      this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo.userId);
+      this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo);
       // refresh scores after saving
       this.scores = await this.leaderboard.getLeaderboard();
     }

@@ -9,6 +9,7 @@ import {
   where,
   type Firestore,
 } from "firebase/firestore/lite";
+import { UserInfo } from "./userinfo";
 
 
 export interface ScoreEntry {
@@ -37,8 +38,8 @@ export class Leaderboard {
     this.database = getFirestore(app);
   }
 
-  async allowedToSubmitScore(userId: string): Promise<boolean> {
-    return this.savePolicy(this, userId);
+  async allowedToSubmitScore(userInfo: UserInfo): Promise<boolean> {
+    return this.savePolicy(this, userInfo);
   }
 
   async saveScore(userId: string, username: string, score: number) {
@@ -69,15 +70,16 @@ export class Leaderboard {
 }
 
 // Always allow submitting a score
-export async function always(leaderboard: Leaderboard, userId: string): Promise<boolean> {
+export async function always(leaderboard: Leaderboard, userInfo: UserInfo): Promise<boolean> {
   return true;
 }
 
 // Allow submitting a score only once per user and collection
-export async function onlyOnce(leaderboard: Leaderboard, userId: string): Promise<boolean> {
+export async function onlyOnce(leaderboard: Leaderboard, userInfo: UserInfo): Promise<boolean> {
+  // FIXME: user username instead of userId ?
   const q = query(
       collection(leaderboard.database, leaderboard.collection),
-      where("userId", "==", userId)
+      where("userId", "==", userInfo.userId)
     );
   const querySnapshot = await getDocs(q);
   return querySnapshot.size === 0;

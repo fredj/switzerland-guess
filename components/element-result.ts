@@ -16,6 +16,8 @@ import { gameOver, GameState, gameStateContext } from "../game-state";
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
 
+import "@awesome.me/webawesome/dist/components/progress-bar/progress-bar.js";
+
 const kilometerFormat = Intl.NumberFormat("de-CH", {
   style: "unit",
   unit: "kilometer",
@@ -35,9 +37,12 @@ export default class ElementResult extends Closable(LitElement) {
     const isGameOver = gameOver(this.gameState);
     return html`
       <wa-dialog ${ref(this.dialogElement)} label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
-        <element-map ${ref(this.mapElement)}></element-map>
-        <div class="wa-body-xl">${Math.round(this.gameState.score!)} ${this.localize.term("points")}</div>
-        <div>${kilometerFormat.format(this.gameState.distance! / 1000)}</div>
+        <div class="wa-stack wa-gap-2xs">
+          <element-map ${ref(this.mapElement)}></element-map>
+          <div class="wa-body-xl">${Math.round(this.gameState.score!)} ${this.localize.term("points")}</div>
+          <!-- <wa-progress-bar value="${(this.gameState.score! / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
+          <div>${kilometerFormat.format(this.gameState.distance! / 1000)}</div>
+        </div>
         <div slot="footer">
           <wa-button slot="footer" variant="success" data-dialog="close" class="${isGameOver ? 'hidden' : ''}">
             ${this.localize.term("next_round")}
