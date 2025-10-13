@@ -76,9 +76,10 @@ export class ElementScores extends Closable(LitElement) {
   async saveScore(event: SubmitEvent) {
     event.preventDefault();
     if (this.userInfo.username === null) {
-      // FIXME: we accept username only if
+      // FIXME: we accept username only if:
       // - not empty
-
+      // - does not exists already in the leaderboard collection
+      // - exists in the leaderboard collection with the same userId (fixme: should not happen ?)
 
       const formData = new FormData(event.target as HTMLFormElement);
       const username = formData.get("username") as string;

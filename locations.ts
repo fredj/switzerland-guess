@@ -1,3 +1,5 @@
+// FIXME: dummy locations, ask Patrick Belser for real ones
+
 export const LOCATIONS = {
   ch: [
     [7.6586, 45.9763], // Matterhorn
