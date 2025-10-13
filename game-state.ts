@@ -13,11 +13,6 @@ export interface GameState {
     roundPerGame: number;
 }
 
-export interface ActiveGameState extends GameState {
-    country: CountryCode;
-    cameraPosition: Coordinate;
-}
-
 export function startGame(gameState: GameState): GameState {
     return {
         ...gameState,
@@ -43,8 +38,8 @@ export function startRound(gameState: GameState, cameraPosition: Coordinate): Ga
 }
 
 export function endRound(gameState: GameState, guessedPosition: Coordinate): GameState {
-    const distance = getDistance(gameState.cameraPosition!, guessedPosition);
-    const score = scoreFromDistance(distance, gameState.country!);
+    const distance = getDistance(gameState.cameraPosition, guessedPosition);
+    const score = scoreFromDistance(distance, gameState.country);
     return {
         ...gameState,
         guessedPosition: guessedPosition,

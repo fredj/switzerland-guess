@@ -39,9 +39,9 @@ export default class ElementResult extends Closable(LitElement) {
       <wa-dialog ${ref(this.dialogElement)} label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
         <div class="wa-stack wa-gap-2xs">
           <element-map ${ref(this.mapElement)}></element-map>
-          <div class="wa-body-xl">${Math.round(this.gameState.score!)} ${this.localize.term("points")}</div>
-          <!-- <wa-progress-bar value="${(this.gameState.score! / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
-          <div>${kilometerFormat.format(this.gameState.distance! / 1000)}</div>
+          <div class="wa-body-xl">${Math.round(this.gameState.score)} ${this.localize.term("points")}</div>
+          <!-- <wa-progress-bar value="${(this.gameState.score / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
+          <div>${kilometerFormat.format(this.gameState.distance / 1000)}</div>
         </div>
         <div slot="footer">
           <wa-button slot="footer" variant="success" data-dialog="close" class="${isGameOver ? 'hidden' : ''}">
