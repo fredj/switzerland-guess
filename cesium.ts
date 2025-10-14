@@ -5,6 +5,8 @@ import {
   Cartesian3,
   Math as CesiumMath,
   Ion,
+  ImageryLayer,
+  IonImageryProvider,
 } from "@cesium/engine";
 
 import { type Coordinate } from "ol/coordinate";
@@ -23,6 +25,11 @@ export async function createCesiumWidget(
   const viewer = new CesiumWidget(container, {
     scene3DOnly: true,
     requestRenderMode: true,
+    // see https://sandcastle.cesium.com/?id=imagery-assets-available-from-ion
+    baseLayer: ImageryLayer.fromProviderAsync(
+      IonImageryProvider.fromAssetId(3830182)
+    ),
+    // Swissimage:
     // baseLayer: new ImageryLayer(
     //   new UrlTemplateImageryProvider({
     //     url: "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
