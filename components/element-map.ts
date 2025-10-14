@@ -97,13 +97,13 @@ export default class ElementMap extends LitElement {
           this.gameState.guessedPosition,
         ])
       );
-      // FIXME: fit view
+      this.map.getView().fit(this.lineFeature.getGeometry().getExtent());
     } else {
       this.guessedFeature.setGeometry(undefined);
       this.cameraFeature.setGeometry(undefined);
       this.lineFeature.setGeometry(undefined);
 
-      // FIXME: reset view to country extent
+      this.map.getView().fit(this.getCountryExtent());
     }
   }
 
@@ -143,14 +143,18 @@ export default class ElementMap extends LitElement {
   firstUpdated() {
     this.map.setTarget(this.mapElement.value);
 
-    const extent = EXTENT_BY_COUNTRY[this.gameState.country!];
+    const extent = this.getCountryExtent();
     this.map.setView(
       new View({
-        extent: scaleExtent(extent, 1.2),
+        extent: extent,
         center: getCenter(extent),
         zoom: 4,
       })
     );
+  }
+
+  getCountryExtent() {
+    return scaleExtent(EXTENT_BY_COUNTRY[this.gameState.country], 1.2);
   }
 }
 
