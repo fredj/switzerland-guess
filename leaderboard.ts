@@ -17,7 +17,7 @@ export interface ScoreEntry {
   score: number;
 }
 
-export type SavePolicy = (leaderboard: Leaderboard, userId: string) => Promise<boolean>;
+export type SavePolicy = (leaderboard: Leaderboard, userInfo: UserInfo) => Promise<boolean>;
 
 export class Leaderboard {
   // FIXME: configurable via class options
