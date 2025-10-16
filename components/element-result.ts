@@ -18,12 +18,6 @@ import { LocalizeController } from "@shoelace-style/localize";
 
 import "@awesome.me/webawesome/dist/components/progress-bar/progress-bar.js";
 
-const kilometerFormat = Intl.NumberFormat("de-CH", {
-  style: "unit",
-  unit: "kilometer",
-  maximumFractionDigits: 1,
-});
-
 @customElement("element-result")
 export default class ElementResult extends Closable(LitElement) {
   private readonly localize = new LocalizeController(this);
@@ -41,7 +35,7 @@ export default class ElementResult extends Closable(LitElement) {
           <element-map ${ref(this.mapElement)}></element-map>
           <div class="wa-body-xl">${Math.round(this.gameState.score)} ${this.localize.term("points")}</div>
           <!-- <wa-progress-bar value="${(this.gameState.score / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
-          <div>${kilometerFormat.format(this.gameState.distance / 1000)}</div>
+          <div>${this.formatDistance(this.gameState.distance)}</div>
         </div>
         <div slot="footer">
           <wa-button slot="footer" variant="success" data-dialog="close" class="${isGameOver ? 'hidden' : ''}">
@@ -56,6 +50,15 @@ export default class ElementResult extends Closable(LitElement) {
       </wa-dialog>
         `;
   }
+
+  formatDistance(distance: number): string {
+    return this.localize.number(distance / 1000, {
+      style: "unit",
+      unit: "kilometer",
+      maximumFractionDigits: 1,
+    });
+  }
+
 
   handleGameOver() {
     this.dispatchEvent(new CustomEvent("gameOver"));
