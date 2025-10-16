@@ -12,11 +12,14 @@ import Point from "ol/geom/Point";
 import LineString from "ol/geom/LineString";
 import Feature from "ol/Feature";
 import { useGeographic } from "ol/proj.js";
-import { OSM } from "ol/source";
+import GeoJSON from "ol/format/GeoJSON";
+import OSM from "ol/source/OSM";
 import { consume } from "@lit/context";
 import { GameState, gameStateContext } from "../game-state";
-import { EXTENT_BY_COUNTRY, scaleExtent } from "../utils";
+import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
 import { getCenter } from "ol/extent";
+import RenderEvent from "ol/render/Event";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 useGeographic();
 
@@ -67,6 +70,10 @@ export default class ElementMap extends LitElement {
     type: "line",
   });
 
+  private maskSource = new VectorSource({
+    features: [],
+  });
+
   static styles = css`
     :host {
       display: block;
@@ -78,6 +85,10 @@ export default class ElementMap extends LitElement {
       width: 100%;
       height: 100%;
       cursor: crosshair;
+    }
+    .ol-layer.mask {
+      filter: blur(5px);
+      opacity: 0.5;
     }
   `;
 
@@ -105,6 +116,14 @@ export default class ElementMap extends LitElement {
 
       this.map.getView().fit(this.getCountryExtent());
     }
+
+    if (this.gameState.country !== null) {
+      // FIXME: avoid recreating the feature on each update
+      const country = countriesGeometry[this.gameState.country];
+      this.maskSource.clear();
+      const format = new GeoJSON();
+      this.maskSource.addFeature(format.readFeature(country));
+    }
   }
 
   constructor() {
@@ -128,7 +147,23 @@ export default class ElementMap extends LitElement {
       ],
     });
 
+    const mask = new VectorLayer({
+      style: {
+        "fill-color": "rgba(0, 0, 0, 1.0)",
+      },
+      className: "ol-layer mask",
+      updateWhileInteracting: true,
+      source: this.maskSource,
+    });
+
+    mask.on("prerender", maskOut);
+    this.map.addLayer(mask);
+
     this.map.on("click", (event) => {
+      const country = countriesGeometry[this.gameState.country];
+      if (booleanPointInPolygon(event.coordinate, country) === false) {
+        return;
+      }
       this.guessedFeature.setGeometry(new Point(event.coordinate));
       this.dispatchEvent(
         new CustomEvent("map-click", { detail: event.coordinate })
@@ -154,8 +189,16 @@ export default class ElementMap extends LitElement {
   }
 
   getCountryExtent() {
-    return scaleExtent(EXTENT_BY_COUNTRY[this.gameState.country], 1.2);
+    return scaleExtent(countriesExtent[this.gameState.country], 1.5);
   }
+}
+
+function maskOut(event: RenderEvent) {
+  const context = event.context as CanvasRenderingContext2D;
+  context.globalCompositeOperation = "copy";
+  context.fillStyle = "rgba(0, 0, 0, 1.0)";
+  context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+  context.globalCompositeOperation = "destination-out";
 }
 
 declare global {

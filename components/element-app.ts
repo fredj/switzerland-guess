@@ -112,3 +112,9 @@ export class ElementApp extends LitElement {
     return this;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "element-app": ElementApp;
+  }
+}

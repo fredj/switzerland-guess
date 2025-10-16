@@ -10,6 +10,16 @@ const cesiumBaseUrl = "cesiumStatic";
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "",
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          cesium: ["@cesium/engine"],
+          countries: ["./data/countries.json"],
+        },
+      },
+    },
+  },
   define: {
     // Define relative base path in cesium for loading assets
     // https://vitejs.dev/config/shared-options.html#define
