@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.132
+ * Version 1.134.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -26,59 +26,59 @@
 import {
   EllipsoidalOccluder_default,
   TerrainEncoding_default
-} from "./chunk-23FRF5ZP.js";
+} from "./chunk-J2XQVKVH.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-DPFAUGBE.js";
+} from "./chunk-TGJQMEL4.js";
 import {
   WebMercatorProjection_default
-} from "./chunk-4NRFVAG2.js";
+} from "./chunk-KEPPNSBL.js";
 import {
   OrientedBoundingBox_default
-} from "./chunk-HHHBRTSW.js";
-import "./chunk-K5VGMGFM.js";
-import "./chunk-DAHXCIOX.js";
+} from "./chunk-DAJKOQW6.js";
+import "./chunk-PZUZCAX3.js";
+import "./chunk-NYYQZ3LH.js";
 import {
   AxisAlignedBoundingBox_default
-} from "./chunk-AABNX23Q.js";
-import "./chunk-25USKS4R.js";
-import "./chunk-RZJA77TX.js";
+} from "./chunk-XG54SG4O.js";
+import "./chunk-W6KMV4F5.js";
+import "./chunk-PJAA7QSC.js";
 import {
   BoundingSphere_default
-} from "./chunk-GO3IRH6U.js";
+} from "./chunk-ASVODZNK.js";
 import {
   Matrix4_default,
   Rectangle_default,
   Transforms_default
-} from "./chunk-WUMTX3FI.js";
-import "./chunk-FQNSMOZT.js";
+} from "./chunk-UKA7OISV.js";
+import "./chunk-UFSYRVC5.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Ellipsoid_default
-} from "./chunk-E6NMEKSS.js";
+} from "./chunk-LV3G32QE.js";
 import {
   Math_default
-} from "./chunk-Y3PM6G2V.js";
-import "./chunk-DXYAD4ED.js";
+} from "./chunk-LU7DLY2L.js";
+import "./chunk-XJVRYJVZ.js";
 import {
   RuntimeError_default
-} from "./chunk-Q2QXUN33.js";
+} from "./chunk-FE565QHX.js";
 import {
   DeveloperError_default
-} from "./chunk-SOYVF5RC.js";
+} from "./chunk-DBHL2UVG.js";
 import {
   __commonJS,
   __toESM,
   defined_default
-} from "./chunk-EV4PBU7O.js";
+} from "./chunk-3RKX3UFI.js";
 
 // node_modules/lerc/LercDecode.js
 var require_LercDecode = __commonJS({
   "node_modules/lerc/LercDecode.js"(exports, module) {
     /* Copyright 2015-2018 Esri. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 @preserve */
     (function() {
-      var LercDecode = function() {
+      var LercDecode = (function() {
         var CntZImage = {};
         CntZImage.defaultNoDataValue = -34027999387901484e22;
         CntZImage.decode = function(input, options) {
@@ -432,8 +432,8 @@ var require_LercDecode = __commonJS({
           return dest;
         };
         return CntZImage;
-      }();
-      var Lerc2Decode = function() {
+      })();
+      var Lerc2Decode = (function() {
         "use strict";
         var BitStuffer = {
           //methods ending with 2 are for the new byte order used by Lerc2.3 and above.
@@ -1746,14 +1746,14 @@ var require_LercDecode = __commonJS({
           }
         };
         return Lerc2Decode2;
-      }();
-      var isPlatformLittleEndian = function() {
+      })();
+      var isPlatformLittleEndian = (function() {
         var a = new ArrayBuffer(4);
         var b = new Uint8Array(a);
         var c = new Uint32Array(a);
         c[0] = 1;
         return b[0] === 1;
-      }();
+      })();
       var Lerc2 = {
         /************wrapper**********************************************/
         /**

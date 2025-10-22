@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.132
+ * Version 1.134.1
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,30 +25,30 @@
 
 import {
   createTaskProcessorWorker_default
-} from "./chunk-DPFAUGBE.js";
+} from "./chunk-TGJQMEL4.js";
 import {
   WebGLConstants_default
-} from "./chunk-DXYAD4ED.js";
+} from "./chunk-XJVRYJVZ.js";
 import {
   RuntimeError_default
-} from "./chunk-Q2QXUN33.js";
+} from "./chunk-FE565QHX.js";
 import {
   Check_default
-} from "./chunk-SOYVF5RC.js";
+} from "./chunk-DBHL2UVG.js";
 import {
   __commonJS,
   __require,
   __toESM,
   defined_default
-} from "./chunk-EV4PBU7O.js";
+} from "./chunk-3RKX3UFI.js";
 
 // packages/engine/Source/ThirdParty/Workers/basis_transcoder.js
 var require_basis_transcoder = __commonJS({
   "packages/engine/Source/ThirdParty/Workers/basis_transcoder.js"(exports, module) {
-    var BASIS = function() {
+    var BASIS = (function() {
       var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
       if (typeof __filename !== "undefined") _scriptDir = _scriptDir || __filename;
-      return function(BASIS2) {
+      return (function(BASIS2) {
         BASIS2 = BASIS2 || {};
         var Module = typeof BASIS2 !== "undefined" ? BASIS2 : {};
         var readyPromiseResolve, readyPromiseReject;
@@ -1980,9 +1980,9 @@ var require_basis_transcoder = __commonJS({
           if (typeof globalThis === "object") {
             return globalThis;
           }
-          return (/* @__PURE__ */ function() {
+          return (/* @__PURE__ */ (function() {
             return Function;
-          }())("return this")();
+          })())("return this")();
         }
         function __emval_get_global(name) {
           if (name === 0) {
@@ -2233,8 +2233,8 @@ var require_basis_transcoder = __commonJS({
         }
         run();
         return BASIS2.ready;
-      };
-    }();
+      });
+    })();
     if (typeof exports === "object" && typeof module === "object")
       module.exports = BASIS;
     else if (typeof define === "function" && define["amd"])
@@ -2995,6 +2995,7 @@ function createDefaultContainer() {
     pixelDepth: 0,
     layerCount: 0,
     faceCount: 1,
+    levelCount: 0,
     supercompressionScheme: KHR_SUPERCOMPRESSION_NONE,
     levels: [],
     dataFormatDescriptor: [{
@@ -3114,7 +3115,7 @@ function read2(data) {
   container.pixelDepth = headerReader._nextUint32();
   container.layerCount = headerReader._nextUint32();
   container.faceCount = headerReader._nextUint32();
-  const levelCount = headerReader._nextUint32();
+  container.levelCount = headerReader._nextUint32();
   container.supercompressionScheme = headerReader._nextUint32();
   const dfdByteOffset = headerReader._nextUint32();
   const dfdByteLength = headerReader._nextUint32();
@@ -3122,9 +3123,9 @@ function read2(data) {
   const kvdByteLength = headerReader._nextUint32();
   const sgdByteOffset = headerReader._nextUint64();
   const sgdByteLength = headerReader._nextUint64();
-  const levelByteLength = levelCount * 3 * 8;
+  const levelByteLength = Math.max(container.levelCount, 1) * 3 * 8;
   const levelReader = new BufferReader(data, KTX2_ID.length + headerByteLength, levelByteLength, true);
-  for (let i = 0; i < levelCount; i++) {
+  for (let i = 0, il = Math.max(container.levelCount, 1); i < il; i++) {
     container.levels.push({
       levelData: new Uint8Array(data.buffer, data.byteOffset + levelReader._nextUint64(), levelReader._nextUint64()),
       uncompressedByteLength: levelReader._nextUint64()
@@ -3200,7 +3201,7 @@ function read2(data) {
   const tablesByteLength = sgdReader._nextUint32();
   const extendedByteLength = sgdReader._nextUint32();
   const imageDescs = [];
-  for (let i = 0; i < levelCount; i++) {
+  for (let i = 0, il = Math.max(container.levelCount, 1); i < il; i++) {
     imageDescs.push({
       imageFlags: sgdReader._nextUint32(),
       rgbSliceByteOffset: sgdReader._nextUint32(),
