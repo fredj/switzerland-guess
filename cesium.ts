@@ -40,13 +40,13 @@ export async function createCesiumWidget(
     terrainProvider: await CesiumTerrainProvider.fromIonAssetId(1),
   });
 
-  viewer.scene.highDynamicRange = true;
+  // viewer.scene.highDynamicRange = true;
   viewer.scene.globe.showGroundAtmosphere = true;
   viewer.scene.globe.enableLighting = true;
   viewer.scene.globe.preloadSiblings = true;
 
-  viewer.scene.fog.density = 0.005;
-  viewer.scene.fog.minimumBrightness = 0.3;
+  // viewer.scene.fog.density = 0.005;
+  // viewer.scene.fog.minimumBrightness = 0.3;
 
   return viewer;
 }
