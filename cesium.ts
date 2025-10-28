@@ -24,6 +24,7 @@ export async function createCesiumWidget(
 ): Promise<CesiumWidget> {
   const viewer = new CesiumWidget(container, {
     scene3DOnly: true,
+    skyBox: false,
     requestRenderMode: true,
     // see https://sandcastle.cesium.com/?id=imagery-assets-available-from-ion
     baseLayer: ImageryLayer.fromProviderAsync(
