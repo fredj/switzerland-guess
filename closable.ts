@@ -24,6 +24,7 @@ export const Closable = <T extends Constructor<LitElement>>(superClass: T) => {
     }
     protected firstUpdated(): void {
       this.firstElementChild?.addEventListener("wa-hide", (originalEvent) => {
+        // FIXME: on close, the element should not do a new render cycle
         this.open = false;
         this.dispatchEvent(new CustomEvent("close"));
       });

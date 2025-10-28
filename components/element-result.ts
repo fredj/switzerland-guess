@@ -27,12 +27,16 @@ export default class ElementResult extends Closable(LitElement) {
   private dialogElement: Ref<WaDialog> = createRef();
   private mapElement: Ref<ElementMap> = createRef();
 
+  shouldUpdate() {
+    return this.gameState.score != null;
+  }
+
   render() {
     const isGameOver = gameOver(this.gameState);
     return html`
       <wa-dialog ${ref(this.dialogElement)} label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
         <div class="wa-stack wa-gap-2xs">
-          <element-map ${ref(this.mapElement)}></element-map>
+          <element-map show-result ${ref(this.mapElement)}></element-map>
           <div class="wa-body-xl">${Math.round(this.gameState.score)} ${this.localize.term("points")}</div>
           <!-- <wa-progress-bar value="${(this.gameState.score / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
           <div>${this.formatDistance(this.gameState.distance)}</div>

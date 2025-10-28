@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { ref, createRef } from "lit/directives/ref.js";
 import type { Ref } from "lit/directives/ref.js";
 
@@ -57,6 +57,8 @@ export default class ElementMap extends LitElement {
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
+  @property({ attribute: 'show-result', type: Boolean }) showResult = false;
+
   private map: Map;
   private mapElement: Ref<HTMLDivElement> = createRef();
 
@@ -97,7 +99,7 @@ export default class ElementMap extends LitElement {
   }
 
   willUpdate() {
-    if (this.gameState.cameraPosition && this.gameState.guessedPosition) {
+    if (this.showResult && this.gameState.cameraPosition && this.gameState.guessedPosition) {
       this.guessedFeature.setGeometry(
         new Point(this.gameState.guessedPosition)
       );
