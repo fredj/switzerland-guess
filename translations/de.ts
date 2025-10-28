@@ -18,7 +18,7 @@ export default {
   points: "Punkte",
   round: "Runde",
 
-  game_over: "Game over",
+  game_over: "Sie sind fertig!",
   your_score: "Ihre Punktzahl",
   username: "Benutzername",
   submit_score: "Punktzahl einreichen",
