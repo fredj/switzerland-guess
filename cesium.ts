@@ -44,6 +44,7 @@ export async function createCesiumWidget(
   viewer.scene.globe.showGroundAtmosphere = true;
   viewer.scene.globe.enableLighting = true;
   viewer.scene.globe.preloadSiblings = true;
+  viewer.scene.globe.maximumScreenSpaceError = 1 // lower value - better quality
 
   // viewer.scene.fog.density = 0.005;
   // viewer.scene.fog.minimumBrightness = 0.3;
