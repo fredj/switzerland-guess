@@ -9,7 +9,7 @@
     "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "3.0.0-beta.6",
+    "@awesome.me/webawesome": "3.0.0",
     "@cesium/engine": "21.0.1",
     "@geoblocks/cesium-compass-bar": "0.0.4",
     "@geoblocks/cesium-sphere-camera": "0.0.2",

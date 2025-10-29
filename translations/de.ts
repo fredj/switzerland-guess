@@ -20,9 +20,12 @@ export default {
 
   game_over: "Sie sind fertig!",
   your_score: "Ihre Punktzahl",
-  username: "Benutzername",
+  username: "Dein Name",
   submit_score: "Punktzahl einreichen",
-  new_game: "Neues Spiel",
+  new_game: "Nochmal spielen",
+  no_username: "Kein Benutzername eingegeben",
+  username_taken: "Benutzername bereits vergeben",
+  save: "Speichern",
 
   leaderboard: "Bestenliste",
 } as Translation;

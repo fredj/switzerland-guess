@@ -67,6 +67,21 @@ export class Leaderboard {
     scores.sort((a, b) => b.score - a.score);
     return scores;
   }
+
+  async getUserId(username: string): Promise<string | null> {
+    const q = query(
+      collection(this.database, this.collection),
+      where("username", "==", username)
+    );
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.size === 0) {
+      return null;
+    }
+    // Assume usernames are unique
+    const firstDoc = querySnapshot.docs[0];
+    const data = firstDoc.data();
+    return data.userId;
+  }
 }
 
 // Always allow submitting a score

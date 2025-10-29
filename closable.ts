@@ -22,15 +22,28 @@ export const Closable = <T extends Constructor<LitElement>>(superClass: T) => {
         }
       }
     }
+
     protected firstUpdated(): void {
       this.firstElementChild?.addEventListener("wa-hide", (originalEvent) => {
-        // FIXME: on close, the element should not do a new render cycle
+        if (originalEvent.defaultPrevented) {
+          return;
+        }
+        if (this.firstElementChild !== originalEvent.target) {
+          return;
+        }
         this.open = false;
         this.dispatchEvent(new CustomEvent("close"));
       });
       this.firstElementChild?.addEventListener("wa-show", (originalEvent) => {
+        if (originalEvent.defaultPrevented) {
+          return;
+        }
+        if (this.firstElementChild !== originalEvent.target) {
+          return;
+        }
         this.open = true;
-        this.dispatchEvent(new CustomEvent("open"));});
+        this.dispatchEvent(new CustomEvent("open"));
+      });
     }
   }
   return ClosableElement as Constructor<ClosableInterface> & T;

@@ -1,6 +1,5 @@
 import { html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
-import { ref, createRef } from "lit/directives/ref.js";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
@@ -8,10 +7,7 @@ import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
 import "./element-map";
 
-import type { Ref } from "lit/directives/ref.js";
-import type WaDialog from "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import { consume } from "@lit/context";
-import ElementMap from "./element-map";
 import { gameOver, GameState, gameStateContext } from "../game-state";
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
@@ -24,9 +20,6 @@ export default class ElementResult extends Closable(LitElement) {
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
-  private dialogElement: Ref<WaDialog> = createRef();
-  private mapElement: Ref<ElementMap> = createRef();
-
   shouldUpdate() {
     return this.gameState.score != null;
   }
@@ -34,9 +27,9 @@ export default class ElementResult extends Closable(LitElement) {
   render() {
     const isGameOver = gameOver(this.gameState);
     return html`
-      <wa-dialog ${ref(this.dialogElement)} label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
+      <wa-dialog label="${this.localize.term("round")} ${this.gameState.scores.length}/${this.gameState.roundPerGame}" open>
         <div class="wa-stack wa-gap-2xs">
-          <element-map show-result ${ref(this.mapElement)}></element-map>
+          <element-map show-result></element-map>
           <div class="wa-body-xl">${Math.round(this.gameState.score)} ${this.localize.term("points")}</div>
           <!-- <wa-progress-bar value="${(this.gameState.score / 5000) * 100}" style="--track-height: 6px;"></wa-progress-bar> -->
           <div>${this.formatDistance(this.gameState.distance)}</div>

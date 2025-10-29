@@ -1,7 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { ref, createRef } from "lit/directives/ref.js";
-import type { Ref } from "lit/directives/ref.js";
+import { customElement, property, query } from "lit/decorators.js";
 
 import Map from "ol/Map";
 import View from "ol/View";
@@ -19,6 +17,7 @@ import { GameState, gameStateContext } from "../game-state";
 import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
 import { getCenter } from "ol/extent";
 import RenderEvent from "ol/render/Event";
+
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 useGeographic();
@@ -60,7 +59,7 @@ export default class ElementMap extends LitElement {
   @property({ attribute: 'show-result', type: Boolean }) showResult = false;
 
   private map: Map;
-  private mapElement: Ref<HTMLDivElement> = createRef();
+  @query(".map") mapElement!: HTMLDivElement
 
   private guessedFeature = new Feature({
     type: "guessed",
@@ -174,11 +173,11 @@ export default class ElementMap extends LitElement {
   }
 
   render() {
-    return html` <div class="map" ${ref(this.mapElement)}></div> `;
+    return html`<div class="map"></div>`;
   }
 
   firstUpdated() {
-    this.map.setTarget(this.mapElement.value);
+    this.map.setTarget(this.mapElement);
 
     const extent = this.getCountryExtent();
     this.map.setView(

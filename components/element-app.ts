@@ -1,4 +1,4 @@
-import { customElement, state } from "lit/decorators.js";
+import { customElement, query, state } from "lit/decorators.js";
 import { provide } from "@lit/context";
 import { randomPositionInCountry } from "../utils";
 import { html, LitElement } from "lit";
@@ -21,7 +21,10 @@ import {
   startRound,
 } from "../game-state";
 import { Coordinate } from "ol/coordinate";
-import { CesiumWidget } from "@cesium/engine";
+
+import { type CesiumWidget } from "@cesium/engine";
+import type ElementResult from "./element-result";
+import type ElementScores from "./element-scores";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
@@ -34,9 +37,12 @@ export class ElementApp extends LitElement {
     score: null,
     distance: null,
     scores: [],
-    roundPerGame: 3,
+    roundPerGame: 1,
   };
   private viewer: CesiumWidget | null = null;
+
+  @query('element-result') resultElement!: ElementResult;
+  @query('element-scores') scoresElement!: ElementScores;
 
   updated() {
     if (this.gameState.country !== null && !roundInProgress(this.gameState)) {
@@ -83,13 +89,13 @@ export class ElementApp extends LitElement {
   }
 
   handleGuess(event: CustomEvent<Coordinate>) {
-    this.querySelector("element-result").open = true;
+    this.resultElement.open = true;
     // FIXME: hide element-guess ?
     this.gameState = endRound(this.gameState, event.detail);
   }
 
   handleGameOver() {
-    this.querySelector("element-scores").open = true;
+    this.scoresElement.open = true;
   }
 
   handleCloseResult() {

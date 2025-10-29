@@ -20,9 +20,12 @@ export default {
 
   game_over: "Vous avez terminé !",
   your_score: "Votre score",
-  username: "Nom d'utilisateur",
+  username: "Ton nom",
   submit_score: "Soumettre le score",
-  new_game: "Nouveau jeu",
+  new_game: "Rejouer",
+  no_username: "Aucun nom d'utilisateur saisi",
+  username_taken: "Nom d'utilisateur déjà pris",
+  save: "Enregistrer",
 
   leaderboard: "Classement",
 } as Translation;

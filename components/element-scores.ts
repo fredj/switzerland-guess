@@ -1,9 +1,7 @@
 import { html, LitElement, PropertyValues } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, query, state } from "lit/decorators.js";
 import { gameScore, GameState, gameStateContext } from "../game-state";
 import { consume } from "@lit/context";
-
-import "./element-leaderboard";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/callout/callout.js";
@@ -11,13 +9,19 @@ import "@awesome.me/webawesome/dist/components/icon/icon.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
 import "@awesome.me/webawesome/dist/components/input/input.js";
 
+import "./element-leaderboard";
+import "./element-username";
+
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
 import { always, Leaderboard, onlyOnce, ScoreEntry } from "../leaderboard";
 import {getUserInfo, setUsername, UserInfo} from "../userinfo";
 
+import { type ElementUsername } from "./element-username";
+import type WaButton from "@awesome.me/webawesome/dist/components/button/button.js";
+
 @customElement("element-scores")
-export class ElementScores extends Closable(LitElement) {
+export default class ElementScores extends Closable(LitElement) {
   private readonly localize = new LocalizeController(this);
   @consume({ context: gameStateContext, subscribe: true })
   @state()
@@ -32,7 +36,10 @@ export class ElementScores extends Closable(LitElement) {
   @state()
   allowedToSubmitScore: boolean = false;
 
-  private leaderboard: Leaderboard | null = null;
+  @query("element-username") usernameElement!: ElementUsername;
+  @query(".save_score") saveScoreButton!: WaButton;
+
+  private leaderboard!: Leaderboard;
 
   async willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has("gameState")) {
@@ -53,46 +60,43 @@ export class ElementScores extends Closable(LitElement) {
         <div class="wa-stack wa-gap-2xl">
           <wa-callout variant="success">
             <wa-icon slot="icon" name="thumbs-up" variant="solid"></wa-icon>
-            <!-- FIXME: show username if set -->
             ${this.localize.term("your_score")}: <strong>${gameScore(this.gameState)}</strong>
           </wa-callout>
-
+          <!-- FIXME: check allowedToSubmitScore -->
+          <wa-button class="save_score" variant="success" @click="${this.saveScore}">${this.localize.term("submit_score")}</wa-button>
+          <element-username .leaderboard="${this.leaderboard}" @username="${this.handleUsernameSet}"></element-username>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
-
-          <form @submit="${this.saveScore}" ?hidden=${!this.allowedToSubmitScore}>
-            <div class="wa-flank:end wa-gap-0">
-              <wa-input name="username" .value=${this.userInfo.username} placeholder=${this.localize.term("username")} required ?disabled=${this.userInfo.username !== null}></wa-input>
-              <!-- FIXME: deactivate once score submitted -->
-              <wa-button type="submit" variant="brand">${this.localize.term("submit_score")}</wa-button>
-            </div>
-          </form>
-
         </div>
-        <wa-button slot="footer" variant="success" data-dialog="close">${this.localize.term("new_game")}</wa-button>
+        <wa-button slot="footer" variant="brand" data-dialog="close">${this.localize.term("new_game")}</wa-button>
       </wa-dialog>
     `;
   }
 
-  async saveScore(event: SubmitEvent) {
-    event.preventDefault();
+  private async handleUsernameSet(event: CustomEvent) {
+    const username = event.detail as string;
+    this.userInfo = { ...this.userInfo, username };
+    setUsername(username);
+    await this.saveScoreToLeaderboard();
+  }
+
+  private async saveScore() {
+    console.log(this.userInfo);
     if (this.userInfo.username === null) {
-      // FIXME: we accept username only if:
-      // - not empty
-      // - does not exists already in the leaderboard collection
-      // - exists in the leaderboard collection with the same userId (fixme: should not happen ?)
-
-      const formData = new FormData(event.target as HTMLFormElement);
-      const username = formData.get("username") as string;
-      this.userInfo = { ...this.userInfo, username };
-      setUsername(username);
+      this.usernameElement.open = true;
+      // will continue in handleUsernameSet
+    } else {
+      await this.saveScoreToLeaderboard();
     }
+  }
 
+  private async saveScoreToLeaderboard() {
     if (this.allowedToSubmitScore) {
       await this.leaderboard.saveScore(this.userInfo.userId, this.userInfo.username, gameScore(this.gameState));
       this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo);
       // refresh scores after saving
       this.scores = await this.leaderboard.getLeaderboard();
     }
+    this.saveScoreButton.disabled = true;
   }
 
   override createRenderRoot() {
