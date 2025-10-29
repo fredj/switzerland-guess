@@ -64,11 +64,11 @@ export default class ElementScores extends Closable(LitElement) {
           </wa-callout>
           <!-- FIXME: check allowedToSubmitScore -->
           <wa-button class="save_score" variant="success" @click="${this.saveScore}">${this.localize.term("submit_score")}</wa-button>
-          <element-username .leaderboard="${this.leaderboard}" @username="${this.handleUsernameSet}"></element-username>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
         </div>
         <wa-button slot="footer" variant="brand" data-dialog="close">${this.localize.term("new_game")}</wa-button>
       </wa-dialog>
+      <element-username .leaderboard="${this.leaderboard}" @username="${this.handleUsernameSet}"></element-username>
     `;
   }
 
