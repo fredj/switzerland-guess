@@ -1,12 +1,21 @@
 import {
-  RequestScheduler,
-  CesiumWidget,
-  CesiumTerrainProvider,
-  Cartesian3,
-  Math as CesiumMath,
-  Ion,
-  ImageryLayer,
-  IonImageryProvider, Scene, Cartesian2, Color, SphereEmitter, Matrix4, ParticleSystem, Particle, Primitive,
+    RequestScheduler,
+    CesiumWidget,
+    CesiumTerrainProvider,
+    Cartesian3,
+    Math as CesiumMath,
+    Ion,
+    ImageryLayer,
+    IonImageryProvider,
+    Scene,
+    Cartesian2,
+    Color,
+    SphereEmitter,
+    Matrix4,
+    ParticleSystem,
+    Particle,
+    Primitive,
+    Cartographic, CallbackProperty, ScreenSpaceEventType, defined, ScreenSpaceEventHandler,
 } from "@cesium/engine";
 
 import { type Coordinate } from "ol/coordinate";
@@ -18,6 +27,8 @@ Object.assign(RequestScheduler.requestsByServer, {
 });
 
 Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NDYzNDViMS01OGZjLTRkMDMtOWQzYi00YTI2NDBmOWNjYzYiLCJpZCI6MjE3NTQsImlhdCI6MTcyODMwMTczM30.JlQVQBkpUc1LW65CyWbH_2ZLz-3u6WDkjR9nBI25VYI";
+
+let BONUS_ENTITY_ID: string | undefined = undefined
 
 export async function createCesiumWidget(
   container: HTMLElement | string
@@ -75,15 +86,16 @@ export function setCameraPosition(viewer: CesiumWidget, position: Coordinate): v
       heading: CesiumMath.toRadians(Math.random() * 360),
       pitch: 0.0,
     },
+    duration: 0,
     complete: () => {
-      addSnow(viewer.scene)
+      addSnow(viewer.scene);
+      placeRandomModelNearCamera(viewer);
     }
   });
 
 }
 
 let snow: Primitive | undefined = undefined;
-// snow
 const snowParticleSize = 12.0;
 const snowRadius = 100000.0;
 const minimumSnowImageSize = new Cartesian2(
@@ -145,4 +157,90 @@ function addSnow(scene: Scene) {
         updateCallback: (particle: Particle) => snowUpdate(scene, particle),
       }),
   );
+}
+
+const MODELS = ['./models/santa_on_the_moon.glb', './models/santa_sleigh.glb'];
+const MIN_DISTANCE = 5000;
+const MAX_DISTANCE = 10000;
+const HEIGHT_OFFSET = 1000;
+function placeRandomModelNearCamera(
+    viewer: CesiumWidget,
+    modelUrls: string[] = MODELS,
+    minDistanceMeters: number = MIN_DISTANCE,
+    maxDistanceMeters: number = MAX_DISTANCE,
+    heightOffset: number = HEIGHT_OFFSET
+) {
+    if (BONUS_ENTITY_ID) {
+        viewer.entities.removeById(BONUS_ENTITY_ID);
+    }
+    if (!modelUrls || modelUrls.length === 0) {
+        console.error("The modelUrls array cannot be empty.");
+        return;
+    }
+    if (minDistanceMeters >= maxDistanceMeters) {
+        console.error("Minimum distance must be less than maximum distance.");
+        return;
+    }
+
+    const randomModelUrl = modelUrls[Math.floor(Math.random() * modelUrls.length)];
+
+    const randomDirection = new Cartesian3(
+        Math.random() - 0.5,
+        Math.random() - 0.5,
+        Math.random() - 0.5
+    );
+    Cartesian3.normalize(randomDirection, randomDirection);
+
+    const distanceRange = maxDistanceMeters - minDistanceMeters;
+    const randomDistance = Math.random() * distanceRange + minDistanceMeters;
+
+    const offset = Cartesian3.multiplyByScalar(randomDirection, randomDistance, new Cartesian3());
+    const modelPosition = Cartesian3.add(viewer.camera.position, offset, new Cartesian3());
+
+    const cameraCartographic = viewer.camera.positionCartographic;
+    const modelCartographic = Cartographic.fromCartesian(modelPosition);
+
+    if (
+        modelCartographic.height < cameraCartographic.height - heightOffset
+    ) {
+        modelCartographic.height = cameraCartographic.height - heightOffset;
+    } else if (modelCartographic.height > cameraCartographic.height + heightOffset) {
+        modelCartographic.height = cameraCartographic.height + heightOffset;
+    }
+
+    const finalPosition = Cartesian3.fromRadians(
+        modelCartographic.longitude,
+        modelCartographic.latitude,
+        modelCartographic.height
+    );
+
+    const newEntity = viewer.entities.add({
+        name: 'Clickable Random Model',
+        position: finalPosition,
+        model: {
+            uri: randomModelUrl,
+            minimumPixelSize: 128
+        },
+    });
+
+    BONUS_ENTITY_ID = newEntity.id
+    console.log(`Model "${randomModelUrl.split('/').pop()}" placed at a distance of ~${Math.round(randomDistance)} meters.`);
+    return newEntity;
+}
+
+export function addBonusModelClickCallback(viewer: CesiumWidget, callback: () => void) {
+    const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
+
+    handler.setInputAction((click: ScreenSpaceEventHandler.PositionedEvent) => {
+        if (!BONUS_ENTITY_ID) return;
+        const pickedObject = viewer.scene.pick(click.position);
+        if (defined(pickedObject) && defined(pickedObject.id)) {
+            const entity = pickedObject.id;
+            if (entity.id === BONUS_ENTITY_ID) {
+                console.log(`Clicked on model: ${entity.id}`);
+                callback();
+                placeRandomModelNearCamera(viewer);
+            }
+        }
+    }, ScreenSpaceEventType.LEFT_CLICK);
 }

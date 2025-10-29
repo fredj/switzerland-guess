@@ -11,7 +11,7 @@ import "./element-result";
 import "./element-country-selector";
 import "./element-scores";
 
-import { createCesiumWidget, setCameraPosition } from "../cesium";
+import {addBonusModelClickCallback, createCesiumWidget, setCameraPosition} from "../cesium";
 import {
   endRound,
   GameState,
@@ -74,6 +74,11 @@ export class ElementApp extends LitElement {
     this.viewer = await createCesiumWidget(
       this.querySelector<HTMLDivElement>("#cesium")!
     );
+    addBonusModelClickCallback(this.viewer, () => {
+      // todo check score
+      this.gameState.score += 5;
+      console.log("score: " + this.gameState.score);
+    });
 
     const sphereMode = new CesiumSphereCamera(this.viewer);
     sphereMode.active = true;
