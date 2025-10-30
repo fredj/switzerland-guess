@@ -39,7 +39,10 @@ export async function createCesiumWidget(
     requestRenderMode: true,
     // see https://sandcastle.cesium.com/?id=imagery-assets-available-from-ion
     baseLayer: ImageryLayer.fromProviderAsync(
-      IonImageryProvider.fromAssetId(3830182)
+      IonImageryProvider.fromAssetId(3830182),
+        {
+            minimumTerrainLevel: 10 // do not load low-quality tiles for faster load of tiles we need
+        }
     ),
     // Swissimage:
     // baseLayer: new ImageryLayer(
@@ -62,11 +65,16 @@ export async function createCesiumWidget(
   viewer.scene.skyAtmosphere!.hueShift = 0;
   viewer.scene.skyAtmosphere!.saturationShift = -0.3;
   viewer.scene.skyAtmosphere!.brightnessShift = -0.15;
-  // viewer.scene.fog.density = 0.001;
-  // viewer.scene.fog.minimumBrightness = 0.8;
 
-  // viewer.scene.fog.density = 0.005;
-  // viewer.scene.fog.minimumBrightness = 0.3;
+  // for better performance, tiles far from the camera are hidden with fog and do not load
+  viewer.scene.fog.enabled = true;
+  viewer.scene.fog.density = 0.005;
+  viewer.scene.fog.minimumBrightness = 0.8;
+  viewer.scene.fog.screenSpaceErrorFactor = 4;
+  // cached more tiles for fewer loads when rotating the camera
+  viewer.scene.globe.tileCacheSize = 2000;
+  viewer.scene.globe.baseColor = Color.TRANSPARENT;
+  viewer.scene.globe.undergroundColor = Color.TRANSPARENT;
 
 
   const controller = viewer.scene.screenSpaceCameraController;
