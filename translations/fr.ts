@@ -26,6 +26,4 @@ export default {
   no_username: "Aucun nom d'utilisateur saisi",
   username_taken: "Nom d'utilisateur déjà pris",
   save: "Enregistrer",
-
-  leaderboard: "Classement",
 } as Translation;

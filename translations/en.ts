@@ -26,6 +26,4 @@ export default {
   no_username: "No username entered",
   username_taken: "Username already taken",
   save: "Save",
-
-  leaderboard: "Hall of Fame",
 } as Translation;
