@@ -39,7 +39,9 @@ export function startRound(gameState: GameState, cameraPosition: Coordinate): Ga
 
 export function endRound(gameState: GameState, guessedPosition: Coordinate): GameState {
     const distance = getDistance(gameState.cameraPosition, guessedPosition);
-    const score = scoreFromDistance(distance, gameState.country);
+    // Use existing bonus score if any
+    let score = gameState.score || 0;
+    score += scoreFromDistance(distance, gameState.country);
     return {
         ...gameState,
         guessedPosition: guessedPosition,

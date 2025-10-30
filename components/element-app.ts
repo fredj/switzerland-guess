@@ -75,9 +75,7 @@ export class ElementApp extends LitElement {
       this.querySelector<HTMLDivElement>("#cesium")!
     );
     addBonusModelClickCallback(this.viewer, () => {
-      // todo check score
-      this.gameState.score += 5;
-      console.log("score: " + this.gameState.score);
+      this.gameState.score = 5;
     });
 
     const sphereMode = new CesiumSphereCamera(this.viewer);
