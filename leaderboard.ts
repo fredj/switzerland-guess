@@ -9,7 +9,7 @@ import {
   where,
   type Firestore,
 } from "firebase/firestore/lite";
-import { UserInfo } from "./userinfo";
+import { type UserInfo } from "./userinfo";
 
 
 export interface ScoreEntry {

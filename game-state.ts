@@ -1,6 +1,6 @@
 import { createContext } from "@lit/context";
 import { Coordinate } from "ol/coordinate";
-import { CountryCode, scoreFromDistance } from "./utils";
+import { type CountryCode, scoreFromDistance } from "./utils";
 import { getDistance } from "ol/sphere";
 
 export interface GameState {

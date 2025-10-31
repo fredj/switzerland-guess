@@ -13,10 +13,10 @@ import { useGeographic } from "ol/proj.js";
 import GeoJSON from "ol/format/GeoJSON";
 import OSM from "ol/source/OSM";
 import { consume } from "@lit/context";
-import { GameState, gameStateContext } from "../game-state";
+import { type GameState, gameStateContext } from "../game-state";
 import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
 import { getCenter } from "ol/extent";
-import RenderEvent from "ol/render/Event";
+import type RenderEvent from "ol/render/Event";
 
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
