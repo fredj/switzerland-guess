@@ -14,7 +14,7 @@ import "./element-username";
 
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
-import { always, Leaderboard, onlyOnce, type ScoreEntry } from "../leaderboard";
+import { always, Leaderboard, type ScoreEntry } from "../leaderboard";
 import {getUserInfo, setUsername, type UserInfo} from "../userinfo";
 
 import { type ElementUsername } from "./element-username";
