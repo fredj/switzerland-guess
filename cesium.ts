@@ -15,7 +15,7 @@ import {
     ParticleSystem,
     Particle,
     Primitive,
-    Cartographic, CallbackProperty, ScreenSpaceEventType, defined, ScreenSpaceEventHandler,
+    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler,
 } from "@cesium/engine";
 
 import { type Coordinate } from "ol/coordinate";

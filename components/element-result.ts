@@ -8,7 +8,7 @@ import "@awesome.me/webawesome/dist/components/icon/icon.js";
 import "./element-map";
 
 import { consume } from "@lit/context";
-import { gameOver, GameState, gameStateContext } from "../game-state";
+import { gameOver, gameStateContext, type GameState } from "../game-state";
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
 

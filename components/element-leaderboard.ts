@@ -1,6 +1,6 @@
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { ScoreEntry } from "../leaderboard";
+import { type ScoreEntry } from "../leaderboard";
 
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
