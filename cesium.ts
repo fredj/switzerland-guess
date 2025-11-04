@@ -15,7 +15,7 @@ import {
     ParticleSystem,
     Particle,
     Primitive,
-    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler,
+    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler, JulianDate,
 } from "@cesium/engine";
 
 import { type Coordinate } from "ol/coordinate";
@@ -29,6 +29,9 @@ Object.assign(RequestScheduler.requestsByServer, {
 Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NDYzNDViMS01OGZjLTRkMDMtOWQzYi00YTI2NDBmOWNjYzYiLCJpZCI6MjE3NTQsImlhdCI6MTcyODMwMTczM30.JlQVQBkpUc1LW65CyWbH_2ZLz-3u6WDkjR9nBI25VYI";
 
 let BONUS_ENTITY_ID: string | undefined = undefined
+const season: 'winter' | 'summer' = 'summer';
+// for testing with different light. E.g. 2025-05-31T10:00:00Z
+const dateTimeParam = new URLSearchParams(location.search).get("dateTime");
 
 export async function createCesiumWidget(
   container: HTMLElement | string
@@ -61,10 +64,17 @@ export async function createCesiumWidget(
   viewer.scene.globe.preloadSiblings = true;
   viewer.scene.globe.maximumScreenSpaceError = 1 // lower value - better quality
 
-  // for winter
-  viewer.scene.skyAtmosphere!.hueShift = 0;
-  viewer.scene.skyAtmosphere!.saturationShift = -0.3;
-  viewer.scene.skyAtmosphere!.brightnessShift = -0.15;
+  viewer.scene.moon!.show = false;
+
+  if (dateTimeParam) {
+    viewer.clock.currentTime = JulianDate.fromDate(new Date(dateTimeParam));
+  }
+
+  if (season === 'winter') {
+      viewer.scene.skyAtmosphere!.hueShift = 0;
+      viewer.scene.skyAtmosphere!.saturationShift = -0.3;
+      viewer.scene.skyAtmosphere!.brightnessShift = -0.15;
+  }
 
   // for better performance, tiles far from the camera are hidden with fog and do not load
   viewer.scene.fog.enabled = true;
@@ -96,8 +106,10 @@ export function setCameraPosition(viewer: CesiumWidget, position: Coordinate): v
     },
     duration: 0,
     complete: () => {
-      addSnow(viewer.scene);
-      placeRandomModelNearCamera(viewer);
+        if  (season === 'winter') {
+            addSnow(viewer.scene);
+            placeRandomModelNearCamera(viewer);
+        }
     }
   });
 
