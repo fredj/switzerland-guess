@@ -23,8 +23,9 @@
         document.documentElement.lang = lang;
       } else {
         for (const lang of navigator.languages) {
-          if (langs.includes(lang.substring(0, 2))) {
-            document.documentElement.lang = lang;
+          const code = lang.substring(0, 2);
+          if (langs.includes(code)) {
+            document.documentElement.lang = code;
             break;
           }
         }
