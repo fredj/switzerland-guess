@@ -10,6 +10,7 @@ import {
   type Firestore,
 } from "firebase/firestore/lite";
 import { type UserInfo } from "./userinfo";
+import { gameOver, gameScore, type GameState } from "./game-state";
 
 
 export interface ScoreEntry {
@@ -18,7 +19,7 @@ export interface ScoreEntry {
   score: number;
 }
 
-export type SavePolicy = (leaderboard: Leaderboard, userInfo: UserInfo) => Promise<boolean>;
+export type SavePolicy = (leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState) => Promise<boolean>;
 
 export class Leaderboard {
   // FIXME: configurable via class options
@@ -39,8 +40,12 @@ export class Leaderboard {
     this.database = getFirestore(app);
   }
 
-  async allowedToSubmitScore(userInfo: UserInfo): Promise<boolean> {
-    return this.savePolicy(this, userInfo);
+  async allowedToSubmitScore(userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+    if (!userInfo.username || !gameOver(gameState)) {
+      return false;
+    }
+    console.log("Checking if allowed to submit score...");
+    return this.savePolicy(this, userInfo, gameState);
   }
 
   async saveScore(userId: string, username: string, score: number) {
@@ -88,17 +93,40 @@ export class Leaderboard {
 }
 
 // Always allow submitting a score
-export async function always(leaderboard: Leaderboard, userInfo: UserInfo): Promise<boolean> {
+export async function always(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
   return true;
 }
 
+// Allow submitting a better score only
+export async function betterScore(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+  const score = await userScore(leaderboard, userInfo.userId);
+  if (score === null) {
+    return true;
+  }
+  return gameScore(gameState) > score;
+}
+
 // Allow submitting a score only once per user and collection
-export async function onlyOnce(leaderboard: Leaderboard, userInfo: UserInfo): Promise<boolean> {
-  // FIXME: user username instead of userId ?
-  const q = query(
+export async function onlyOnce(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+  const score = await userScore(leaderboard, userInfo.userId);
+  return score === null;
+}
+
+
+function userScore(leaderboard: Leaderboard, userId: string): Promise<number | null> {
+  return new Promise(async (resolve) => {
+    const q = query(
       collection(leaderboard.database, leaderboard.collection),
-      where("userId", "==", userInfo.userId)
+      where("userId", "==", userId)
     );
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.size === 0;
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.size === 0) {
+      resolve(null);
+      return;
+    }
+    // Assume only one entry per userId
+    const firstDoc = querySnapshot.docs[0];
+    const data = firstDoc.data();
+    resolve(data.score);
+  });
 }

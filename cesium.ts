@@ -232,7 +232,6 @@ function placeRandomModelNearCamera(
     });
 
     BONUS_ENTITY_ID = newEntity.id
-    console.log(`Model "${randomModelUrl.split('/').pop()}" placed at a distance of ~${Math.round(randomDistance)} meters.`);
     return newEntity;
 }
 
