@@ -5,6 +5,8 @@ export default {
   $name: "English",
   $dir: "ltr",
 
+  about_us: "About us",
+  close: "Close",
   choose_country: "Choose a country",
   switzerland: "Switzerland",
   france: "France",

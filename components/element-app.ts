@@ -5,11 +5,14 @@ import { html, LitElement } from "lit";
 
 import CesiumSphereCamera from "@geoblocks/cesium-sphere-camera";
 
+import "@awesome.me/webawesome/dist/components/button/button.js";
+
 import "@geoblocks/cesium-compass-bar";
 import "./element-guess";
 import "./element-result";
 import "./element-country-selector";
 import "./element-scores";
+import "./element-about";
 
 import {addBonusModelClickCallback, createCesiumWidget, setCameraPosition} from "../cesium";
 import {
@@ -25,9 +28,12 @@ import { type Coordinate } from "ol/coordinate";
 import { type CesiumWidget } from "@cesium/engine";
 import type ElementResult from "./element-result";
 import type ElementScores from "./element-scores";
+import { LocalizeController } from "@shoelace-style/localize";
+import { ElementAbout } from "./element-about";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
+  private readonly localize = new LocalizeController(this);
   @provide({ context: gameStateContext })
   @state()
   gameState: GameState = {
@@ -43,6 +49,7 @@ export class ElementApp extends LitElement {
 
   @query('element-result') resultElement!: ElementResult;
   @query('element-scores') scoresElement!: ElementScores;
+  @query('element-about') aboutElement!: ElementAbout;
 
   updated() {
     if (this.gameState.country !== null && !roundInProgress(this.gameState)) {
@@ -57,12 +64,16 @@ export class ElementApp extends LitElement {
 
   render() {
     return html`
+      <element-about></element-about>
       <element-country-selector .open="${this.gameState.country == null}"
         @country-selected="${this.handleCountrySelected}"
       ></element-country-selector>
       <div id="cesium"></div>
       <div class="header">
         <cesium-compass-bar></cesium-compass-bar>
+        <wa-button variant="neutral" style="margin-left: auto;" @click="${() => this.aboutElement.open = true}">
+          ${this.localize.term("about_us")}
+        </wa-button>
       </div>
       <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
       <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
