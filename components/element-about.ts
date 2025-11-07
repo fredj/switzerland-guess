@@ -46,7 +46,7 @@ export class ElementAbout extends Closable(LitElement) {
         <p>(FIRST NAME), (LAST NAME), (EMAIL)</p>
 
         <div slot="footer">
-          <wa-button slot="footer" variant="success" data-dialog="close"
+          <wa-button slot="footer" variant="brand" data-dialog="close"
             >${this.localize.term("close")}</wa-button
           >
         </div>

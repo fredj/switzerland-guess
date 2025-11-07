@@ -57,12 +57,12 @@ export default class ElementScores extends Closable(LitElement) {
     return html`
       <wa-dialog label="${this.localize.term("game_over")}">
         <div class="wa-stack wa-gap-2xl">
-          <wa-callout variant="success">
+          <wa-callout variant="brand">
             <wa-icon slot="icon" name="thumbs-up" variant="solid"></wa-icon>
             ${this.localize.term("your_score")}: <strong>${gameScore(this.gameState)}</strong>
           </wa-callout>
           <!-- FIXME: check allowedToSubmitScore -->
-          <wa-button class="save_score" variant="success" @click="${this.saveScore}" ?disabled="${!!this.userInfo.username && !this.allowedToSubmitScore}">
+          <wa-button class="save_score" variant="brand" @click="${this.saveScore}" ?disabled="${!!this.userInfo.username && !this.allowedToSubmitScore}">
             ${this.localize.term("submit_score")}
           </wa-button>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
