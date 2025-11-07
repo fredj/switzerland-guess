@@ -14,7 +14,7 @@ import "./element-username";
 
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
-import { always, Leaderboard, type ScoreEntry } from "../leaderboard";
+import { betterScore, Leaderboard, type ScoreEntry } from "../leaderboard";
 import {getUserInfo, setUsername, type UserInfo} from "../userinfo";
 
 import { type ElementUsername } from "./element-username";
@@ -44,12 +44,11 @@ export default class ElementScores extends Closable(LitElement) {
   async willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has("gameState")) {
       if (this.gameState.country && this.leaderboard?.collection !== this.gameState.country) {
-        this.leaderboard = new Leaderboard(this.gameState.country, always);
+        this.leaderboard = new Leaderboard(this.gameState.country, betterScore);
         this.scores = await this.leaderboard.getLeaderboard();
-
-        if (this.userInfo) {
-          this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo.userId);
-        }
+      }
+      if (this.leaderboard && this.userInfo) {
+        this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo, this.gameState);
       }
     }
   }
@@ -63,7 +62,9 @@ export default class ElementScores extends Closable(LitElement) {
             ${this.localize.term("your_score")}: <strong>${gameScore(this.gameState)}</strong>
           </wa-callout>
           <!-- FIXME: check allowedToSubmitScore -->
-          <wa-button class="save_score" variant="success" @click="${this.saveScore}">${this.localize.term("submit_score")}</wa-button>
+          <wa-button class="save_score" variant="success" @click="${this.saveScore}" ?disabled="${!!this.userInfo.username && !this.allowedToSubmitScore}">
+            ${this.localize.term("submit_score")}
+          </wa-button>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
         </div>
         <wa-button slot="footer" variant="brand" data-dialog="close">${this.localize.term("new_game")}</wa-button>
@@ -76,11 +77,11 @@ export default class ElementScores extends Closable(LitElement) {
     const username = event.detail as string;
     this.userInfo = { ...this.userInfo, username };
     setUsername(username);
+    this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo, this.gameState);
     await this.saveScoreToLeaderboard();
   }
 
   private async saveScore() {
-    console.log(this.userInfo);
     if (this.userInfo.username === null) {
       this.usernameElement.open = true;
       // will continue in handleUsernameSet
@@ -92,11 +93,10 @@ export default class ElementScores extends Closable(LitElement) {
   private async saveScoreToLeaderboard() {
     if (this.allowedToSubmitScore) {
       await this.leaderboard.saveScore(this.userInfo.userId, this.userInfo.username, gameScore(this.gameState));
-      this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo);
+      this.allowedToSubmitScore = await this.leaderboard.allowedToSubmitScore(this.userInfo, this.gameState);
       // refresh scores after saving
       this.scores = await this.leaderboard.getLeaderboard();
     }
-    this.saveScoreButton.disabled = true;
   }
 
   override createRenderRoot() {
