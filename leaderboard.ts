@@ -13,6 +13,7 @@ import { type UserInfo } from "./userinfo";
 
 
 export interface ScoreEntry {
+  rank: number;
   username: string;
   score: number;
 }
@@ -60,11 +61,13 @@ export class Leaderboard {
       const data = doc.data();
       // FIXME: see if we can access createTime
       scores.push({
+        rank: NaN,
         username: data.username,
         score: data.score,
       });
     });
     scores.sort((a, b) => b.score - a.score);
+    scores.forEach((score, index) => score.rank = index + 1);
     return scores;
   }
 

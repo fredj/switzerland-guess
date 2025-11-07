@@ -15,9 +15,9 @@ export default class ElementLeaderboard extends LitElement {
       <table>
         <tbody>
           ${this.scores.slice(0, this.maxEntries).map(
-            (score, index) => html`
+            (score) => html`
               <tr class="${score.username === this.username ? 'highlight' : ''}">
-                <td>${this.rankStyle(index + 1)}</td>
+                <td>${this.rankStyle(score.rank)}</td>
                 <td>${score.username}</td>
                 <td>${score.score}</td>
               </tr>
