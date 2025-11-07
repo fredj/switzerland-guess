@@ -1,0 +1,54 @@
+
+@font-face {
+    font-family: MessinaSansWeb;
+    src: url(/fonts/MessinaSansWeb-Light.woff2) format("woff2"),url(/fonts/MessinaSansWeb-Light.woff) format("woff"),url(/fonts/MessinaSansWeb-Light.eot) format("eot");
+    font-weight: 300;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}
+
+@font-face {
+    font-family: MessinaSansWeb;
+    src: url(/fonts/MessinaSansWeb-Book.woff2) format("woff2"),url(/fonts/MessinaSansWeb-Book.woff) format("woff"),url(/fonts/MessinaSansWeb-Book.eot) format("eot");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}
+
+@font-face {
+    font-family: MessinaSansWeb;
+    src: url(/fonts/MessinaSansWeb-Regular.woff2) format("woff2"),url(/fonts/MessinaSansWeb-Regular.woff) format("woff"),url(/fonts/MessinaSansWeb-Regular.eot) format("eot");
+    font-weight: 500;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}
+
+@font-face {
+    font-family: MessinaSansWeb;
+    src: url(/fonts/MessinaSansWeb-SemiBold.woff2) format("woff2"),url(/fonts/MessinaSansWeb-SemiBold.woff) format("woff"),url(/fonts/MessinaSansWeb-SemiBold.eot) format("eot");
+    font-weight: 600;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}
+
+@font-face {
+    font-family: MessinaSansWeb;
+    src: url(/fonts/MessinaSansWeb-Bold.woff2) format("woff2"),url(/fonts/MessinaSansWeb-Bold.woff) format("woff"),url(/fonts/MessinaSansWeb-Bold.eot) format("eot");
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}
+
+@font-face {
+    font-family: icomoon;
+    src: url(/fonts/camptocamp.woff2) format("woff2"),url(/fonts/camptocamp.woff) format("woff"),url(/fonts/camptocamp.eot) format("eot");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    unicode-range: u+000d-fb04;
+}

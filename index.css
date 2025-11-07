@@ -2,8 +2,11 @@
 @import url('@awesome.me/webawesome/dist/styles/themes/awesome.css');
 
 @import url('@cesium/engine/Source/Widget/CesiumWidget.css');
+@import url('fonts/fonts.css');
 
 :root {
+  --wa-font-family-body: 'MessinaSansWeb', sans-serif;
+
   /* --wa-color-brand-95:   #fef0ec;
   --wa-color-brand-90: #fce0d8;
   --wa-color-brand-80: #f8bcac;
