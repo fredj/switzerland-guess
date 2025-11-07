@@ -99,7 +99,8 @@ element-country-selector wa-card {
   cursor: pointer;
 }
 element-country-selector wa-card:hover {
-  background-color: var(--wa-color-brand-fill-normal);
+  transform: translateY(-0.5em);
+  transition: transform var(--wa-transition-fast) var(--wa-transition-easing);
 }
 element-country-selector wa-card .flag {
   font-size: 32px;
