@@ -5,7 +5,7 @@
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
 
 @font-face {
@@ -14,7 +14,7 @@
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
 
 @font-face {
@@ -23,7 +23,7 @@
     font-weight: 500;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
 
 @font-face {
@@ -32,7 +32,7 @@
     font-weight: 600;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
 
 @font-face {
@@ -41,7 +41,7 @@
     font-weight: 700;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
 
 @font-face {
@@ -50,5 +50,5 @@
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
-    unicode-range: u+000d-fb04
+    unicode-range: u+000d-fb04;
 }
