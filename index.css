@@ -98,14 +98,18 @@ element-result element-map {
   border-radius: var(--wa-border-radius-l);
 }
 
-element-country-selector wa-card {
+element-country-selector .country-cards wa-card {
   cursor: pointer;
 }
-element-country-selector wa-card:hover {
+element-country-selector .country-cards wa-card:hover {
   transform: translateY(-0.5em);
   transition: transform var(--wa-transition-fast) var(--wa-transition-easing);
 }
-element-country-selector wa-card .flag {
+element-country-selector .country-cards wa-card.selected {
+  box-shadow: 0 0 0 4px var(--wa-color-brand);
+}
+
+element-country-selector .country-cards wa-card .flag {
   font-size: 32px;
 }
 
