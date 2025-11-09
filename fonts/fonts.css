@@ -2,7 +2,7 @@
 @font-face {
     font-family: MessinaSansWeb;
     src: url(/fonts/MessinaSansWeb-Light.woff2) format("woff2"),url(/fonts/MessinaSansWeb-Light.woff) format("woff"),url(/fonts/MessinaSansWeb-Light.eot) format("eot");
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
     font-display: fallback;
     unicode-range: u+000d-fb04
