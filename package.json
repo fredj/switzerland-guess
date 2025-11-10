@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fredj/switzerland-guess.git"
+  },
   "scripts": {
     "start": "vite serve",
     "build": "vite build",
