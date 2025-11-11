@@ -97,7 +97,7 @@ export function setCameraPosition(viewer: CesiumWidget, position: Coordinate): v
     duration: 0,
     complete: () => {
       addSnow(viewer.scene);
-      placeRandomModelNearCamera(viewer);
+      // placeRandomModelNearCamera(viewer);
     }
   });
 
