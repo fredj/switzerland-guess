@@ -40,10 +40,10 @@ export class ElementAbout extends Closable(LitElement) {
           digital experiences that are human and made to last.
         </p>
         <p>
-          Curious about what we do or thinking about working together? Let us
-          know. We’ll be in touch!
+          Curious about what we do or thinking about working together?
+          <a href="https://camptocamp.com/${this.localize.lang()}/contact" target="_blank">
+            Let us know. We’ll be in touch!</a>
         </p>
-        <p>(FIRST NAME), (LAST NAME), (EMAIL)</p>
 
         <div slot="footer">
           <wa-button slot="footer" variant="brand" data-dialog="close"
