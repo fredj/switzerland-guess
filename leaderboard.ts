@@ -44,7 +44,6 @@ export class Leaderboard {
     if (!userInfo.username || !gameOver(gameState)) {
       return false;
     }
-    console.log("Checking if allowed to submit score...");
     return this.savePolicy(this, userInfo, gameState);
   }
 
