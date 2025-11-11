@@ -15,7 +15,7 @@ import {
     ParticleSystem,
     Particle,
     Primitive,
-    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler,
+    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler, JulianDate
 } from "@cesium/engine";
 
 import { type Coordinate } from "ol/coordinate";
@@ -54,6 +54,8 @@ export async function createCesiumWidget(
     terrainProvider: await CesiumTerrainProvider.fromIonAssetId(1),
     shouldAnimate: true
   });
+
+  viewer.clock.currentTime = JulianDate.fromDate(new Date("2015-12-25T12:00:00Z"));
 
   // viewer.scene.highDynamicRange = true;
   viewer.scene.globe.showGroundAtmosphere = true;
