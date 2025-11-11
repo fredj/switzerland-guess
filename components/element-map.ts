@@ -19,6 +19,7 @@ import { getCenter } from "ol/extent";
 import type RenderEvent from "ol/render/Event";
 
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { hasArea } from "ol/size";
 
 useGeographic();
 
@@ -97,7 +98,7 @@ export default class ElementMap extends LitElement {
     return this.gameState.country !== null;
   }
 
-  willUpdate() {
+  async updated() {
     if (this.showResult && this.gameState.cameraPosition && this.gameState.guessedPosition) {
       this.guessedFeature.setGeometry(
         new Point(this.gameState.guessedPosition)
@@ -109,12 +110,16 @@ export default class ElementMap extends LitElement {
           this.gameState.guessedPosition,
         ])
       );
-      this.map.getView().fit(this.lineFeature.getGeometry().getExtent());
+      await this.mapHasSize();
+      this.map.getView().fit(this.lineFeature.getGeometry(), {
+        padding: [40, 40, 40, 40],
+      });
     } else {
       this.guessedFeature.setGeometry(undefined);
       this.cameraFeature.setGeometry(undefined);
       this.lineFeature.setGeometry(undefined);
 
+      await this.mapHasSize();
       this.map.getView().fit(this.getCountryExtent());
     }
 
@@ -191,6 +196,20 @@ export default class ElementMap extends LitElement {
 
   getCountryExtent() {
     return scaleExtent(countriesExtent[this.gameState.country], 1.5);
+  }
+
+  mapHasSize(): Promise<void> {
+    return new Promise((resolve) => {
+      if (hasArea(this.map.getSize())) {
+        resolve();
+        return;
+      }
+      this.map.once("change:size", () => {
+        if (hasArea(this.map.getSize())) {
+          resolve();
+        }
+      });
+    });
   }
 }
 
