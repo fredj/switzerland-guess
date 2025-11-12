@@ -28,12 +28,10 @@ import { type Coordinate } from "ol/coordinate";
 import { type CesiumWidget } from "@cesium/engine";
 import type ElementResult from "./element-result";
 import type ElementScores from "./element-scores";
-import { LocalizeController } from "@shoelace-style/localize";
 import { ElementAbout } from "./element-about";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
-  private readonly localize = new LocalizeController(this);
   @provide({ context: gameStateContext })
   @state()
   gameState: GameState = {
@@ -71,8 +69,8 @@ export class ElementApp extends LitElement {
       <div id="cesium"></div>
       <div class="header">
         <cesium-compass-bar></cesium-compass-bar>
-        <wa-button variant="neutral" style="margin-left: auto;" @click="${() => this.aboutElement.open = true}">
-          ${this.localize.term("about_us")}
+        <wa-button style="margin-left: auto;" @click="${() => this.aboutElement.open = true}">
+          <wa-icon src="./images/mountain.svg"></wa-icon>
         </wa-button>
       </div>
       <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
