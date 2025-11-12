@@ -127,7 +127,7 @@ element-country-selector .country-cards wa-card.selected {
 }
 
 element-country-selector .country-cards wa-card .flag {
-  font-size: 32px;
+  font-size: var(--wa-font-size-2xl);
 }
 
 element-leaderboard tr.highlight {
