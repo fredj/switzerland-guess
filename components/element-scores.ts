@@ -67,7 +67,10 @@ export default class ElementScores extends Closable(LitElement) {
           </wa-button>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
         </div>
-        <wa-button slot="footer" variant="brand" data-dialog="close">${this.localize.term("new_game")}</wa-button>
+        <wa-button slot="footer" variant="brand" size="small" pill data-dialog="close">
+          <wa-icon slot="end" name="arrow-right"></wa-icon>
+          ${this.localize.term("new_game")}
+        </wa-button>
       </wa-dialog>
       <element-username .leaderboard="${this.leaderboard}" @username="${this.handleUsernameSet}"></element-username>
     `;
