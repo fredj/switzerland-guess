@@ -9,7 +9,7 @@ import "@awesome.me/webawesome/dist/components/button/button.js";
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
 import type WaInput from "@awesome.me/webawesome/dist/components/input/input.js";
-import { type Leaderboard } from "../leaderboard";
+import type { Leaderboard } from "../leaderboard";
 
 @customElement("element-username")
 export default class ElementUsername extends Closable(LitElement) {

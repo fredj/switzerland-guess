@@ -6,8 +6,8 @@ import "@awesome.me/webawesome/dist/components/button/button.js";
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
 import "./element-map";
-import { type Coordinate } from "ol/coordinate";
 import { LocalizeController } from "@shoelace-style/localize";
+import type { Coordinate } from "ol/coordinate";
 
 @customElement("element-guess")
 export default class ElementGuess extends LitElement {

@@ -17,15 +17,14 @@ import "./element-about";
 import {addBonusModelClickCallback, createCesiumWidget, setCameraPosition} from "../cesium";
 import {
   endRound,
-  type GameState,
   gameStateContext,
   roundInProgress,
   startGame,
   startRound,
 } from "../game-state";
-import { type Coordinate } from "ol/coordinate";
-
-import { type CesiumWidget } from "@cesium/engine";
+import type { Coordinate } from "ol/coordinate";
+import type { GameState } from "../game-state";
+import type { CesiumWidget } from "@cesium/engine";
 import type ElementResult from "./element-result";
 import type ElementScores from "./element-scores";
 import type ElementAbout from "./element-about";

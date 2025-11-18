@@ -1,5 +1,6 @@
-import { LitElement, PropertyValues } from "lit";
+import { LitElement } from "lit";
 import { property } from "lit/decorators.js";
+import type { PropertyValues } from "lit";
 
 import type WaDialog from "@awesome.me/webawesome/dist/components/dialog/dialog";
 

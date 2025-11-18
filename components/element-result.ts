@@ -8,11 +8,12 @@ import "@awesome.me/webawesome/dist/components/icon/icon.js";
 import "./element-map";
 
 import { consume } from "@lit/context";
-import { gameOver, gameStateContext, type GameState } from "../game-state";
+import { gameOver, gameStateContext } from "../game-state";
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
 
 import "@awesome.me/webawesome/dist/components/progress-bar/progress-bar.js";
+import type { GameState } from "../game-state";
 
 @customElement("element-result")
 export default class ElementResult extends Closable(LitElement) {
