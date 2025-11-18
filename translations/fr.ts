@@ -28,4 +28,8 @@ export default {
   no_username: "Aucun nom d'utilisateur saisi",
   username_taken: "Nom d'utilisateur déjà pris",
   save: "Enregistrer",
+
+  about_content: `
+    <p>untranslated</p>
+  `,
 } as Translation;
