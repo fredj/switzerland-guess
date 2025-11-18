@@ -1,0 +1,45 @@
+name: Publish docker image
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        id: push_docker_image
+        with:
+          push: true
+          tags: ghcr.io/fredj/switzerland-guess:latest
+    outputs:
+      docker_image_sha: ${{ steps.push_docker_image.outputs.digest }}
+
+  trigger_deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_publish
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT_DEPLOY }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'camptocamp',
+              repo: 'argocd-gs-plg-apps',
+              workflow_id: 'update-switzerland-guess-image.yaml',
+              ref: 'main',
+              inputs: {
+                img_sha: '${{ needs.build_and_publish.outputs.docker_image_sha }}'
+              }
+            });
