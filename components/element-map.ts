@@ -13,14 +13,15 @@ import { useGeographic } from "ol/proj.js";
 import GeoJSON from "ol/format/GeoJSON";
 import OSM from "ol/source/OSM";
 import { consume } from "@lit/context";
-import { type GameState, gameStateContext } from "../game-state";
+import { gameStateContext } from "../game-state";
 import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
 import { getCenter } from "ol/extent";
 import {defaults as defaultsInteractions} from "ol/interaction/defaults";
-import type RenderEvent from "ol/render/Event";
 
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { hasArea } from "ol/size";
+import type { GameState } from "../game-state";
+import type RenderEvent from "ol/render/Event";
 
 useGeographic();
 

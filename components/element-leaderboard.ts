@@ -1,8 +1,8 @@
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { type ScoreEntry } from "../leaderboard";
 
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
+import type { ScoreEntry } from "../leaderboard";
 
 @customElement("element-leaderboard")
 export default class ElementLeaderboard extends LitElement {

@@ -1,6 +1,6 @@
-import { html, LitElement, PropertyValues } from "lit";
+import { html, LitElement } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
-import { gameScore, gameStateContext, type GameState } from "../game-state";
+import { gameScore, gameStateContext } from "../game-state";
 import { consume } from "@lit/context";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
@@ -14,9 +14,12 @@ import "./element-username";
 
 import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
-import { betterScore, Leaderboard, type ScoreEntry } from "../leaderboard";
-import {getUserInfo, setUsername, type UserInfo} from "../userinfo";
-
+import { betterScore, Leaderboard } from "../leaderboard";
+import { getUserInfo, setUsername } from "../userinfo";
+import type { PropertyValues } from "lit";
+import type { GameState } from "../game-state";
+import type { ScoreEntry } from "../leaderboard";
+import type { UserInfo } from "../userinfo";
 import type ElementUsername from "./element-username";
 import type WaButton from "@awesome.me/webawesome/dist/components/button/button.js";
 

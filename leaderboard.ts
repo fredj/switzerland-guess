@@ -9,8 +9,9 @@ import {
   where,
   type Firestore,
 } from "firebase/firestore/lite";
-import { type UserInfo } from "./userinfo";
-import { gameOver, gameScore, type GameState } from "./game-state";
+import { gameOver, gameScore } from "./game-state";
+import type { UserInfo } from "./userinfo";
+import type { GameState } from "./game-state";
 
 
 export interface ScoreEntry {

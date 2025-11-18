@@ -7,18 +7,22 @@ import {
     Ion,
     ImageryLayer,
     IonImageryProvider,
-    Scene,
     Cartesian2,
     Color,
     SphereEmitter,
     Matrix4,
     ParticleSystem,
-    Particle,
     Primitive,
-    Cartographic, ScreenSpaceEventType, defined, ScreenSpaceEventHandler, JulianDate
+    Cartographic,
+    ScreenSpaceEventType,
+    defined,
+    ScreenSpaceEventHandler,
+    JulianDate,
+    type Scene,
+    type Particle
 } from "@cesium/engine";
 
-import { type Coordinate } from "ol/coordinate";
+import type { Coordinate } from "ol/coordinate";
 
 Object.assign(RequestScheduler.requestsByServer, {
   "assets.ion.cesium.com:443": 28,
