@@ -12,7 +12,7 @@ import type WaInput from "@awesome.me/webawesome/dist/components/input/input.js"
 import { type Leaderboard } from "../leaderboard";
 
 @customElement("element-username")
-export class ElementUsername extends Closable(LitElement) {
+export default class ElementUsername extends Closable(LitElement) {
   private readonly localize = new LocalizeController(this);
   @property({ type: Object }) leaderboard!: Leaderboard;
   @query("wa-input") username!: WaInput;

@@ -9,7 +9,7 @@ import { Closable } from "../closable";
 import { LocalizeController } from "@shoelace-style/localize";
 
 @customElement("element-about")
-export class ElementAbout extends Closable(LitElement) {
+export default class ElementAbout extends Closable(LitElement) {
   private readonly localize = new LocalizeController(this);
   render() {
     return html`

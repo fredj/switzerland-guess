@@ -17,7 +17,7 @@ import { LocalizeController } from "@shoelace-style/localize";
 import { betterScore, Leaderboard, type ScoreEntry } from "../leaderboard";
 import {getUserInfo, setUsername, type UserInfo} from "../userinfo";
 
-import { type ElementUsername } from "./element-username";
+import type ElementUsername from "./element-username";
 import type WaButton from "@awesome.me/webawesome/dist/components/button/button.js";
 
 @customElement("element-scores")

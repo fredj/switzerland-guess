@@ -28,7 +28,7 @@ import { type Coordinate } from "ol/coordinate";
 import { type CesiumWidget } from "@cesium/engine";
 import type ElementResult from "./element-result";
 import type ElementScores from "./element-scores";
-import { ElementAbout } from "./element-about";
+import type ElementAbout from "./element-about";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
@@ -69,7 +69,7 @@ export class ElementApp extends LitElement {
       <div id="cesium"></div>
       <div class="header">
         <cesium-compass-bar></cesium-compass-bar>
-        <wa-button style="margin-left: auto;" @click="${() => this.aboutElement.open = true}">
+        <wa-button style="margin-left: auto;" @click=${this.openAboutDialog}>
           <wa-icon src="./images/mountain.svg"></wa-icon>
         </wa-button>
       </div>
@@ -98,6 +98,14 @@ export class ElementApp extends LitElement {
       ...this.gameState,
       country: event.detail,
     };
+
+    // trackEvent("country_selected", { country: event.detail.name });
+    // trackEvent("language_selected", { language: document.documentElement.lang });
+  }
+
+  openAboutDialog() {
+    this.aboutElement.open = true;
+    // trackEvent("about_opened");
   }
 
   handleGuess(event: CustomEvent<Coordinate>) {
