@@ -16,6 +16,7 @@ import { consume } from "@lit/context";
 import { type GameState, gameStateContext } from "../game-state";
 import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
 import { getCenter } from "ol/extent";
+import {defaults as defaultsInteractions} from "ol/interaction/defaults";
 import type RenderEvent from "ol/render/Event";
 
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
@@ -135,6 +136,10 @@ export default class ElementMap extends LitElement {
   constructor() {
     super();
     this.map = new Map({
+      interactions: defaultsInteractions({
+        altShiftDragRotate: false,
+        pinchRotate: false,
+      }),
       controls: [],
       layers: [
         new TileLayer({
