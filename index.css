@@ -6,25 +6,38 @@
 
 :root {
   --wa-font-family-body: 'MessinaSansWeb', sans-serif;
+  --wa-color-text-normal: #000;
+  --wa-color-text-link: var(--wa-color-brand-60);
 
   --wa-color-brand-95: #ffd6bc;
   --wa-color-brand-90: #ffc6a3;
   --wa-color-brand-80: #ffa770;
   --wa-color-brand-70: #ff873d;
-  --wa-color-brand-60: #ff680a;
+  --wa-color-brand-60: #ff680a; /* official brand color (rgb(255, 104, 10)) */
   --wa-color-brand-50: #d65200;
   --wa-color-brand-40: #a33f00;
   --wa-color-brand-30: #702b00;
   --wa-color-brand-20: #3d1700;
   --wa-color-brand-10: #0a0400;
   --wa-color-brand-05: #000000;
+
   --wa-color-brand: var(--wa-color-brand-60);
   --wa-color-brand-on: var(--wa-color-brand-10);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-60);
+}
+@layer wa-theme-overrides {
+  wa-button::part(base) {
+    text-transform: uppercase;
+    font-size: 13px;
+    padding: 8px 20px;
+    height: auto;
+  }
 }
 
 html, body, #cesium {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 .hidden {

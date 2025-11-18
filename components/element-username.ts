@@ -6,6 +6,7 @@ import { LocalizeController } from "@shoelace-style/localize";
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/input/input.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
+import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
 import type WaInput from "@awesome.me/webawesome/dist/components/input/input.js";
 import { type Leaderboard } from "../leaderboard";
@@ -22,7 +23,10 @@ export class ElementUsername extends Closable(LitElement) {
     return html`
       <wa-dialog>
         <wa-input autofocus placeholder=${this.localize.term("username")}></wa-input>
-        <wa-button slot="footer" variant="brand" @click="${this.save}">${this.localize.term("save")}</wa-button>
+        <wa-button slot="footer" variant="brand" @click="${this.save}" size="small" pill>
+          <wa-icon slot="end" name="arrow-right"></wa-icon>
+          ${this.localize.term("save")}
+        </wa-button>
       </wa-dialog>
     `;
   }

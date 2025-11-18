@@ -3,6 +3,7 @@ import { customElement, state } from "lit/decorators.js";
 
 import "@awesome.me/webawesome/dist/components/card/card.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
+import "@awesome.me/webawesome/dist/components/icon/icon.js";
 
 import "./element-map";
 import { type Coordinate } from "ol/coordinate";
@@ -21,12 +22,10 @@ export default class ElementGuess extends LitElement {
         <div slot="header">${this.localize.term("where_are_you")}</div>
         <element-map @map-click="${this.handleMapClick}"></element-map>
         <div slot="footer">
-          <wa-button
-            variant="brand"
-            ?disabled="${this.guessedPosition == null}"
-            @click="${this.validateGuess}"
-            >${this.localize.term("guess")}</wa-button
-          >
+          <wa-button variant="brand" size="small" pill ?disabled="${this.guessedPosition == null}" @click="${this.validateGuess}">
+            <wa-icon slot="end" name="arrow-right"></wa-icon>
+            ${this.localize.term("guess")}
+          </wa-button>
         </div>
       </wa-card>
     `;
