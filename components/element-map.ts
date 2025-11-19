@@ -1,27 +1,27 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
+import { consume } from "@lit/context";
+import Feature from "ol/Feature";
 import Map from "ol/Map";
 import View from "ol/View";
+import { getCenter } from "ol/extent";
+import GeoJSON from "ol/format/GeoJSON";
+import LineString from "ol/geom/LineString";
+import Point from "ol/geom/Point";
+import { defaults as defaultsInteractions } from "ol/interaction/defaults";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import Point from "ol/geom/Point";
-import LineString from "ol/geom/LineString";
-import Feature from "ol/Feature";
 import { useGeographic } from "ol/proj.js";
-import GeoJSON from "ol/format/GeoJSON";
 import OSM from "ol/source/OSM";
-import { consume } from "@lit/context";
+import VectorSource from "ol/source/Vector";
 import { gameStateContext } from "../game-state";
 import { countriesExtent, countriesGeometry, scaleExtent } from "../utils";
-import { getCenter } from "ol/extent";
-import {defaults as defaultsInteractions} from "ol/interaction/defaults";
 
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import type RenderEvent from "ol/render/Event";
 import { hasArea } from "ol/size";
 import type { GameState } from "../game-state";
-import type RenderEvent from "ol/render/Event";
 
 useGeographic();
 
@@ -59,10 +59,10 @@ export default class ElementMap extends LitElement {
   @consume({ context: gameStateContext, subscribe: true })
   gameState!: GameState;
 
-  @property({ attribute: 'show-result', type: Boolean }) showResult = false;
+  @property({ attribute: "show-result", type: Boolean }) showResult = false;
 
   private map: Map;
-  @query(".map") mapElement!: HTMLDivElement
+  @query(".map") mapElement!: HTMLDivElement;
 
   private guessedFeature = new Feature({
     type: "guessed",
@@ -101,16 +101,20 @@ export default class ElementMap extends LitElement {
   }
 
   async updated() {
-    if (this.showResult && this.gameState.cameraPosition && this.gameState.guessedPosition) {
+    if (
+      this.showResult &&
+      this.gameState.cameraPosition &&
+      this.gameState.guessedPosition
+    ) {
       this.guessedFeature.setGeometry(
-        new Point(this.gameState.guessedPosition)
+        new Point(this.gameState.guessedPosition),
       );
       this.cameraFeature.setGeometry(new Point(this.gameState.cameraPosition));
       this.lineFeature.setGeometry(
         new LineString([
           this.gameState.cameraPosition,
           this.gameState.guessedPosition,
-        ])
+        ]),
       );
       await this.mapHasSize();
       this.map.getView().fit(this.lineFeature.getGeometry(), {
@@ -178,7 +182,7 @@ export default class ElementMap extends LitElement {
       }
       this.guessedFeature.setGeometry(new Point(event.coordinate));
       this.dispatchEvent(
-        new CustomEvent("map-click", { detail: event.coordinate })
+        new CustomEvent("map-click", { detail: event.coordinate }),
       );
     });
   }
@@ -196,7 +200,7 @@ export default class ElementMap extends LitElement {
         extent: extent,
         center: getCenter(extent),
         zoom: 4,
-      })
+      }),
     );
   }
 

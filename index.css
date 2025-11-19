@@ -1,11 +1,10 @@
-@import url('@awesome.me/webawesome/dist/styles/webawesome.css');
-@import url('@awesome.me/webawesome/dist/styles/themes/awesome.css');
+@import url("@awesome.me/webawesome/dist/styles/webawesome.css");
 
-@import url('@cesium/engine/Source/Widget/CesiumWidget.css');
-@import url('fonts/fonts.css');
+@import url("@cesium/engine/Source/Widget/CesiumWidget.css");
+@import url("fonts/fonts.css");
 
 :root {
-  --wa-font-family-body: 'MessinaSansWeb', sans-serif;
+  --wa-font-family-body: "MessinaSansWeb", sans-serif;
   --wa-color-text-normal: #000;
   --wa-color-text-link: var(--wa-color-brand-60);
 
@@ -34,7 +33,9 @@
   }
 }
 
-html, body, #cesium {
+html,
+body,
+#cesium {
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -51,7 +52,7 @@ html, body, #cesium {
   justify-content: space-between;
   position: absolute;
   top: 0;
-  padding: 16px
+  padding: 16px;
 }
 
 cesium-compass-bar {
@@ -97,7 +98,6 @@ element-guess wa-card:hover {
   height: 500px;
 }
 @media (max-width: 600px) {
-
   element-guess wa-card {
     width: 100%;
     height: 500px;

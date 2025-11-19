@@ -1,16 +1,16 @@
 import { html, LitElement } from "lit";
 import { customElement, queryAll, state } from "lit/decorators.js";
 
-import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
-import "@awesome.me/webawesome/dist/components/card/card.js";
-import "@awesome.me/webawesome/dist/components/select/select.js";
-import "@awesome.me/webawesome/dist/components/option/option.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
+import "@awesome.me/webawesome/dist/components/card/card.js";
+import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
+import "@awesome.me/webawesome/dist/components/option/option.js";
+import "@awesome.me/webawesome/dist/components/select/select.js";
 
+import type WaCard from "@awesome.me/webawesome/dist/components/card/card.js";
 import { LocalizeController } from "@shoelace-style/localize";
 import { Closable } from "../closable";
-import type WaCard from "@awesome.me/webawesome/dist/components/card/card.js";
 
 @customElement("element-country-selector")
 export default class ElementCountrySelector extends Closable(LitElement) {
@@ -59,12 +59,21 @@ export default class ElementCountrySelector extends Closable(LitElement) {
           </div>
 
           <wa-select @change="${this.selectLanguage}">
-            <wa-option value="fr" ?selected=${lang === "fr"}>Français</wa-option>
+            <wa-option value="fr" ?selected=${lang === "fr"}
+              >Français</wa-option
+            >
             <wa-option value="de" ?selected=${lang === "de"}>Deutsch</wa-option>
             <wa-option value="en" ?selected=${lang === "en"}>English</wa-option>
           </wa-select>
         </div>
-        <wa-button slot="footer" variant="brand" size="small" pill @click=${this.confirm} ?disabled=${!this.selectedCountry}>
+        <wa-button
+          slot="footer"
+          variant="brand"
+          size="small"
+          pill
+          @click=${this.confirm}
+          ?disabled=${!this.selectedCountry}
+        >
           <wa-icon slot="end" name="arrow-right"></wa-icon>
           ${this.localize.term("play")}
         </wa-button>
@@ -82,9 +91,8 @@ export default class ElementCountrySelector extends Closable(LitElement) {
   confirm() {
     this.open = false;
     this.dispatchEvent(
-      new CustomEvent("country-selected", { detail: this.selectedCountry })
+      new CustomEvent("country-selected", { detail: this.selectedCountry }),
     );
-
   }
 
   selectLanguage(event: Event) {
