@@ -16,12 +16,14 @@ export default class ElementLeaderboard extends LitElement {
         <tbody>
           ${this.scores.slice(0, this.maxEntries).map(
             (score) => html`
-              <tr class="${score.username === this.username ? 'highlight' : ''}">
+              <tr
+                class="${score.username === this.username ? "highlight" : ""}"
+              >
                 <td>${this.rankStyle(score.rank)}</td>
                 <td>${score.username}</td>
                 <td>${score.score}</td>
               </tr>
-            `
+            `,
           )}
         </tbody>
       </table>
@@ -30,11 +32,23 @@ export default class ElementLeaderboard extends LitElement {
 
   rankStyle(rank: number) {
     if (rank === 1) {
-      return html`<wa-icon name="trophy" variant="solid" style="color: #FFD700;"></wa-icon>`;
+      return html`<wa-icon
+        name="trophy"
+        variant="solid"
+        style="color: #FFD700;"
+      ></wa-icon>`;
     } else if (rank === 2) {
-      return html`<wa-icon name="trophy" variant="solid" style="color: #C0C0C0;"></wa-icon>`;
+      return html`<wa-icon
+        name="trophy"
+        variant="solid"
+        style="color: #C0C0C0;"
+      ></wa-icon>`;
     } else if (rank === 3) {
-      return html`<wa-icon name="trophy" variant="solid" style="color: #cd7f32;"></wa-icon>`;
+      return html`<wa-icon
+        name="trophy"
+        variant="solid"
+        style="color: #cd7f32;"
+      ></wa-icon>`;
     }
     return html`<span>${rank}</span>`;
   }

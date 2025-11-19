@@ -31,9 +31,9 @@ export default defineConfig({
     // and other options listed here: https://vitejs.dev/guide/assets.html#the-public-directory
     viteStaticCopy({
       targets: [
-        { src: 'models', dest: '' },
-        { src: 'images', dest: '' },
-        { src: 'fonts', dest: '' },
+        { src: "models", dest: "" },
+        { src: "images", dest: "" },
+        { src: "fonts", dest: "" },
         { src: `${cesiumSource}/Build/ThirdParty`, dest: cesiumBaseUrl },
         { src: `${cesiumSource}/Build/Workers`, dest: cesiumBaseUrl },
         { src: `${cesiumSource}/Source/Assets`, dest: cesiumBaseUrl },

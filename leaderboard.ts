@@ -1,18 +1,17 @@
 import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
   collection,
-  getDocs,
-  setDoc,
   doc,
+  getDocs,
+  getFirestore,
   query,
+  setDoc,
   where,
   type Firestore,
 } from "firebase/firestore/lite";
+import type { GameState } from "./game-state";
 import { gameOver, gameScore } from "./game-state";
 import type { UserInfo } from "./userinfo";
-import type { GameState } from "./game-state";
-
 
 export interface ScoreEntry {
   rank: number;
@@ -20,7 +19,11 @@ export interface ScoreEntry {
   score: number;
 }
 
-export type SavePolicy = (leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState) => Promise<boolean>;
+export type SavePolicy = (
+  leaderboard: Leaderboard,
+  userInfo: UserInfo,
+  gameState: GameState,
+) => Promise<boolean>;
 
 export class Leaderboard {
   // FIXME: configurable via class options
@@ -41,7 +44,10 @@ export class Leaderboard {
     this.database = getFirestore(app);
   }
 
-  async allowedToSubmitScore(userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+  async allowedToSubmitScore(
+    userInfo: UserInfo,
+    gameState: GameState,
+  ): Promise<boolean> {
     if (!userInfo.username || !gameOver(gameState)) {
       return false;
     }
@@ -60,7 +66,7 @@ export class Leaderboard {
   async getLeaderboard(): Promise<Array<ScoreEntry>> {
     const scores: Array<ScoreEntry> = [];
     const querySnapshot = await getDocs(
-      collection(this.database, this.collection)
+      collection(this.database, this.collection),
     );
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -72,14 +78,14 @@ export class Leaderboard {
       });
     });
     scores.sort((a, b) => b.score - a.score);
-    scores.forEach((score, index) => score.rank = index + 1);
+    scores.forEach((score, index) => (score.rank = index + 1));
     return scores;
   }
 
   async getUserId(username: string): Promise<string | null> {
     const q = query(
       collection(this.database, this.collection),
-      where("username", "==", username)
+      where("username", "==", username),
     );
     const querySnapshot = await getDocs(q);
     if (querySnapshot.size === 0) {
@@ -93,12 +99,20 @@ export class Leaderboard {
 }
 
 // Always allow submitting a score
-export async function always(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+export async function always(
+  leaderboard: Leaderboard,
+  userInfo: UserInfo,
+  gameState: GameState,
+): Promise<boolean> {
   return true;
 }
 
 // Allow submitting a better score only
-export async function betterScore(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+export async function betterScore(
+  leaderboard: Leaderboard,
+  userInfo: UserInfo,
+  gameState: GameState,
+): Promise<boolean> {
   const score = await userScore(leaderboard, userInfo.userId);
   if (score === null) {
     return true;
@@ -107,17 +121,23 @@ export async function betterScore(leaderboard: Leaderboard, userInfo: UserInfo, 
 }
 
 // Allow submitting a score only once per user and collection
-export async function onlyOnce(leaderboard: Leaderboard, userInfo: UserInfo, gameState: GameState): Promise<boolean> {
+export async function onlyOnce(
+  leaderboard: Leaderboard,
+  userInfo: UserInfo,
+  gameState: GameState,
+): Promise<boolean> {
   const score = await userScore(leaderboard, userInfo.userId);
   return score === null;
 }
 
-
-function userScore(leaderboard: Leaderboard, userId: string): Promise<number | null> {
+function userScore(
+  leaderboard: Leaderboard,
+  userId: string,
+): Promise<number | null> {
   return new Promise(async (resolve) => {
     const q = query(
       collection(leaderboard.database, leaderboard.collection),
-      where("userId", "==", userId)
+      where("userId", "==", userId),
     );
     const querySnapshot = await getDocs(q);
     if (querySnapshot.size === 0) {

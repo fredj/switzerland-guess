@@ -1,16 +1,25 @@
 import bbox from "@turf/bbox";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { distance as distanceBetweenPoints } from "@turf/distance";
 import { multiPolygon, point } from "@turf/helpers";
 import { randomPosition } from "@turf/random";
-import { distance as distanceBetweenPoints } from "@turf/distance";
 import { fromExtent } from "ol/geom/Polygon";
 
 import countries from "./data/countries.json" with { type: "json" };
 
 export const countriesGeometry: { [key in CountryCode]: any } = {
-  ch: multiPolygon(countries.features.find((f: any) => f.properties.code === "ch").geometry.coordinates),
-  fr: multiPolygon(countries.features.find((f: any) => f.properties.code === "fr").geometry.coordinates),
-  de: multiPolygon(countries.features.find((f: any) => f.properties.code === "de").geometry.coordinates),
+  ch: multiPolygon(
+    countries.features.find((f: any) => f.properties.code === "ch").geometry
+      .coordinates,
+  ),
+  fr: multiPolygon(
+    countries.features.find((f: any) => f.properties.code === "fr").geometry
+      .coordinates,
+  ),
+  de: multiPolygon(
+    countries.features.find((f: any) => f.properties.code === "de").geometry
+      .coordinates,
+  ),
 };
 
 export const countriesExtent: { [key in CountryCode]: number[] } = {
@@ -33,13 +42,18 @@ export const countriesMaxDistance: { [key in CountryCode]: number } = {
 
 export type CountryCode = "ch" | "fr" | "de";
 
-export function scoreFromDistance(distance: number, country: CountryCode): number {
+export function scoreFromDistance(
+  distance: number,
+  country: CountryCode,
+): number {
   // https://www.reddit.com/r/geoguessr/comments/zqwgnr/how_the_hell_does_this_game_calculate_damage/
   const size = countriesMaxDistance[country]; // approximate max distance in meters
   return 5000 * Math.exp((-10 * distance) / size);
 }
 
-export function randomPositionInCountry(country: CountryCode): [number, number] {
+export function randomPositionInCountry(
+  country: CountryCode,
+): [number, number] {
   const polygon = countriesGeometry[country];
   let position = randomPosition(bbox(polygon));
   while (true) {
@@ -62,7 +76,11 @@ function maxDistance(geometry: any): number {
   const coords = geometry.geometry.coordinates[0][0];
   for (let i = 0; i < coords.length; i++) {
     for (let j = i + 1; j < coords.length; j++) {
-      const distance = distanceBetweenPoints(point(coords[i]), point(coords[j]), { units: "meters" });
+      const distance = distanceBetweenPoints(
+        point(coords[i]),
+        point(coords[j]),
+        { units: "meters" },
+      );
       if (distance > max) {
         max = distance;
       }

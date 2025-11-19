@@ -1,20 +1,27 @@
-import { customElement, query, state } from "lit/decorators.js";
 import { provide } from "@lit/context";
-import { randomPositionInCountry } from "../utils";
 import { html, LitElement } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
+import { randomPositionInCountry } from "../utils";
 
 import CesiumSphereCamera from "@geoblocks/cesium-sphere-camera";
 
 import "@awesome.me/webawesome/dist/components/button/button.js";
 
 import "@geoblocks/cesium-compass-bar";
+import "./element-about";
+import "./element-country-selector";
 import "./element-guess";
 import "./element-result";
-import "./element-country-selector";
 import "./element-scores";
-import "./element-about";
 
-import {addBonusModelClickCallback, createCesiumWidget, setCameraPosition} from "../cesium";
+import type { CesiumWidget } from "@cesium/engine";
+import type { Coordinate } from "ol/coordinate";
+import {
+  addBonusModelClickCallback,
+  createCesiumWidget,
+  setCameraPosition,
+} from "../cesium";
+import type { GameState } from "../game-state";
 import {
   endRound,
   gameStateContext,
@@ -22,12 +29,9 @@ import {
   startGame,
   startRound,
 } from "../game-state";
-import type { Coordinate } from "ol/coordinate";
-import type { GameState } from "../game-state";
-import type { CesiumWidget } from "@cesium/engine";
+import type ElementAbout from "./element-about";
 import type ElementResult from "./element-result";
 import type ElementScores from "./element-scores";
-import type ElementAbout from "./element-about";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
@@ -44,16 +48,16 @@ export class ElementApp extends LitElement {
   };
   private viewer: CesiumWidget | null = null;
 
-  @query('element-result') resultElement!: ElementResult;
-  @query('element-scores') scoresElement!: ElementScores;
-  @query('element-about') aboutElement!: ElementAbout;
+  @query("element-result") resultElement!: ElementResult;
+  @query("element-scores") scoresElement!: ElementScores;
+  @query("element-about") aboutElement!: ElementAbout;
 
   updated() {
     if (this.gameState.country !== null && !roundInProgress(this.gameState)) {
       // First game round after country selection
       this.gameState = startRound(
         this.gameState,
-        randomPositionInCountry(this.gameState.country)
+        randomPositionInCountry(this.gameState.country),
       );
       setCameraPosition(this.viewer!, this.gameState.cameraPosition);
     }
@@ -62,7 +66,8 @@ export class ElementApp extends LitElement {
   render() {
     return html`
       <element-about></element-about>
-      <element-country-selector .open="${this.gameState.country == null}"
+      <element-country-selector
+        .open="${this.gameState.country == null}"
         @country-selected="${this.handleCountrySelected}"
       ></element-country-selector>
       <div id="cesium"></div>
@@ -72,15 +77,21 @@ export class ElementApp extends LitElement {
           <wa-icon src="./images/mountain.svg"></wa-icon>
         </wa-button>
       </div>
-      <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
-      <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
+      <element-guess
+        ?hidden="${!roundInProgress(this.gameState)}"
+        @guess="${this.handleGuess}"
+      ></element-guess>
+      <element-result
+        @close="${this.handleCloseResult}"
+        @gameOver="${this.handleGameOver}"
+      ></element-result>
       <element-scores @close="${this.handleCloseScores}"></element-scores>
     `;
   }
 
   async firstUpdated() {
     this.viewer = await createCesiumWidget(
-      this.querySelector<HTMLDivElement>("#cesium")!
+      this.querySelector<HTMLDivElement>("#cesium")!,
     );
     addBonusModelClickCallback(this.viewer, () => {
       this.gameState.score = 5;
@@ -122,7 +133,7 @@ export class ElementApp extends LitElement {
       // Start a new round
       this.gameState = startRound(
         this.gameState,
-        randomPositionInCountry(this.gameState.country)
+        randomPositionInCountry(this.gameState.country),
       );
       setCameraPosition(this.viewer!, this.gameState.cameraPosition);
     }

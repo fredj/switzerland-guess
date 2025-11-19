@@ -1,3 +1,5 @@
 {
-  "html.customData": ["./node_modules/@awesome.me/webawesome/dist/vscode.html-custom-data.json"]
+  "html.customData": [
+    "./node_modules/@awesome.me/webawesome/dist/vscode.html-custom-data.json"
+  ]
 }
