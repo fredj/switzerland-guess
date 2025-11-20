@@ -22,7 +22,7 @@ jobs:
         id: push_docker_image
         with:
           push: true
-          tags: ghcr.io/fredj/geo-challenge:latest
+          tags: ghcr.io/camptocamp/geo-challenge:latest
     outputs:
       docker_image_sha: ${{ steps.push_docker_image.outputs.digest }}
 
