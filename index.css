@@ -21,6 +21,8 @@
   --wa-color-brand-10: #0a0400;
   --wa-color-brand-05: #000000;
 
+  --c2c-color-hover: #a54a12;
+
   --wa-color-brand: var(--wa-color-brand-60);
   --wa-color-brand-on: var(--wa-color-brand-10);
   --wa-color-brand-fill-loud: var(--wa-color-brand-60);
@@ -31,6 +33,31 @@
     font-size: 13px;
     padding: 8px 20px;
     height: auto;
+  }
+  wa-button::part(base):hover {
+    background-color: var(--c2c-color-hover);
+  }
+  wa-button[appearance="outlined"]::part(base) {
+    color: var(--wa-color-brand);
+    border-color: var(--wa-color-brand);
+  }
+  wa-dialog::part(dialog),
+  wa-select::part(listbox),
+  wa-select::part(combobox),
+  wa-card {
+    border-radius: 0;
+  }
+  wa-select::part(combobox) {
+    outline: none;
+  }
+  wa-select::part(expand-icon) {
+    color: var(--wa-color-brand);
+  }
+
+  wa-card::part(header),
+  wa-card::part(footer) {
+    border-block-start-color: transparent;
+    border-block-end-color: transparent;
   }
 }
 
@@ -56,24 +83,11 @@ body,
   padding: 16px;
 }
 
-wa-dialog::part(dialog),
-wa-select::part(listbox),
-wa-select::part(combobox),
-wa-card {
-  border-radius: 0;
-}
-wa-select::part(combobox) {
-  outline: none;
-}
-wa-select::part(expand-icon) {
-  color: var(--wa-color-brand);
+.header-logo {
+  height: 48px;
+  width: auto;
 }
 
-wa-card::part(header),
-wa-card::part(footer) {
-  border-block-start-color: transparent;
-  border-block-end-color: transparent;
-}
 cesium-compass-bar {
   --cesium-compass-bar-tick-color: var(--wa-color-text-normal);
   position: absolute;
@@ -156,7 +170,6 @@ element-country-selector .country-cards wa-card .flag {
 element-leaderboard tr.highlight {
   background-color: var(--wa-color-focus);
 }
-
 
 element-scores .save_score {
   width: fit-content;

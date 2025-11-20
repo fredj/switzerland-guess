@@ -67,9 +67,16 @@ export class ElementApp extends LitElement {
       ></element-country-selector>
       <div id="cesium"></div>
       <div class="header">
+        <a href="https://camptocamp.com/" target="_blank">
+          <img src="./images/C2C_2022_RGB_square_logo.svg" alt="C2C Logo" class="header-logo" />
+        </a>
         <cesium-compass-bar></cesium-compass-bar>
-        <wa-button style="margin-left: auto;" @click=${this.openAboutDialog}>
-          <wa-icon src="./images/mountain.svg"></wa-icon>
+        <wa-button style="margin-left: auto;" variant="brand" pill @click=${this.openAboutDialog}>
+          <wa-icon slot="end" name="arrow-right"></wa-icon>
+          About us
+        </wa-button>
+        <wa-button style="margin-left: 8px;" variant="brand" pill @click=${this.newGame}>
+          <wa-icon name="earth-europe"></wa-icon>
         </wa-button>
       </div>
       <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
@@ -100,6 +107,18 @@ export class ElementApp extends LitElement {
 
     // trackEvent("country_selected", { country: event.detail.name });
     // trackEvent("language_selected", { language: document.documentElement.lang });
+  }
+
+  newGame() {
+    // if game in progress, confirm
+    // reload the page for simplicity
+    if (this.gameState.scores.length > 0) {
+      const confirmNewGame = confirm("A game is already in progress. Do you want to start a new game?");
+      if (!confirmNewGame) {
+        return;
+      }
+    }
+    window.location.reload();
   }
 
   openAboutDialog() {

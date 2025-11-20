@@ -11,6 +11,7 @@ export default {
   switzerland: "Switzerland",
   france: "France",
   germany: "Germany",
+  play: "Play",
 
   where_are_you: "Where are you?",
   guess: "Guess",
@@ -30,7 +31,7 @@ export default {
   save: "Save",
 
   about_content: `
-    <p>Hi! We’re Camptocamp, and we love maps.</p>
+    <h5>Hi! We’re Camptocamp, and we love maps.</h5>
     <p>
       It all started over 20 years ago with an Open Source project for
       outdoor enthusiasts—camptocamp.org—and we’ve been mapping ever since.
