@@ -6,7 +6,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git@github.com:fredj/geo-challenge.git"
+    "url": "git@github.com:camptocamp/geo-challenge.git"
   },
   "scripts": {
     "start": "vite serve",

@@ -2,7 +2,7 @@
 
 This project is a web-based geography guessing game. The user is shown a fixed location in a 3D map view and has to guess where it is on a 2D map.
 
-[online demo](https://fredj.github.io/geo-challenge/)
+[online demo](https://camptocamp.github.io/geo-challenge/)
 
 ## Game Features
 
