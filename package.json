@@ -1,12 +1,12 @@
 {
-  "name": "switzerland-guess",
+  "name": "geo-challenge",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git@github.com:fredj/switzerland-guess.git"
+    "url": "git@github.com:fredj/geo-challenge.git"
   },
   "scripts": {
     "start": "vite serve",

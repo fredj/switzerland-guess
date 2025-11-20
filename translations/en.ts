@@ -44,7 +44,7 @@ export default {
     </p>
     <p>
       We also believe work should come with a good dose of fun, which is how
-      XX Guess was born. At first, it was just an in-house challenge to see
+      Geo Challenge was born. At first, it was just an in-house challenge to see
       who knew their home country best. But then the competitive spirit
       kicked in, and we thought: why keep all this fun to ourselves?
     </p>

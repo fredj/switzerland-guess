@@ -22,7 +22,7 @@ jobs:
         id: push_docker_image
         with:
           push: true
-          tags: ghcr.io/fredj/switzerland-guess:latest
+          tags: ghcr.io/fredj/geo-challenge:latest
     outputs:
       docker_image_sha: ${{ steps.push_docker_image.outputs.digest }}
 
@@ -37,7 +37,7 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: 'camptocamp',
               repo: 'argocd-gs-plg-apps',
-              workflow_id: 'update-switzerland-guess-image.yaml',
+              workflow_id: 'update-geo-challenge-image.yaml',
               ref: 'main',
               inputs: {
                 img_sha: '${{ needs.build_and_publish.outputs.docker_image_sha }}'
