@@ -1,11 +1,11 @@
-@import url('@awesome.me/webawesome/dist/styles/webawesome.css');
-@import url('@awesome.me/webawesome/dist/styles/themes/awesome.css');
+@import url("@awesome.me/webawesome/dist/styles/webawesome.css");
+@import url("@awesome.me/webawesome/dist/styles/themes/awesome.css");
 
-@import url('@cesium/engine/Source/Widget/CesiumWidget.css');
-@import url('fonts/fonts.css');
+@import url("@cesium/engine/Source/Widget/CesiumWidget.css");
+@import url("fonts/fonts.css");
 
 :root {
-  --wa-font-family-body: 'MessinaSansWeb', sans-serif;
+  --wa-font-family-body: "MessinaSansWeb", sans-serif;
   --wa-color-text-normal: #000;
   --wa-color-text-link: var(--wa-color-brand-60);
 
@@ -34,7 +34,9 @@
   }
 }
 
-html, body, #cesium {
+html,
+body,
+#cesium {
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -51,16 +53,33 @@ html, body, #cesium {
   justify-content: space-between;
   position: absolute;
   top: 0;
-  padding: 16px
+  padding: 16px;
 }
 
+wa-dialog::part(dialog),
+wa-select::part(listbox),
+wa-select::part(combobox),
+wa-card {
+  border-radius: 0;
+}
+wa-select::part(combobox) {
+  outline: none;
+}
+wa-select::part(expand-icon) {
+  color: var(--wa-color-brand);
+}
+
+wa-card::part(header),
+wa-card::part(footer) {
+  border-block-start-color: transparent;
+  border-block-end-color: transparent;
+}
 cesium-compass-bar {
   --cesium-compass-bar-tick-color: var(--wa-color-text-normal);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 240px;
-  border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(2px);
 }
@@ -97,7 +116,6 @@ element-guess wa-card:hover {
   height: 500px;
 }
 @media (max-width: 600px) {
-
   element-guess wa-card {
     width: 100%;
     height: 500px;
@@ -119,24 +137,16 @@ element-guess wa-card::part(body) {
   height: 100%;
 }
 
-element-guess element-map {
-  border-radius: var(--wa-border-radius-m);
-}
 element-result element-map {
   height: 300px;
   pointer-events: none;
-  border-radius: var(--wa-border-radius-l);
 }
 
 element-country-selector .country-cards wa-card {
   cursor: pointer;
 }
-element-country-selector .country-cards wa-card:hover {
-  transform: translateY(-0.5em);
-  transition: transform var(--wa-transition-fast) var(--wa-transition-easing);
-}
 element-country-selector .country-cards wa-card.selected {
-  box-shadow: 0 0 0 4px var(--wa-color-brand);
+  border-color: var(--wa-color-brand);
 }
 
 element-country-selector .country-cards wa-card .flag {
@@ -144,7 +154,13 @@ element-country-selector .country-cards wa-card .flag {
 }
 
 element-leaderboard tr.highlight {
-  background-color: var(--wa-color-brand-fill-quiet);
+  background-color: var(--wa-color-focus);
+}
+
+
+element-scores .save_score {
+  width: fit-content;
+  align-self: end;
 }
 
 /*

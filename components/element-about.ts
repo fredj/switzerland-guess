@@ -19,7 +19,7 @@ export default class ElementAbout extends Closable(LitElement) {
 
         <div slot="footer">
           <wa-button slot="footer" variant="brand" size="small" data-dialog="close" pill>
-             <wa-icon slot="end" name="arrow-right"></wa-icon>
+            <wa-icon slot="end" name="arrow-right"></wa-icon>
             ${this.localize.term("close")}
           </wa-button>
         </div>

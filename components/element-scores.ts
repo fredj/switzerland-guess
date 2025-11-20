@@ -4,7 +4,6 @@ import { gameScore, gameStateContext } from "../game-state";
 import { consume } from "@lit/context";
 
 import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
-import "@awesome.me/webawesome/dist/components/callout/callout.js";
 import "@awesome.me/webawesome/dist/components/icon/icon.js";
 import "@awesome.me/webawesome/dist/components/button/button.js";
 import "@awesome.me/webawesome/dist/components/input/input.js";
@@ -59,18 +58,18 @@ export default class ElementScores extends Closable(LitElement) {
   render() {
     return html`
       <wa-dialog label="${this.localize.term("game_over")}">
-        <div class="wa-stack wa-gap-2xl">
-          <wa-callout variant="brand">
-            <wa-icon slot="icon" name="thumbs-up" variant="solid"></wa-icon>
-            ${this.localize.term("your_score")}: <strong>${gameScore(this.gameState)}</strong>
-          </wa-callout>
+        <div class="wa-stack wa-gap-xl">
+          <h4>
+            ${this.localize.term("your_score")}: <span style="color: var(--wa-color-brand)">${gameScore(this.gameState)}</span>
+          </h4>
           <!-- FIXME: check allowedToSubmitScore -->
-          <wa-button class="save_score" variant="brand" @click="${this.saveScore}" ?disabled="${!!this.userInfo.username && !this.allowedToSubmitScore}">
+          <wa-button class="save_score" size="small" pill variant="brand" @click="${this.saveScore}" ?disabled="${!!this.userInfo.username && !this.allowedToSubmitScore}">
+            <wa-icon slot="end" name="arrow-right"></wa-icon>
             ${this.localize.term("submit_score")}
           </wa-button>
           <element-leaderboard .scores="${this.scores}" .username="${this.userInfo.username}"></element-leaderboard>
         </div>
-        <wa-button slot="footer" variant="brand" size="small" pill data-dialog="close">
+        <wa-button slot="footer" variant="brand" appearance="outlined" size="small" pill data-dialog="close">
           <wa-icon slot="end" name="arrow-right"></wa-icon>
           ${this.localize.term("new_game")}
         </wa-button>

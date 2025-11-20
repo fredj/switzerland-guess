@@ -11,6 +11,7 @@ export default {
   switzerland: "Schweiz",
   france: "Frankreich",
   germany: "Deutschland",
+  play: "Spielen",
 
   where_are_you: "Wo sind Sie?",
   guess: "Raten",

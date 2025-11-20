@@ -19,7 +19,7 @@ export default class ElementLeaderboard extends LitElement {
               <tr class="${score.username === this.username ? 'highlight' : ''}">
                 <td>${this.rankStyle(score.rank)}</td>
                 <td>${score.username}</td>
-                <td>${score.score}</td>
+                <td style="text-align: end;">${score.score}</td>
               </tr>
             `
           )}

@@ -31,7 +31,7 @@ const style = [
     style: {
       "circle-radius": 8,
       "circle-fill-color": "#fff",
-      "circle-stroke-color": "#f00",
+      "circle-stroke-color": "#ff680a",
       "circle-stroke-width": 3,
     },
   },
