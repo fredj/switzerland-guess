@@ -151,6 +151,12 @@ function addSnow(scene: Scene) {
     scene.primitives.remove(snow);
   }
 
+  // Calculate emission rate based on screen area to maintain consistent snow density
+  const screenArea = scene.canvas.width * scene.canvas.height;
+  const baseEmissionRate = 3000.0; // emission rate for a reference screen (1920x1080 = 2073600 pixels)
+  const referenceScreenArea = 1920 * 1080;
+  const emissionRate = (screenArea / referenceScreenArea) * baseEmissionRate;
+
   snow = scene.primitives.add(
       new ParticleSystem({
         modelMatrix: Matrix4.fromTranslation(scene.camera.position),
@@ -162,7 +168,7 @@ function addSnow(scene: Scene) {
         startScale: 0.2,
         endScale: 0.7,
         image: "./images/snowflake.png",
-        emissionRate: 3000.0,
+        emissionRate: emissionRate,
         startColor: Color.WHITE.withAlpha(0.0),
         endColor: Color.WHITE.withAlpha(1.0),
         minimumImageSize: minimumSnowImageSize,
