@@ -2,6 +2,7 @@ import { customElement, query, state } from "lit/decorators.js";
 import { provide } from "@lit/context";
 import { randomPositionInCountry } from "../utils";
 import { html, LitElement } from "lit";
+import { LocalizeController } from "@shoelace-style/localize";
 
 import CesiumSphereCamera from "@geoblocks/cesium-sphere-camera";
 
@@ -31,6 +32,7 @@ import type ElementAbout from "./element-about";
 
 @customElement("element-app")
 export class ElementApp extends LitElement {
+  private readonly localize = new LocalizeController(this);
   @provide({ context: gameStateContext })
   @state()
   gameState: GameState = {
@@ -73,7 +75,7 @@ export class ElementApp extends LitElement {
         <cesium-compass-bar></cesium-compass-bar>
         <wa-button style="margin-left: auto;" variant="brand" pill @click=${this.openAboutDialog}>
           <wa-icon slot="end" name="arrow-right"></wa-icon>
-          About us
+          ${this.localize.term("about_us")}
         </wa-button>
         <wa-button style="margin-left: 8px;" variant="brand" pill @click=${this.newGame}>
           <wa-icon name="earth-europe"></wa-icon>
