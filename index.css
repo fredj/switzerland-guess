@@ -81,19 +81,29 @@ body,
   position: absolute;
   top: 0;
   padding: 16px;
+  gap: 8px;
+}
+
+.header .buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .header-logo {
+  display: flex;
+  flex-shrink: 0;
+}
+.header-logo img {
+  background-color: #fff;
   height: 48px;
-  width: auto;
 }
 
 cesium-compass-bar {
   --cesium-compass-bar-tick-color: var(--wa-color-text-normal);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 240px;
+  flex: 0 1 240px;
+  min-width: 0;
+  border-radius: var(--wa-border-radius-m);
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(2px);
 }

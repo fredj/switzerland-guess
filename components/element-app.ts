@@ -69,17 +69,19 @@ export class ElementApp extends LitElement {
       ></element-country-selector>
       <div id="cesium"></div>
       <div class="header">
-        <a href="https://camptocamp.com/" target="_blank">
-          <img src="./images/C2C_2022_RGB_square_logo.svg" alt="C2C Logo" class="header-logo" />
+        <a href="https://camptocamp.com/" target="_blank" class="header-logo">
+          <img src="./images/C2C_2022_RGB_square_logo.svg" alt="C2C Logo" />
         </a>
         <cesium-compass-bar></cesium-compass-bar>
-        <wa-button style="margin-left: auto;" variant="brand" pill @click=${this.openAboutDialog}>
-          <wa-icon slot="end" name="arrow-right"></wa-icon>
-          ${this.localize.term("about_us")}
-        </wa-button>
-        <wa-button style="margin-left: 8px;" variant="brand" pill @click=${this.newGame}>
-          <wa-icon name="earth-europe"></wa-icon>
-        </wa-button>
+        <div class="buttons">
+          <wa-button variant="brand" pill @click=${this.openAboutDialog}>
+            <wa-icon slot="end" name="arrow-right"></wa-icon>
+            ${this.localize.term("about_us")}
+          </wa-button>
+          <wa-button variant="brand" pill @click=${this.newGame}>
+            <wa-icon name="earth-europe"></wa-icon>
+          </wa-button>
+        </div>
       </div>
       <element-guess ?hidden="${!roundInProgress(this.gameState)}" @guess="${this.handleGuess}"></element-guess>
       <element-result @close="${this.handleCloseResult}" @gameOver="${this.handleGameOver}"></element-result>
